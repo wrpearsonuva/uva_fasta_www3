@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>UVA FASTA Downloads</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" height="19" align="left">
+<h2>FASTA Downloads</h2>
+</td>
+<!--#include virtual="fasta_news_inc.html" -->
+</tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<div class='fasta'>
+<p />
+
+The source code for the <b>FASTA</b> programs is available
+from GitHub: <a href="https://www.github.com/wrpearson/fasta36"
+target=github>www.github.com/wrpearson/fasta36</a> branch v36.6.8<br />
+GitHub will always have the latest version of the FASTA code and the GitHub code will often be more current than the releases at the other sites (below).
+<p />
+Unix/MacOSX source code for the FASTA programs is available from <a href="http://fasta.bioch.virginia.edu/wrpearson/fasta" target=down>http://fasta.bioch.virginia.edu/wrpearson/fasta</a>. 
+<p />
+<p />
+Versions of the program are in <a href="http://fasta.bioch.virginia.edu/wrpearson/fasta/CURRENT/" target=down>http://fasta.bioch.virginia.edu/wrpearson/fasta/CURRENT/</a> and <a href="http://fasta.bioch.virginia.edu/wrpearson/fasta/CURRENT/windows/" target=down>http://fasta.bioch.virginia.edu/wrpearson/fasta/CURRENT/windows</a>.
+
+
+<h3>Overview</h3>
+<p />
+To run the <b>FASTA</b> programs on your own computers, you will need
+to <b>(1)</b> download and install the programs, and <b>(2)</b> <a
+href="fasta_db_down.shtml">download</a> some databases to search.
+<p />
+
+<b>Older versions -</b> A quick guide the the current versions on the FASTA download site can be found <a href="http://fasta.bioch.virginia.edu/wrpearson/fasta/fasta_versions.html">here</a>.
+<p />
+The current version of the <b>FASTA</b>
+programs is <i>version 36</i>, which includes
+<tt>fasta36</tt>, <tt>ssearch36</tt>, <tt>fastx/y36</tt>, <tt>tfastx/y36</tt>,
+<tt>prss36</tt>, <tt>prfx36</tt>, <tt>lalign36</tt> etc.  All of the <b>fasta3</b> programs
+can be downloaded in a single file, either as <a
+href="http://fasta.bioch.virginia.edu/wrpearson/fasta/fasta3.tar.gz">Unix/MacOSX source code</a>
+or as a Windows <a
+href="http://fasta.bioch.virginia.edu/wrpearson/fasta/fasta3/windows/fasta3.zip">ZIP
+archive</a>. (The <tt>fasta3.tar.gz</tt> and <tt>fasta3/windows/fasta3.zip</tt> files are the same as the files in the <tt>CURRENT</tt> directory.
+
+<p />
+<i>Version 36</i> of the <b>FASTA</b> programs includes several major
+improvements: statistical estimates are much more accurate; threaded
+versions of the program are more efficient; and <i>version 36</i> now
+includes <tt>lalign36</tt>, a program that finds multiple local alignments using
+Webb Miller's <b>sim</b> algorithm (and implementation of the Waterman
+and Eggert approach, <a
+href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&amp;db=pubmed&amp;list_uids=2448477&amp;dopt=Citation">PubMed</a>)
+In addition, <i>FASTAv36</i> includes <tt>ggsearch36</tt>
+and <tt>glsearch36</tt>, which perform optimal global-global and
+global-local alignments and searches.
+<p />
+<b>Older versions</b> -
+In the past, a complete installation of the <tt>FASTA</tt> programs
+required downloading both the <tt>fasta3</tt> and <tt>fasta2</tt>
+programs, because some programs, notably <tt>lalign</tt>
+and <tt>align</tt>, were available only in <tt>fasta2</tt>.  Now
+that <tt>lalign36</tt> and <tt>ggsearch36</tt> are available in
+the <tt>fasta3</tt> package, there is much less reason to
+download <tt>fasta2</tt>.  Nevertheless, the most recent version of
+the <tt>fasta2</tt> programs can be downloaded as <a
+href="http://fasta.bioch.virginia.edu/wrpearson/fasta/fasta2/fasta2.shar.Z">Unix/MacOSX source code</a>
+or as a Windows <a
+href="http://fasta.bioch.virginia.edu/wrpearson/fasta/fasta2/windows/fasta2.zip">ZIP archive</a>
+
+<h3>Downloading and Installing the FASTA3 programs</h3>
+
+For Unix/Linux machines and Mac
+OSX, the <a
+href="http://fasta.bioch.virginia.edu/wrpearson/fasta/fasta3.tar.gz">FASTA source
+code file</a> should be downloaded.  Then:
+<ol>
+<li> Uncompress and "un-tar" the <code>fasta3.tar.gz</code> file.  At the Unix/Linux/MacOSX command line type:
+<code>
+gunzip -c fasta3.tar.gz | tar xvf -
+</code>
+<p />
+</li>
+<li>
+The <b>fasta36</b> distribution has <code>Makefile</code>'s for most
+common architectures, including <code>linux</code>, Sun Solaris,
+MacOSX (both PowerPC and Intel), <code>freebsd</code>, IBM/Aix,
+etc. in the <code>make/</code> directory.  To see a list of the
+possible architectures, type (at the command line): <br />
+<code>ls -l make/Makefile.*</code>
+<p />
+Once you have identified a Makefile for your machine,
+e.g. <code>linux64_sse2</code> (64-bit linux with SSE2), you will need to move to
+the <code>src/</code> directory:<br />
+<code>cd src/</code><br />
+ and type:
+<br />
+<code>
+make -f ../make/Makefile.linux64_sse2 fasta36</code>
+<br />
+To compile just the <b>fasta</b> program or:
+<br />
+<code>make -f ../make/Makefile.linux64_sse2 all</code>
+<br />
+To compile all the programs.  The program binaries are saved in the <code>../bin</code> directory.
+<p />
+You may encounter some warning messages, which can be ignored.
+<p />
+Makefiles with <code>sse2</code> (e.g. <tt>Makefile.linux32_sse2, Makefile.linux64_sse2, Makefile.os_x86, Makefile.os_x86_64</tt>)
+include an Intel SSE2 accelerated Smith-Waterman.  These Smith-Waterman
+versions are typically more than 10-15X faster than unaccelerated
+versions, and can provide very fast sequence and profile Smith-Waterman searches.
+<code>Makefile.os_x</code> is designed for older G4/G5 Mac OS machines and provides an Altivec accelerated
+version of Smith-Waterman,
+<p />
+In addition, makefiles that include <code>sql</code> in their name can
+be used to make versions of the programs that can read SQL databases
+directly.
+</li>
+<li>
+Once the programs are compiled, you can test whether <b>fasta</b>
+works by typing:
+<br />
+<code>../bin/fasta36 -q ../seq/mgstm1.aa ../seq/prot_test.lseg</code><br />
+which runs a test query sequence against a small test library.
+</li>
+<p />
+<li>
+Once the programs are compiled, you may want to copy them to a
+more visible location, e.g. <code>/usr/local/bin</code> or
+<code>/seqprg/bin</code>.  The easiest way to copy all the programs is
+to edit the <code>Makefile</code> you used and specify the executable
+directory in the line that starts:
+<b><code>XDIR=/seqprg/bin</code></b>.  You can then type:<br /> <code>make -f
+../make/Makefile.linux64_sse2 install</code><br />to install the programs,
+and <code>make -f ../make/Makefile.linux clean-up</code> to remove unnecessary
+files from the installation directory.
+</li>
+</ol>
+<h3><a href="fasta_db_down.shtml">Downloading Sequence databases</a></h3>
+<!-- CONTENT END -->
+</td>
+</tr>
+</table>
+</div>
+
+</body>
+</html>

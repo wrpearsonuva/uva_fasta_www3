@@ -1,0 +1,149 @@
+<html>
+<head>
+<title>Convert HMMs and Profiles</title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script type="text/javascript" lang="JavaScript">
+function openwin(fileName) {
+  newwin = window.open('', 'CHAPSHelp', 'menubar=no,scrollbars=yes,status=no,width=400,height=300');
+  newwin.location.href = fileName;
+}
+
+function showPSSM(this_form) {
+  if (this_form.show_pssm.checked == 1) {
+  document.getElementById('pssm_box').style.display='block';
+  }
+  else {
+  document.getElementById('pssm_box').style.display='none';
+  }
+  return 1;
+}
+
+function showHMM(this_form) {
+  if (this_form.show_hmm.checked == 1) {
+  document.getElementById('hmm_box').style.display='block';
+  }
+  else {
+  document.getElementById('hmm_box').style.display='none';
+  }
+  return 1;
+}
+</script>
+
+<style type="text/css">
+   textarea { font-family: Courier }
+</style>   
+</head>
+
+<body onLoad="if(document.chaps.gen_msa_stat.value == 1) { document.chaps.msa_status.selectedIndex = 0; document.chaps.gen_msa.disabled = true; };">
+
+<!-- $Id$ -->
+<!-- $Revision$ -->
+<h2 align="center">CHAPS - Convert HMMs And Profiles</h2>
+<br>
+<a href="javascript:openwin('chaps_help.html')">Get Help with CHAPS</a>
+
+<form name="chaps" action="chaps.cgi" enctype="multipart/form-data" method="post">
+
+<input type="hidden" name="gen_msa_stat" value="<!-- TMPL_VAR NAME=GEN_MSA_STAT -->">
+<input type="hidden" name="rm" value="">
+
+<table align=center>
+<tr><td colspan=3 align=center>
+Experiment name (no blanks) : <input type="text" name="exp_name" value="<!-- TMPL_VAR NAME=EXP_NAME -->" maxlength='20' size='10' />
+<!-- TMPL_IF NAME=DEBUG -->
+<input type="checkbox" name="DEBUG" value="1" />debug
+<!-- /TMPL_IF -->
+</td></tr>
+<tr><td colspan=3 align=center>
+Input sequences (specify multiple alignment status Format):
+below: <select name="q_type">
+<option value='fa' <!-- TMPL_IF NAME=FA_SEL -->selected<!-- /TMPL_IF -->>FASTA</option>
+<option value='acc'<!-- TMPL_UNLESS NAME=FA_SEL -->selected<!-- /TMPL_UNLESS -->>Accession</option>
+</select>
+</td></tr>
+<tr><td colspan=3 align=center>Select multiple alignment file: <input type="file" name="msa_file"  /> <input type="submit" value="Upload MSA" name="up_msa" onClick="this.form.rm.value='load_msa'; this.form.gen_msa.disabled=true; this.form.target='_self';" /></td></tr>
+<tr><td colspan=3 align=center>
+<textarea name="msa_query" rows="10" cols="100" style=""><!-- TMPL_VAR NAME=MSA_QUERY --></textarea>
+</td></tr>
+<tr><td colspan=3>
+Sequences aligned, and in Clustal/MSA format?
+<select name="msa_status" onChange="if(this.selectedIndex == 0) { this.form.gen_msa.disabled = true; } else { this.form.gen_msa.disabled = false; }">
+<!-- TMPL_IF MSA_QUERY_UP -->
+<option value="yes" selected >Yes </option>
+<option value="no" >No </option>
+<!-- TMPL_ELSE -->
+<option value="yes" >Yes </option>
+<option value="no" selected >No </option>
+<!-- /TMPL_IF -->
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+MSA method:
+<select name="msa_pgm">
+<option value="clustal">Clustal W
+<option value="muscle">Muscle
+<option value="tcoffee">T-Coffee
+</select>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="submit" name="gen_msa" value="Do multiple alignment now" onClick="this.form.rm.value='gen_msa'; this.form.action='chaps.cgi'; this.form.target='_self';"></td>
+</tr>
+<tr>
+<td colspan=3><hr></td></tr>
+<tr>
+<td width=40% align=right><input type="reset" value="Reset Form"></td>
+<td width=20% align=center><input type="submit" value="Download Multiple Alignment" onClick="this.form.rm.value='clustal'; this.form.action='down_file.cgi';"></td>
+<td align=left>
+<input type="submit" value="Send to PSI-BLAST" onClick="window.open('', 'psisearch', 'scrollbars=yes,toolbar=yes,menubar=yes,resizable=yes,location=yes,statusbar=yes'); this.form.target='psisearch'; this.form.rm.value='mselect'; this.form.action='fasta_www.cgi';"></td>
+<!--
+<td width=40% align=left><input type="submit" value="Send to PSI-BLAST" onClick="window.open('', 'psiblast', 'scrollbars=yes,toolbar=yes,menubar=yes,resizable=yes,location=yes'); this.form.target='psiblast'; this.form.action='pblast_frm.cgi';"></td>
+-->
+<tr>
+<td align=right><input type="button" value="Clear Form" onClick="this.form.msa_query.value=''; this.form.profile.value=''; this.form.hmm.value=''; this.form.msa_status.value='no'; this.form.gen_msa.disabled=false;"></td>
+<td>&nbsp;</td>
+<td align=left>
+<td></td>
+</tr>
+<tr>
+<td colspan=3><hr></td></tr>
+<tr>
+<td>Show PSSM: <input type="checkbox" checked name="show_pssm" value="1" onClick="showPSSM(this.form);" />
+</td>
+<td align=center>
+<input type="submit" name="gen_pssm" value="Generate PSSM now" onClick="if(this.form.msa_status.selectedIndex == 1) { alert('You must generate or input a multiple sequence alignment before generating profiles or hidden markov models ...'); return false; } else { this.form.rm.value='gen_pssm'; this.form.show_pssm.value=1;} this.form.action='chaps.cgi'; this.form.target='_self';"></td><td><a href="chaps_help.html#pssm_numbers" target=pssm_help>Help with PSSM values</a></td>
+</tr>
+<!-- <tr><td colspan=3 align=center>PSI-Blast PSSM:</td></tr> -->
+<tr><td colspan=3 align="center">
+<div id="pssm_box">
+<textarea name="profile" rows=20 cols=100 wrap="off"><!-- TMPL_VAR NAME=PROFILE --></textarea>
+</div>
+</td></tr>
+<tr><td> &nbsp; </td>
+<td width=20% align=center><input type="submit" value="Download PSSM (ASN.1)" onClick="this.form.rm.value='pssm'; this.form.action='down_file.cgi'; this.form.target='_self';"></td>
+<td> <input type="checkbox" name="pssm_fmt" value='text'/>Text ASN.1 for NCBI/Web (not functional) &nbsp;</td></tr>
+<tr>
+<td colspan=3><hr></td></tr>
+<tr>
+<td colspan=3>
+<div style="display:inline"><div style='text-align:left;display:inline;'>
+Show HMM: <input type="checkbox" checked name="show_hmm" value="1" onClick="showHMM(this.form);" /></div> <div style='text-align:center;display:inline;'>  <input type="submit" value="Upload HMM" onClick="this.form.rm.value='load_hmm'; this.form.target='_self';"> <input type="file" name="hmm_file"  /> &nbsp;&nbsp;&nbsp; 
+<input type="submit" name="gen_hmm" value="Generate HMM now" onClick="if(this.form.msa_status.selectedIndex ==1) { alert('You must generate or input a multiple sequence alignment before generating profiles or hidden markov models ...'); return false; } else { this.form.rm.value='gen_hmm'; } this.form.action='chaps.cgi'; this.form.target='_self';"> &nbsp;
+</div></div></td>
+</tr>
+<tr>
+<td colspan=3 align="center">
+<div id="hmm_box">
+<textarea name="hmm" rows=20 cols=100 wrap="off"><!-- TMPL_VAR NAME=HMM --></textarea>
+</div>
+</td>
+</tr>
+<tr><td> &nbsp; </td>
+<td width=20% align=center><input type="submit" value="Download HMM" onClick="this.form.rm.value='hmm'; this.form.action='down_file.cgi';"></td>
+<td> 
+<input type="hidden" name="hmm_query">
+<input type="submit" value="Send HMM to HMMSearch" onClick="this.form.rm.value='hmm_select'; this.form.hmm_query.value=this.form.hmm.value; this.form.action='fasta_www.cgi';">
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <link rel="stylesheet" href=
+  "http://www.ncbi.nlm.nih.gov/corehtml/ncbi2.css" type=
+  "text/css" />
+
+  <style type="text/css">
+  body {
+  background-color: #FFFFFF;
+  color: #000000;
+  }
+  div.c5 {margin-left: 2em;}
+  h3.c4 {font-weight: bold;}
+  p.c3 {font-size: 120%; font-weight: bold;}
+  h3.c2 {font-size: 120%; font-weight: bold;}
+  b.c1 {color: white;}
+  a.c1 {color: #FFFFFF;}
+  .breadcrumb {font-size: 90%; font-family: sans-serif; text-decoration: none; font-weight: bold; color: white; }
+  .breadcrumb a { text-decoration: none; color: white; }
+  .sidebar { font-size: 80%; font-family: arial, helvetica, sans-serif; text-decoration:none; background-color: #336699; }
+  .sidebar li {color: #ccccff;}
+  .sidebar a  {color: #ffffff; text-decoration:none;}
+  .sidebar p {color: #ffcc66;}
+  .content { position: fixed; margin-left: 125; }
+  .footer {clear: both;}
+  .blast { font-family: sans-serif; }
+  .blast h3 { font-size: 14px; }
+  .blast a { text-decoration: none; }
+  .blast li {  font-size: 12px; }
+  .fix-width { font-family: courier; font-size: 60%; }
+  .pink { font-weight: bold; font-size: 90%; color: #ff8888; font-family: arial, helvetica, sans-serif; }
+  </style>
+
+
+<title>NCBI BLAST</title>
+<meta name="robots" content="index,nofollow,noarchive">
+<META NAME="keywords" CONTENT="blast,basic local alignment search tool,sequence similarity,sequence alignment,sequence homology,bioinformatics">
+<META NAME="description" CONTENT="The Basic Local Alignment Search Tool (BLAST) finds regions of local similarity between sequences. The program compares nucleotide or protein sequences to sequence databases and calculates the statistical significance of matches. BLAST can be used to infer functional and evolutionary relationships between sequences as well as help identify members of gene families.">
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body topmargin="0" vspace="0" leftmargin="0" hspace="0" marginheight="0" marginwidth="0">
+
+<!-- breadcrumbs -->
+
+<table border="0" cellspacing="0" cellpadding="0" width="725" height="19">
+<tr>
+<td class="breadcrumb" border="0" cellspacing="0" width="125px" height="19" bgcolor="#336699" alt="" align="left">
+<a href="http://www.ncbi.nlm.nih.gov">
+<img border="0" margin-left="15" valign="middle" src="http://www.ncbi.nlm.nih.gov/genome/guide/corehtml/ncbi_logo_small.gif" alt="NCBI Logo" width="16" height="19">
+</a>
+<a href="http://www.ncbi.nlm.nih.gov">NCBI</a> 
+&rarr;
+<a href="index.shtml">BLAST</a>
+</td>
+
+<td style="font-size: 12px; color: #ffcc66; font-family: sans-serif;"  align="right" bgcolor="#336699">
+Latest news:
+<a style="color: white; text-decoration: none;" href="blast_whatsnew.shtml#20061212">
+12 Dec 2006 : New search options</a>
+
+</td>
+
+</tr>
+</table>
+<!-- end breadcrumbs -->
+
+<table border="0" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- blast sidebar -->
+<p>
+About
+</p>
+
+<ul>
+
+<li>
+<a href="producttable.html">
+Getting started</a>
+</li>
+
+<li>
+<a href="blast_whatsnew.html">
+News
+</a>
+</li>
+
+<li>
+<a href="blast_FAQs.html">
+FAQs</a>
+</li>
+
+</ul>
+
+<p>
+More info
+</p>
+
+<ul>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=pubmed&list_uids=15215342&dopt=Citation">NAR 2004</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/books/bv.fcgi?rid=handbook.chapter.ch16">NCBI Handbook</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/BLAST/tutorial/Altschul-1.html">The Statistics of Sequence Similarity Scores</a>
+</li>
+</ul>
+
+<p>
+Software
+</p>
+
+<ul>
+
+<li>
+<a href="download.shtml">Downloads</a>
+</li>
+
+<li>
+<a href="developer.shtml">
+Developer info
+</a>
+</li>
+
+</ul>
+
+<p>
+Other resources
+</p>
+
+<ul>
+
+<li><a href="blast_references.html">
+References</a>
+</li>
+
+<li>
+<a href="blast_credits.html">
+NCBI Contributors
+</a>
+</li>
+
+<li>
+<a href="blastannounce.shtml">
+<!--<a href="http://www.ncbi.nlm.nih.gov/mailman/listinfo/blast-announce">-->
+Mailing list</a>
+</li>
+
+<li>
+<a href="mailto:blast-help@ncbi.nlm.nih.gov">
+Contact us</a>
+</li>
+
+</ul>
+
+<!-- end sidebar -->
+</td>
+
+<td>
+
+
+<!-- INSERT CONTENT BELOW -->
+
+<table class="blast" cellspacing="0" cellpadding="5" width="600" border="1">
+      
+<tr>
+<td colspan="2" width="100%">
+<p style="font-size: 12px;">
+	    
+The <b>Basic Local Alignment Search Tool (BLAST)</b> finds regions of local
+similarity between sequences. The program compares nucleotide or
+protein sequences to sequence databases and calculates the statistical
+significance of matches.  BLAST can be used to infer functional and
+evolutionary relationships between sequences as well as help identify
+members of gene families.
+</p>
+</td>
+</tr>
+
+<tr>
+<td valign="top" width="50%" bgcolor="#eeeeff">
+<h3>Nucleotide</h3>
+<ul>
+<li>
+<a title="megablast" href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;NCBI_GI=off&amp;PAGE=MegaBlast&amp;SERVICE=plain&amp;SET_DEFAULTS.x=34&amp;SET_DEFAULTS.y=8&amp;SHOW_OVERVIEW=on&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;PERC_IDENT=None,1,-2&amp;NEW_VIEW=yes&amp;SEARCH_NAME=mb">Quickly search for highly similar sequences (megablast)</a>
+</li>
+<li>
+<a title="discontiguous megablast" href="Blast.cgi?ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;AUTO_FORMAT=Semiauto&amp;CLIENT=web&amp;DESCRIPTIONS=100&amp;EQ_MENU=(none)&amp;EQ_OP=AND&amp;EXPECT=10&amp;FILTER=L&amp;FILTER=m&amp;FORMAT_BLOCK_ON_RESPAGE=None&amp;FORMAT_EQ_MENU=(none)&amp;FORMAT_EQ_OP=AND&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;LAYOUT=TwoWindows&amp;MEGABLAST=on&amp;NCBI_GI=off&amp;OTHER_ADVANCED=-G+5+-E+2&amp;PAGE=MegaBlast&amp;PERC_IDENT=None,+1,+-2&amp;PROGRAM=blastn&amp;SERVICE=plain&amp;SET_DEFAULTS.x=34&amp;SET_DEFAULTS.y=3&amp;SHOW_OVERVIEW=on&amp;TEMPLATE_LENGTH=18&amp;TEMPLATE_TYPE=0&amp;TWO_HITS=on&amp;WORD_SIZE=11&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;NEW_VIEW=yes&amp;SEARCH_NAME=dcmb">Quickly search for divergent sequences (discontiguous megablast)</a>
+</li>
+<li>
+<a title="Sensitive search suitable for queries shorter than 3000bp" href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;NCBI_GI=off&amp;PAGE=Nucleotides&amp;PROGRAM=blastn&amp;SERVICE=plain&amp;SET_DEFAULTS.x=34&amp;SET_DEFAULTS.y=8&amp;SHOW_OVERVIEW=on&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;NEW_VIEW=yes&amp;SEARCH_NAME=bn">Nucleotide-nucleotide BLAST (blastn)</a>
+</li>
+<li>
+<a title="Sensitive search suitable for queries shorter than 25bp" href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=1000&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;NCBI_GI=off&amp;PAGE=Nucleotides&amp;PROGRAM=blastn&amp;SERVICE=plain&amp;SET_DEFAULTS.x=29&amp;SET_DEFAULTS.y=6&amp;SHOW_OVERVIEW=on&amp;WORD_SIZE=7&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;NEW_VIEW=yes&amp;SEARCH_NAME=short_bn">Search for short, nearly exact matches</a>
+</li>
+<li>
+Search trace archives with
+<a href="mmtrace.html" title="Recommended for intra-species searches">megablast</a>
+or
+<a href="tracemb.html" title="Recommended for inter-species searches">discontiguous megablast</a>
+</li>
+</ul>
+</td>
+
+<td valign="top" width="50%" bgcolor="#eeeeff">
+<h3>Protein</h3>
+<ul>
+<li>
+<a href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=250&amp;ALIGNMENT_VIEW=Pairwise&amp;CDD_SEARCH=on&amp;CLIENT=web&amp;COMPOSITION_BASED_STATISTICS=on&amp;DATABASE=nr&amp;DESCRIPTIONS=500&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;I_THRESH=0.005&amp;MATRIX_NAME=BLOSUM62&amp;NCBI_GI=on&amp;PAGE=Proteins&amp;PROGRAM=blastp&amp;SERVICE=plain&amp;SET_DEFAULTS.x=41&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;SEARCH_NAME=bp">Protein-protein BLAST (blastp)</a>
+</li>
+<li>
+<a href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=250&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;COMPOSITION_BASED_STATISTICS=on&amp;DATABASE=nr&amp;CDD_SEARCH=on&amp;DESCRIPTIONS=500&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;I_THRESH=0.005&amp;MATRIX_NAME=BLOSUM62&amp;NCBI_GI=on&amp;PAGE=Proteins&amp;PROGRAM=blastp&amp;RUN_PSIBLAST=on&amp;SERVICE=plain&amp;SET_DEFAULTS.x=36&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;SEARCH_NAME=psi_bp">Position-specific iterated and pattern-hit initiated BLAST (PSI- and PHI-BLAST)</a>
+</li>
+<li>
+<a href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=20000&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GAPCOSTS=9+1&amp;I_THRESH=0.005&amp;MATRIX_NAME=PAM30&amp;NCBI_GI=on&amp;PAGE=Proteins&amp;PROGRAM=blastp&amp;SERVICE=plain&amp;SET_DEFAULTS.x=24&amp;SET_DEFAULTS.y=10&amp;SHOW_OVERVIEW=on&amp;WORD_SIZE=2&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;SEARCH_NAME=short_bp">Search for short, nearly exact matches</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/Structure/cdd/wrpsb.cgi">Search the conserved domain database (rpsblast)</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/Structure/lexington/lexington.cgi?cmd=rps">Protein homology by domain architecture (cdart)</a>
+</li>
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td valign="top" width="50%" bgcolor="#eeeeff">
+<h3>Translated</h3>
+<ul>
+<li>
+<a href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=1&amp;NCBI_GI=on&amp;PAGE=Translations&amp;PROGRAM=blastx&amp;SERVICE=plain&amp;SET_DEFAULTS.x=37&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=no&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;SEARCH_NAME=bx">Translated query vs. protein database (blastx)</a>
+</li>
+<li>
+<a title="warning: can be time-consuming" href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=0&amp;NCBI_GI=on&amp;PAGE=Translations&amp;PROGRAM=tblastn&amp;SERVICE=plain&amp;SET_DEFAULTS.x=23&amp;SET_DEFAULTS.y=10&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=no&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;GET_SEQUENCE=yes&amp;SEARCH_NAME=tbn">Protein query vs. translated database (tblastn)</a>
+</li>
+<li>
+<a title="warning: can be time-consuming" href="Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=%28none%29&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=1&amp;NCBI_GI=on&amp;PAGE=Translations&amp;PROGRAM=tblastx&amp;SERVICE=plain&amp;SET_DEFAULTS.x=21&amp;SET_DEFAULTS.y=9&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=yes&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes&amp;SEARCH_NAME=tbx">Translated query vs. translated database (tblastx)</a>
+</li>
+</ul>
+</td>
+
+<td valign="top" width="50%" bgcolor="#eeeeff">
+<h3>Genomes</h3>
+<ul>
+<li>
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9606">Human</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=10090">mouse</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=10116">rat</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9598">chimp</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9913">cow</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9823">pig</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9615">dog</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9940">sheep</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9685">cat</a>
+</li>
+<li>
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=9031">Chicken</a>,
+<a href="Genome/fugu.html">puffer fish</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=7955">zebrafish</a>
+</li>
+<li>
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=7227">Fly</a>,
+<a href="/genome/seq/BlastGen/BlastGen.cgi?taxid=7460">honey bee</a>,
+<a href="/sutils/genom_table.cgi?organism=insects">other insects</a>
+</li>
+<li>
+<a href="/sutils/genom_table.cgi">Microbes</a>,
+<a href="/sutils/blast_table.cgi?taxid=Environmental&taxidinf=environ_info&selectall">
+environmental samples</a>
+</li>
+<li>
+<a href="Genome/PlantBlast.shtml?10">Plants</a>,
+<a href="Genome/NematodeBlast.html">nematodes</a>
+</li>
+<li>
+<a href="/sutils/genom_table.cgi?organism=fungi">Fungi</a>,
+<a href="/sutils/blast_table.cgi?taxid=Protozoa">protozoa</a>,
+<a href="http://www.ncbi.nlm.nih.gov/sutils/genom_tree.cgi?organism=euk">other eukaryotes</a>
+</li>
+</ul>
+</td>
+
+</tr>
+
+<tr>
+<td valign="top" width="50%" bgcolor="#eeeeff">
+<h3>Special</h3>
+<ul>
+
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/geo/query/blast.html">
+Search for gene expression data (GEO BLAST)
+</a>
+</li>
+
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/blast/bl2seq/wblast2.cgi">Align two sequences (bl2seq)</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/VecScreen/VecScreen.html">Screen for vector contamination (VecScreen)</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/igblast/">Immunoglobin BLAST (IgBlast)</a>
+</li>
+<li>
+<a href="http://www.ncbi.nlm.nih.gov/SNP/snp_blastByOrg.cgi">
+SNP BLAST
+</a>
+</li>
+</ul>
+</td>
+
+<td valign="top" width="50%" bgcolor="#eeeeff">
+<h3>Meta</h3>
+<ul>
+<li>
+<a href="Blast.cgi?LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;CMD=Web&amp;PAGE=Formating&amp;NCBI_GI=yes&amp;SHOW_OVERVIEW=on&SHOW_LINKOUT=on">Retrieve results</a>
+</li>
+</ul>
+</td>
+
+</tr>
+
+</table>
+
+
+<!-- INSERT CONTENT ABOVE -->
+
+<!-- close table, print disclaimer &amp; privacy agreement, close body and html -->
+<hr/>
+
+<p align="center" class="medium4">
+<a href="http://www.ncbi.nlm.nih.gov/About/disclaimer.html">Disclaimer</a>
+<br/>
+<a href="http://www.ncbi.nlm.nih.gov/About/privacy.html">Privacy statement</a>
+<br/>
+<a href="http://www.ncbi.nlm.nih.gov/About/accessibility.html">Accessibility</a>
+<br/>
+This page is
+<a href="http://validator.w3.org/check/referer">
+valid XHTML 1.0</a>.
+</p>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
+
+

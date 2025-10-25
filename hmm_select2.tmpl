@@ -1,0 +1,136 @@
+<html>
+<head>
+<title><!-- TMPL_VAR NAME=TITLE --></title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script src="def_select.js" type="text/javascript" language="JavaScript">
+</script>
+<script>
+function OnSubmitForm()
+{
+  var pgm = document.myform['pgm'].options[document.myform['pgm'].selectedIndex].text;
+
+  document.myform.method ="post";
+
+  if (pgm.indexOf("SSEARCH") == 0 ) {
+      document.myform.action = "<!-- TMPL_VAR NAME=SSEARCH_URL -->" ;
+  }
+  else {
+      document.myform.action ="<!-- TMPL_VAR NAME=SEARCH_URL -->";
+  }
+  return true;
+}
+</script>
+</head>
+<body onload='update_pgm(document.myform)'>
+<!-- $Id: hmm_select2.tmpl 35 2009-10-28 18:29:25Z wrp $ -->
+<!-- $Revision$ -->
+<form name="myform" enctype="multipart/form-data" onSubmit="return OnSubmitForm();">
+
+<table>
+<!-- TMPL_LOOP NAME=LINKS_LIST -->
+<tr>
+<td class="pgm_list" width=40%><!-- TMPL_VAR NAME=LINK --></td>
+<!-- TMPL_IF NAME=ROWS -->
+<td  valign="top" rowspan="<!-- TMPL_VAR NAME=ROWS -->"><!-- TMPL_VAR NAME=TEXT --></td>
+<!-- /TMPL_IF -->
+</tr>
+<!-- /TMPL_LOOP -->
+</table>
+<hr>
+<!--
+<p>I am coming from: <b> <!-- TMPL_VAR NAME=R_HOST --> </b>
+I am going to: <b> <!-- TMPL_VAR NAME=C_HOST --> </b>
+-->
+<p>
+<b><font size=+1>Choose:</font> 
+<font color="#990000">(A) Hidden Markov Model</font>,
+<font color="#990000">(B) Sequences or Database</font>
+and <font color="#990000">(C) Start Scan:</font></b>
+<hr>
+<p>
+<input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->"></input>
+<p>
+<input type="hidden" name="sq_type" value=0>
+<table>
+<tr>
+<td>
+<b>Program:</font></b>
+<select name="pgm" onChange="update_pgm(this.form)">
+<!-- TMPL_LOOP NAME=SEARCH_PGM --> <option <!-- TMPL_VAR NAME=PGM_SEL --> value=<!-- TMPL_VAR NAME=PGM_VAL -->><!-- TMPL_VAR NAME=PGM_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+<!-- TMPL_VAR NAME=OPTION1 -->
+</td>
+</tr>
+<tr><td colspan=2><hr></td></tr>
+<tr><td colspan=2  align=left>
+<b>
+<!-- TMPL_IF NAME=HMM_FILE_UP -->
+<b><font color="#990000">(A.1)</font> Upload HMM from File:</b>&nbsp;<input type="file" name="hmm_query_file"></input>
+<!-- /TMPL_IF -->
+</tr>
+<tr>
+<td colspan=2>
+<b><font color="#990000">(A.2)</font> Or paste in Hidden Markov Model:</b><br>
+<textarea name="hmm_query" rows=10 cols=80 wrap="off" align=left><!-- TMPL_VAR NAME=HMM_QUERY --></textarea>
+</td>
+</tr>
+<tr><td colspan=2><hr></td></tr>
+<!-- display the library table -->
+<tr>
+<th colspan=2 align=left><font color="#990000">(B.1)</font> Choose file of sequences/accessions: &nbsp;</b>
+<input type="file" name="q2_file_name"></input> </th>
+</tr>
+<tr>
+<td>
+<tr>
+<th align=left><font color="#990000">(B.2)</font> Enter sequences to be scanned: &nbsp;&nbsp;&nbsp;&nbsp;
+<select name="q2_type">
+  <option value="fa">FASTA format
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_ACC2 --> value="acc">Accession/GI number
+</select>
+<tr>
+<td colspan=2><textarea name="query2" rows=6 cols=80 wrap="off" align=left><!-- TMPL_VAR NAME=SEARCH_QUERY2 --></textarea>
+</td>
+<td width=15% align=center> <font color="#990000"><b>(C) Start Scan:</font><b><p><input type=submit name="input" value="Scan HMM"><p><input type=reset>
+</tr>
+<tr>
+<th align=left><b>or <font color="#990000">(B.3)</font> Choose Database:</b> <select name="p_lib">
+<!-- TMPL_LOOP NAME=LIB_P --> <option value=<!-- TMPL_VAR NAME=LIB_VAL -->><!-- TMPL_VAR NAME=LIB_DESC --></option><!-- /TMPL_LOOP --></select>
+</th>
+</td>
+</tr>
+<tr>
+</td>
+</tr>
+</table>
+<td align=center>
+<!-- TMPL_IF NAME=DEBUG -->
+<br>
+<input type=checkbox name="DEBUG" value=1>debug</input>
+<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME=SHOW_REMOTE -->
+<input type=checkbox name="remote" value=1>remote</input>
+<!-- /TMPL_IF -->
+</td>
+</tr>
+</td>
+</tr>
+</table>
+<hr>
+<b>Output limits:</b><br>
+<b>E():</b><input type=text name="eval" maxlength=8 size=5>
+<!--
+<b>scores:</b><input type=text name="best" maxlength=3 size=3>
+<b>alignments:</b><input type=text name="align" maxlength=3 size=3></input>
+-->
+</form>
+<br>
+
+<!-- TMPL_INCLUDE name="footer.html" -->
+<p>
+<!-- TMPL_INCLUDE name="copyright.html" -->
+
+</body>
+</html>

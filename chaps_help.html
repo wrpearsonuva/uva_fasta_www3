@@ -1,0 +1,59 @@
+<html>
+<head><title>CHAPS Help</title>
+<style type="text/css">
+   textarea { font-family: Courier }
+</style>   
+</head>
+<body>
+<h2>CHAPS Help</h2>
+
+<p><i>Step 1</i>: enter a set of accessions (one per line), <b>or</b> a set
+of fasta-formatted sequences; make sure you specify what you've
+entered in the <b>Format:</b> field.
+
+<p><i>Step 2</i>: Click "Run ClustalW now"; the page should come back after a
+few seconds with a multiple alignment in the input box.  You could
+have skipped Step 1 if you simply pasted in an already created
+multiple alignment, in "pseudo-ClustalW" format (i.e. just the
+alignment, no headers or footers).
+
+<p><i>Step 3</i>: To generate the corresponding position-specific scoring
+matrix (PSSM or "profile"), click the "Generate PSSM now"; after a few
+seconds the PSSM field should be filled with the profile scoring
+matrix, followed by a second matrix indicating relative amino acid
+usage at each position, followed by two columns that provide the
+information content of the position and the fractional weight of the
+alignments, compared to pseudocounts.
+
+<p><i>Step 4</i>: To use this profile in a PSI-BLAST seach, click the "Send
+to PSI-BLAST" button.
+
+<p><i>Optional step</i>: To save either the multiple alignment, PSSM,
+or HMM to your local machine, press:<br>
+<input type=submit name="a">Download Multiple Alignment</input>,<br>
+<input type=submit name="b">Download PSSM (ASN.1)</input>,<br>
+<input type=submit name="c">Download HMM</input>.
+<p>
+These files can then be used for seaches with <a href="fasta_www.cgi?rm=mselect">PSI-BLAST</a> or HMM Search.
+<p>
+<hr>
+<p>
+<a name="pssm_numbers">
+<h3>What are the numbers in the PSSM window?</h3>
+<textarea name="profile" rows=12 cols=100 wrap="off">
+           A  R  N  D  C  Q  E  G  H  I  L  K  M  F  P  S  T  W  Y  V   A   R   N   D   C   Q   E   G   H   I   L   K   M   F   P   S   T   W   Y   V
+    1 M   -1 -3 -3 -4  7 -2 -3 -3 -3  0  1 -2  5 -1 -3 -2 -1 -2 -2  0    0   0   0   0  44   0   0   0   0   0   0   0  56   0   0   0   0   0   0   0  0.66 0.09
+    2 A    3 -1 -2 -1 -2  0  3 -2 -2 -1 -1 -1  4 -2 -2  0 -1 -3 -2 -1   41   0   0   0   0   0  31   0   0   0   0   0  29   0   0   0   0   0   0   0  0.32 0.15
+    3 E   -1 -2 -1 -1 -3 -1  2  2 -2 -2 -2 -1  3 -3  4  1 -1 -3 -3 -2    0   0   0   0   0   0  18  18   0   0   0   0  20   0  25  19   0   0   0   0  0.45 0.18
+    4 K   -1  0 -1 -1 -3  0 -1 -2 -2 -3 -3  3 -2 -4  6  1 -1 -4 -3 -3    0   0   0   0   0   0   0   0   0   0   0  36   0   0  45  19   0   0   0   0  0.91 0.18
+    5 P   -2 -2 -3 -3 -3 -2 -2 -3 -1 -1  0 -2  5  0  5 -2 -2 -1  4 -1    0   0   0   0   0   0   0   0   0   0   0   0  40   0  36   0   0   0  25   0  0.75 0.18
+    6 K   -1  0 -2 -2 -2 -1 -1 -3 -2  2 -1  3 -1 -2 -2 -1  2 -3 -2  2    0   0   0   0   0   0   0   0   0  20   0  36   0   0   0   0  25   0   0  19  0.27 0.18
+    7 L   -2 -3 -4 -4 -2 -3 -3 -4 -4  1  4 -3  1  0 -3 -3 -1 -3 -2  2    0   0   0   0   0   0   0   0   0   0  75   0   0   0   0   0   0   0   0  25  0.57 0.18
+    8 H   -1 -2 -1 -2 -3 -1 -2  4  6 -1 -2 -2 -2 -2 -3 -1 -2 -3 -1  1    0   0   0   0   0   0   0  40  36   0   0   0   0   0   0   0   0   0   0  25  0.53 0.18
+    9 Y   -2 -2 -3 -4 -3 -2 -3 -4  1 -2 -2 -2 -2  3 -4 -2 -2  2  8 -2    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 100   0  1.25 0.18
+   10 F   -3 -3 -4 -5 -3 -3 -4 -4 -2 -1 -1 -4 -1  6 -4 -3 -3  9  2 -2    0   0   0   0   0   0   0   0   0   0   0   0   0  60   0   0   0  40   0   0  1.38 0.18
+</textarea>
+<p>
+The PSSM profile box is the output of the <tt>blastpgp -Q </tt> option.  The left most 20 numbers are the scores that would be used in a similarity search.  The next 20 numbers are the frequencies (percents) of each amino acid at that position.  The last two floating point numbers are the information content at the position, and the relative weight of the multiple alignment data and the pseudocounts.  If the last number is low, then BLOSUM62 is contributing most of the score information.
+</body>
+</html>

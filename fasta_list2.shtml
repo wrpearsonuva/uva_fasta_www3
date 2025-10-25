@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>UVA FASTA Server</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+
+<h1 align="left">FASTA Sequence Comparison at the U. of Virginia</h1>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" height="19" align="left">
+<h2><a class="nd" href="fasta_www.cgi">UVa FASTA Server</a></h2>
+</td>
+<td style="font-size: 12px; color: #000099; font-family: sans-serif;"  align="center">
+<!--#include virtual="fasta_news_inc.html" -->
+</td>
+</tr>
+</table>
+
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<table class="fasta" cellspacing="0" cellpadding="5" width="600" border="1" >
+<tr>
+<td colspan="2" width="100%" bgcolor="#FFFFCC">
+
+<p style="font-size: 12px;">
+The <b>FASTA</b> programs find regions of local or global similarity between
+Protein or DNA sequences, either by searching Protein or DNA
+databases, or by identifying local duplications within a sequence.
+Other programs provide information on the statistical significance of
+an alignment.  Like <a href="http://www.ncbi.nlm.nih.gov/blast/" target="blast_win"><b>BLAST</b></a>, <b>FASTA</b> can be used to infer
+functional and evolutionary relationships between sequences as well as
+help identify members of gene families.
+</p>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<h3>Protein</h3>
+<ul>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=fap">Protein-protein <b>FASTA</b> </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=sw">Protein-protein Smith-Waterman (<b>ssearch</b>)</a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=gnw">Global Protein-protein (Needleman-Wunsch) (<b>ggsearch</b>)</a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=lnw">Global/Local protein-protein (<b>glsearch</b>)</a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=fs">Protein-protein with unordered peptides (<b>fasts</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=ff">Protein-protein with mixed peptide sequences (<b>fastf</b>) </a>
+</li>
+</ul>
+</td>
+<td valign="top" width="50%">
+<h3>Nucleotide</h3>
+<ul>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=fad">Nucleotide-Nucleotide (DNA/RNA <b>fasta</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=fmd">Ordered Nucleotides vs Nucleotide (<b>fastm</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=fsd">Un-ordered Nucleotides vs Nucleotide (<b>fasts</b>) </a>
+</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign="top" width="50%">
+<h3>Translated</h3>
+<ul>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=fx">Translated DNA (with frameshifts, e.g. ESTs) vs Proteins (<b>fastx/fasty</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=tfx">Protein vs Translated DNA (with frameshifts) (<b>tfastx/tfasty</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=select&amp;pgm=tfs">Peptides vs Translated DNA (<b>tfasts</b>) </a>
+</li>
+</ul>
+</td>
+<td valign="top" width="50%">
+<h3>Statistical Significance</h3>
+<ul>
+<li>
+<a href="fasta_www.cgi?rm=shuffle&amp;pgm=rss">Protein vs Protein shuffle (<b>prss</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=shuffle&amp;pgm=rssd">DNA vs DNA shuffle (<b>prss</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=shuffle&amp;pgm=rfx">Translated DNA vs Protein shuffle (<b>prfx</b>) </a>
+</li>
+</ul>
+</td>
+
+</tr>
+<tr>
+<td valign="top" width="50%">
+<h3>Local Duplications</h3>
+<ul>
+<li>
+<a href="fasta_www.cgi?rm=lalign&amp;pgm=lal">Local Protein alignments (<b>lalign</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=lalign&amp;pgm=pal">Plot Protein alignment "dot-plot" (<b>plalign</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=lalign&amp;pgm=lald">Local DNA alignments (<b>lalign</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=lalign&amp;pgm=pald">Plot DNA alignment "dot-plot" (<b>plalign</b>) </a>
+</li>
+</ul>
+</td>
+<td valign="top" width="50%">
+<!--
+<h3>Other Programs</h3>
+<ul>
+<li>
+<a href="fasta_www.cgi?rm=misc1&amp;pgm=seg">Identify low complexity regions (<b>pseg</b>) </a>
+</li>
+<li>
+<a href="fasta_www.cgi?rm=misc1&amp;pgm=pkd">Plot Kyte-Doolitte Hydropathy</a>
+</li>
+</ul>
+-->
+</td>
+</tr>
+</table>
+<!-- CONTENT DONE -->
+</td>
+</tr>
+</table>
+
+</body>
+</html>

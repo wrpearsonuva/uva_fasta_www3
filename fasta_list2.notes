@@ -1,0 +1,8 @@
+<p>
+The inference of homology relies on the observation that unrelated
+protein sequences have similarity score distributions that are
+indistinguishable from "random" sequences. PRSS aligns two protein
+sequences, and then estimates the statistical significance of of the
+alignment score by sshuffling the second sequence 200-1000 times and
+examining the distribution of shuffled sequence scores to estimate the
+lamda and K parameters of the extreme value distribution.

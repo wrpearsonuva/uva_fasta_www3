@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>Page not found - FASTA Server</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" height="19" align="left">
+<h2><a class="nd" href="fasta_www.cgi">UVa FASTA Server</a></h2>
+</td>
+<!--#include virtual="fasta_news_inc.html" -->
+</tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<table class="fasta" cellspacing="0" cellpadding="5" width="600" border="1" >
+<tr>
+<td colspan="2" width="100%" bgcolor="#FFFFCC">
+<h1 align="left">Page Not Found</h1>
+
+<p style="font-size: 12px;">
+Sorry, we werent able to find the page that you requested.
+<p>
+If you followed a link from another site, please let the webmaster of
+that site know that their link is broken.
+<p>
+If you followed a link from within this site or please <a href="mailto:wrp@virginia.edu">email us</a>,
+quoting the address of the page you came from and the one you were
+trying to access, so that we can fix this link.
+<p>
+In the meantime, here is a list of pages to help you find the information that you were looking for:
+<p>
+<ul>
+<li><a href="fasta_list2.shtml">Description of FASTA Programs</a></li>
+<li><a href="fasta_www.cgi?rm=select">FASTA Database Search</a></li>
+<li><a href="fasta_www.cgi?rm=shuffle">Statistical Significance from Shuffles</a></li>
+<li><a href="fasta_www.cgi?rm=lalign">LALIGN Local Alignments</a></li>
+<li><a href="fasta_www.cgi?rm=misc1">Other programs</a> (Kyte-Doolittle, seg)</li>
+</ul>
+</p>
+</td>
+</tr>
+</table>
+<!-- CONTENT DONE -->
+</td>
+</tr>
+</table>
+
+</body>
+</html>

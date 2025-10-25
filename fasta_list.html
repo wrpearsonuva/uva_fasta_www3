@@ -1,0 +1,164 @@
+<html>
+<head>
+<META http-equiv="charset" content="iso-8859-1">
+<META Name="description" Content="FASTA biological sequence comparison programs for
+searching protein and DNA sequence databases">
+<META Name="keywords" Content="fasta, fastx, fasty, tfastx, tfasty, fastf, tfastf, prss">
+<META Name="Author" Content="William R. Pearson">
+
+<link href="fasta.css" type="text/css" rel="stylesheet" />
+
+<title>FASTA Programs</title>
+</head>
+<body bgcolor=white>
+<h2 align=center>FASTA Sequence Comparison at the U. of Virginia</h2>
+<p>
+<hr>
+<p>
+The FASTA web interface has been simplified, with new WWW pages.  The
+same programs and databases are available.  If you find problems with
+the new arrangment, please send email to <a
+href="mailto:wrp@virginia.edu">wrp@virginia.edu</a>.
+<p>
+<hr>
+<p>
+This FASTA server has been overstressed recently by users trying to
+search too many databases at once.  As a result, many searches are
+being dropped.
+<p>
+Please use the FASTA WWW service at: <A
+href="https://www.ebi.ac.uk/fasta33/">https://www.ebi.ac.uk/fasta33/</a>
+to search large sequence databases.
+<p>
+If you are interested in using the FASTA WWW service for teaching a
+class, please email me (<a
+href="mailto:wrp@virginia.edu">wrp@virginia.edu</a>) and I can make
+arrangements for you to use a Beowulf cluster of FASTA servers.
+<hr>
+<p>
+<table align=center border=2>
+<font +1>
+<tr>
+<th  width=64 align=left>Program</th><th align=left>Description</th>
+</tr>
+<tr>
+<td><A href="fasta_www.cgi?rm=select&pgm=fa">FASTA</a></td>
+<td>
+Compares a protein sequence to another protein sequence or to a protein
+database, or a DNA sequence to another DNA sequence or a DNA library.
+</td>
+</tr>
+<tr>
+<td>
+<A href="https://fasta.bioch.virginia.edu/fasta_www2/fasta_www.cgi?rm=select&pgm=sw">SSEARCH</a></td>
+<td>
+Performs a rigorous Smith-Waterman alignment between a protein
+sequence and another protein sequence or a protein database, or with DNA
+sequence to another DNA sequence or a DNA library (very slow).
+</td>
+</tr>
+<tr>
+<td><A href="fasta_www.cgi?rm=select&pgm=fx">FASTX</a>/<A href="fasta_www.cgi?rm=select&pgm=fy">FASTY</a></td>
+<td>
+Compares a DNA sequence to a protein sequence database, translating
+the DNA sequence in three forward (or reverse) frames and allowing
+frameshifts.
+</td></tr>
+<tr>
+<td><A href="fasta_www.cgi?rm=select&pgm=tfx">TFASTX</a>/<A
+href="fasta_www.cgi?rm=select&pgm=tfy">TFASTY</a>
+</td><td>
+Compares a protein sequence to a DNA sequence or DNA sequence
+library.  The DNA sequence is translated in three forward and three reverse
+frames, and the protein query sequence is compared to each of the six derived
+protein sequences.  The DNA sequence is translated from one end to
+the other; no attempt is made to edit out intervening sequences.
+Termination codons are translated into unknown ('X') amino acids.
+</td></tr>
+<tr>
+<td><A
+href="fasta_www.cgi?rm=select&pgm=fs">FASTS</a>/<A
+href="fasta_www.cgi?rm=select&pgm=tfs">TFASTS</a>
+</td>
+<td> Compares set of short peptide fragments, as would be obtained
+from mass-spec. analysis of a protein, against a
+protein (<tt>fasts</tt>) or DNA (<tt>tfasts</tt>) database.  A
+different format is required to specify the ordered peptide mixture:
+<pre>&gt;mgstm1
+MILG,MLLEYTD,MGDAP
+</pre>
+indicates three peptide fragments were found: <tt>MILG</tt>,
+<tt>MLLEYTD</tt>, and <tt>MGDAP</tt>.  The commas (<tt>,</tt>) are
+required to indicate the number of fragments in the mixture, but there
+should be no comma after the last residue.
+</td>
+</tr>
+<tr>
+<td> <A href="fasta_www.cgi?rm=lalign">LALIGN/PLALIGN</a>
+ </td>
+<td>
+Compares two protein sequences to identify regions of sequence
+similarity.  While FASTA, SSEARCH, and [T]FASTX/Y report a single alignment between
+two sequences, LALIGN will report several sequence alignments if there
+are several similar regions.  LALIGN can identify similarities due to
+internal repeats or similar regions that cannot be aligned by FASTA
+because of gaps.  LALIGN reports sequence alignments and
+similarity scores. PLALIGN plots out a graph of the sequence alignments,
+which looks much like a "dot-plot".
+<p>
+</td></tr>
+<tr><td>
+<A href="fasta_www.cgi?rm=shuffle">PRSS/ PRFX</a>
+</td><td>
+Evaluates the significance of pairwise similarity scores using a Monte
+Carlo analysis.  Similarity scores for the two sequences are
+calculated, and then the second sequence is shuffled 200 to 1000 times
+and compared with the first sequence.  PRSS can use one of two
+shuffling strategies.  One strategy simply keeps the amino acid
+composition of the entire shuffled sequence identical to the
+unshuffled sequence.  The second, local shuffle, destroys the order
+but preserves the composition of small (10 - 25 residue) segments of the
+shuffled sequence.  PRFX does a similar shuffle, but compares a
+translated DNA sequence to a protein sequence using the FASTX algorithm.
+</td>
+</tr>
+<tr><td>
+<A href="https://fasta.bioch.virginia.edu/fasta_www2/fasta_www.cgi?rm=misc1&pgm=pkd">GREASE</a>
+</td><td>
+Kyte-Doolittle hydropathy plot.  A modern transmembrane prediction program
+is available from <A href="https://www.ch.embnet.org/software/TMPRED_form.html">tmpred</a></td>
+</tr>
+<tr><td>
+<A href="https://fasta.bioch.virginia.edu/fasta_www2/fasta_www.cgi?rm=misc1&pgm=gor">GARNIER</a>/<A href="https://fasta.bioch.virginia.edu/fasta_www2/fasta_www.cgi?rm=misc1&pgm=cho">CHOFAS</a>
+</td><td>
+Protein secondary structure prediction</td>
+</tr>
+</table>
+<hr />
+<p>
+<font size=+1>
+Download the FASTA package from <A href="https://fasta.bioch.virginia.edu/wrpearson/fasta">fasta.bioch.virginia.edu/wrpearson/fasta</a>
+</font>
+<p>
+<hr>
+<p>
+<h2>Other sequence analysis tools</h2>
+<font size=+1>
+<p>
+Lowercase low-complexity regions with <A href="fasta_www.cgi?rm=misc1&pgm=seg" target=pseg_win>Pseg</a>
+<p>
+Generate a random protein sequence at Expasy: <A href="https://www.expasy.com/sprot/randseq.html">randseq</a>
+</font>
+<p>
+<hr>
+<p>
+<h2 align=center>NCBI BLAST program versions</h2>
+<p>
+<hr>
+<p>
+<A href="https://www.ncbi.nlm.nih.gov/BLAST" target="blast_window">BLAST at the NCBI</a>
+<p>
+</UL>
+<HR>
+</BODY>
+</HTML>

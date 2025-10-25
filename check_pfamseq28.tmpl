@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>CHECK_PFAMSEQ</title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+</head>
+<body>
+<p>
+<tt>http://fastademo.bioch.virginia.edu/fasta_www2/check_pfamseq28.cgi</tt>
+<form name="myform" action="check_pfamseq28.cgi" method="post">
+<b>Sequence: </b><input type='text' name='acc' size='10' value='<!-- TMPL_VAR NAME=ACC -->' />
+<input type="submit" name="submit" value="Check sequence"/><br />
+<input type="checkbox" name="seq" value="1" >Show sequence</input>
+<input type="checkbox" name="seq_only" value="1" >Sequence only</input>
+<input type="checkbox" name="doms_only" value="1" >Domains only</input>
+</form>
+<hr />
+<!-- TMPL_IF name=not_found -->
+<!-- TMPL_IF name=acc -->
+<p><b><!-- TMPL_VAR NAME=acc --></b> not found</p>
+<!-- /TMPL_IF -->
+<!-- TMPL_ELSE -->
+<p>
+<b><tt><!-- TMPL_VAR NAME=DESCRIPTION --></tt></b>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr><!-- TMPL_LOOP name=theader --><th align='center'><!-- TMPL_VAR name=hfield --></th><!-- /TMPL_LOOP --></tr>
+<!-- TMPL_LOOP name=trows -->
+<tr><!-- TMPL_LOOP name=dfields --><td align='right'><!-- TMPL_VAR name=dfield --></td><!-- /TMPL_LOOP></tr>
+<!-- /TMPL_LOOP -->
+</table>
+<hr />
+<!-- TMPL_IF name=sequence --><pre><!-- TMPL_VAR name=sequence --></pre><!-- /TMPL_if -->
+<!-- /TMPL_IF -->
+
+</body>
+</html>

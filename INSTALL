@@ -1,0 +1,175 @@
+
+$Id: INSTALL 35 2009-10-28 18:29:25Z wrp $
+$Revision$
+
+This directory contains a set of scripts that can be used to setup a
+FASTA WWW site.  This is a multistep process; it requires you to be
+comfortable compiling programs and installing Perl Modules using CPAN,
+and you will need to edit several files to define your configuration.
+
+The scripts and WWW site have been developed and tested on Unix
+versions - Solaris/Linux/MacOSX using the Apache WWW server.  I have
+no idea how to do this with Windows.
+
+================
+
+You will need (and need to know)
+
+(1) A place for the FASTA Web server scripts.
+    Typically ~/public_html/fasta_www
+
+(2) A place for the FASTA/BLAST programs (and fastacmd):
+    /seqprg/bin
+
+(3) A place for the FASTA/BLAST databases (can be NFS exported to a cluster)
+    /slib/fastadb, /slib/blastdb
+
+(4) A functioning ghostscript (gs) with associated fonts:
+    /usr/local/bin/gs
+
+(5) A web server (I use apache2).
+
+================
+Installing/Configuring/Testing the FASTA WWW site requires the following steps:
+
+(1) Download the search programs (and possibly other programs)
+
+(2) Unpack the FASTA_WWW scripts and configure your perl environment
+
+(3) Configure your apache httpd.conf web server
+
+(4) test the site
+
+Specifically:
+
+(1) Install/configure the programs:
+
+    (a) install the FASTA/BLAST programs in /seqprg/bin.  The BLAST
+        distribution has a data/ directory that you should copy to
+        /seqprg/data.
+
+	To build FASTA, you will need to unpack the FASTA distribution
+        from http://faculty.virginia.edu/wrpearson/fasta/fasta3.tar.gz
+        and follow the instructions in the ./README file.
+
+    (b) Both the FASTA distribution and this distribution come with a
+        file called fast_libs_e.www (conf/fast_libs_e.www in the FASTA
+        distribution).  This file needs to be edited to list where you
+        keep your sequence databases for FASTA.  The fast_libs_e.www
+        file uses environment variables to make it easier to move
+        libraries without actually editing the fast_libs_e.www file.
+
+	Once you have found it and edited it, you should set the
+	FASTLIBS environment variable to point to it, e.g.
+	export FASTLIBS=/slib/info/fast_libs_e.www  and make sure that
+	the other environment variables in fast_libs_e.www
+	(e.g. $SLIB) are set.
+
+    (d) once you have installed the FASTA programs and edited
+        fast_libs_e.www, you should test the fasta program by running:
+
+	/path_to_fast_bin/fasta35_t -q ../seq/mgstm1.aa q
+
+	where 'q' is your abbreviation for a library (it's SwissProt
+	in fast_libs_e.www).
+
+    (e) To retrieve sequences locally from a database, you will need
+        the "fastacmd" program from the NCBI BLAST package.
+
+    (f) To use the plalign program for protein or DNA, you will need
+        to have the ghostscript (gs) program installed.  Information
+        about ghostscript is available from:
+	 http://www.cs.wisc.edu/~ghost/
+
+    When everything works, you are ready to edit the fawww_defs.pl
+    file and set up your Web server.
+
+(2) Installing/Configuring the fasta_www2 web scripts.
+
+    (a) Unpack the fasta_www.tar.gz file into a directory that will have
+        Web access.  Often, this would be ~user_name/public_html/fasta_www.
+    	On a Mac, it would be ~user_name/Sites/fasta_www.
+
+    (b) For the scripts to work, you will need a bunch of Perl Modules
+        that you can install from CPAN.  Unfortunately, some of these
+        modules will need other modules.  If this sounds strange, you
+        should probably find someone more familiar with Unix and Perl
+        to do it for you.  The list of CPAN modules is found in the
+        "README" file, duplicated here:
+
+	File::Temp	- create temporary files for compare 2 sequences, shuffles
+	CGI::Application - central to the entire system
+	CGI::Session	 - allows status of searches to be tracked
+	CGI::Application::Plugin::Session   - required with CGI::Session
+	IPC::Run	- used for running programs, capturing stdout, stderr
+	IO::Scalar	- reading from strings
+	HTTP::Request	 - for remote searching
+	HTML::Entities	 - prevent cross-site scripting
+	HTML::FillInForm	- helps preserve arguments
+	LWP::UserAgent	- required for remote searching in a cluster
+	LWP::Simple	- used to get sequences from NCBI
+	Text::ParseWords - re-encode command line argument
+
+    (c) configuring fawww_defs.pl -- All of the site-specific variable
+    	definitions are found in the file fawww_defs.pl.  In
+    	particular, this file defines the location of the FASTA and
+    	BLAST binaries, the location of the databases, and the
+    	location of the temporary file directory that is used to capture
+    	sequences and alignment outputs when necessary.  I have made
+    	an effort to ensure that the definitions that need to be
+    	changed are marked with the phrase "site-specific".
+
+    (d) Once the fawww_defs.pl file has been edited, the $TMP_DIR/logs
+        and $TMP_DIR/files directories need to be created, and
+        fasta_www.cgi and fawww_defs.pl need to be double checked to
+        ensure that they will use those files.  They should be created
+        in a place that cannot be displayed from the Web Server.  By
+        default, they will be placed in the directory above
+        DocumentRoot in the tmp directory.  They could also be placed
+        in /tmp/www/tmp, or /var/www/tmp.
+
+	They can belong to a normal user, but must be writeable by the
+	www user (the username associated with httpd).
+
+    (d) Once everything is set up, you should be able to type:
+
+    	fasta_www.cgi and not get an error message, but get a page
+    	that ends with a copyright notice.
+
+(3) Configuring the Apache server -- Once the fasta_www.cgi script is
+    working from its directory, the /etc/apache2/httpd.conf
+    directory must be edited.
+
+    In general, you will need to make three changes (for Apache 2.0)
+
+    (a) add "ExecCGI" and "Includes" to the "Options" for the
+        directory where the scripts are located
+
+    (b) enable AddHandler cgi-script .cgi .pl
+
+    (c) enable server side includes in the script directory
+        AddType text/html .shtml
+    	AddOutputFilter INCLUDES .shtml
+
+    You should also be certain you know where the Apache error log is.
+
+    You can then restart the Apache HTTPD server:
+
+        apachectl restart
+
+(4) Testing
+
+    (a) If everything is working, you should be able to go to the
+        fasta_www.cgi Web page and see the menu that allows you to
+        enter a sequence and select a database.
+
+    (b) The list of databases in your "fast_libs_e.www" file should be
+        available in the library menu drop-down.
+
+    (c) You should be able to do a search.  Enter the accession
+        "gstt1_drome" in the query sequence selection box, and make
+        sure you have specified "accession" as the query type.  Press
+        "start search", hopefully you will see a status screen, and
+        shortly afterwards, the results from the search.
+
+================================================================

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>UVA FASTA Downloads</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" height="19" align="left">
+<h2><a class="nd" href="fasta_www.cgi">UVa FASTA Server</a></h2>
+</td>
+<!--#include virtual="fasta_news_inc.html" -->
+</tr>
+</table>
+
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+
+<!-- CONTENT END -->
+</td>
+</tr>
+</table>
+
+</body>
+</html>

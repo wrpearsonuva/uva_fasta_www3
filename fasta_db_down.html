@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>UVA FASTA Downloads</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body topmargin="0" vspace="0" leftmargin="0" hspace="0" marginheight="0" marginwidth="0">
+
+<table border="0" cellspacing="0" cellpadding="0" width="725" height="19">
+<tr>
+<td border="0" cellspacing="0" width=50% height="19" alt="" align="left">
+<h2>UVa FASTA Downloads</h2>
+</td>
+<td style="font-size: 12px; color: #000099; font-family: sans-serif;"  align="right">
+Latest news:
+<a style="color: #000099; text-decoration: none;" href="fasta_news.html#20070105">
+5 Jan 2007 : New search programs</a>
+</td>
+</tr>
+</table>
+
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<h3><a href="fasta_down.shtml">Downloading and Installing FASTA3</A></h3>
+<h3>Downloading Sequence Databases</h3>
+Protein and DNA sequence library files can be downloaded from many different sources, including the <a href="ftp://ftp.ncbi.nih.gov/blast/db">NCBI</a> and <a href="ftp://ftp.ebi.ac.uk/pub/databases/">EMBL-EBI</a>.
+<h4>Database formats</h4>
+The <b>FASTA</b> programs work with many different library formats;
+you will not need to run file conversion programs or formatting
+programs to search sequence libraries with <b>FASTA</b>.  However, the
+<b>FASTA</b> programs assume that libraries are in <a
+href="http://en.wikipedia.org/wiki/Fasta_format">FASTA</a> format; to
+search libraries in other formats, the format type must be specified
+with the file name, e.g.<br>
+<code>fasta34 -q mgstm1.aa "/slib/ncbi/refseq_protein 12"<code><br>
+would search the NCBI <code>refseq_protein</code> library in
+<code>NCBI/BLAST formatdb</code> format.
+<p>
+Supported popular library formats include:
+<table>
+<tr><th>Format</th><th>Description</th></tr>
+<tr><td> 0 (or none) </td><td>FASTA format</td></tr>
+<tr><td> 1 </td><td>Genbank flatfile</td></tr>
+<tr><td> 3 </td><td>EMBL-EBI/Swissprot flatfile</td></tr>
+<tr><td> 5  </td><td>GCG/PIR flatfile</td></tr>
+<tr><td> 6 </td><td>GCG compressed binary</td></tr>
+<tr><td> 12 </td><td>NCBI BLAST formatdb version 2 (current version)</td></tr>
+<tr><td> 16 </td><td>MySQL SQL query</td></tr>
+<tr><td> 17 </td><td>PostgresQL SQL query</td></tr>
+</table>
+<!-- CONTENT END -->
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

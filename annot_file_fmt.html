@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>FASTA36 annotation file format</title>
+<link href="fasta.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<h2>FASTA36 annotation file format</h2>
+<a href="fasta_www.cgi">Run FASTA Programs</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="fasta_www.cgi?rm=compare">Compare Two sequences</a>
+<hr />
+<p>Recent versions of the FASTA36 programs (FASTA, SSEARCH, GGSEARCH,
+FASTX, etc) have the ability to annotate the final alignment using
+external information.  For standard FASTA searches against the PIR1
+and SwissProt databases, the program can run a script to query
+Uniprot, InterPro, or Pfam to learn the location of active sites and
+domain boundaries.
+<p>
+On the <a href="fasta_www.cgi?rm=select">Search Databases</a>, <a href="fasta_www.cgi?rm=lplalign">Find duplications</a>, and <a href="fasta_www.cgi?rm=compare">Compare two sequences</a> page, you can specify the annotations
+to be applied to your sequences by uploading files in the appropriate
+format.  That format is:
+<pre>
+&gt;Accession_info&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# must match first line of query or library sequence
+position (number)&lt;tab&gt;symbol&lt;tab&gt;value&lt;tab&gt;description
+...
+</pre>
+For example:
+<hr />
+<pre>
+&gt;sp|P09488|GSTM1_HUMAN
+1       -       88      Glutathione_S-Trfase_N :1
+7       V       F       Mutagen: Reduces catalytic activity 100- fold.
+23      *       -       MOD_RES: Phosphotyrosine (By similarity).
+33      *       -       MOD_RES: Phosphotyrosine (By similarity).
+34      *       -       MOD_RES: Phosphothreonine (By similarity).
+90      -       208     Glutathione_S_Trfase/Cl_chnl_C :2
+108     V       Q       Mutagen: Reduces catalytic activity by half.
+108     V       S       Mutagen: Changes the properties of the enzyme toward some substrates.
+109     V       I       Mutagen: Reduces catalytic activity by half.
+116     #       -       BINDING: Substrate.
+116     V       A       Mutagen: Reduces catalytic activity 10-fold.
+116     V       F       Mutagen: Slight increase of catalytic activity.
+173     V       N       in allele GSTM1B; dbSNP:rs1065411.
+210     V       T       in dbSNP:rs449856.
+</pre>
+<hr />
+The <tt>symbol</tt> character can be any printing non-alphabetic
+symbol, e.g. <tt>*,#,^,%</tt>.
+<p>
+Three symbols have a special
+meaning: <tt>'V'</tt> (uppercase-V), <tt>'['</tt>,
+and <tt>']'</tt>. <tt>V</tt> (uppercase-V) specifies that the position
+is a variant position and the <tt>&lt;value&gt;</tt> column is the
+alternate residue at that position (there can be only one alternate
+value; if there are several, the <tt>&lt;position&gt;</tt> can be
+duplicated on the next line).
+<p>
+<tt>'['</tt> and <tt>']'</tt> specify the beginning and end of a
+region or domain, which which can be used to score
+sub-alignments.  <tt>'['</tt> -- <tt>']'</tt> regions must be
+non-overlapping.  The position of the previous <tt>']'</tt> must be
+smaller than the next <tt>'['</tt>, thus in the example above,
+the <tt>Glutathione_S-Trfase_N</tt> domain ends at position 88, before the start of the 
+<tt>Glutathione_S-Trfase/Cl_chnl</tt> at position 90.  If the
+region/domain description is followed by <tt>':number'</tt>, where 1
+<= number <= 8, then the domain will be colored as specified using the
+HTML colors: 1=<font color='lightgreen'>lightgreen</font>,
+2=<font color='lightblue'>lightblue</font>,
+3=<font color='pink'>pink</font>, 4=<font color='cyan'>cyan</font>,
+5=<font color='tan'>tan</font>, 6=<font color='gold'>gold</font>,
+7=<font color='plum'>plum</font>,
+8=<font color='mediumplum'>mediumplum</font>.  If you label a
+domain <tt>NODOM</tt>, it will be
+colored <font color='slategrey'>slategrey</font>.
+<p>
+If you do not see your annotations (particularly on the second&ndash;target or library&ndash;sequence), it probably means that the description
+annotation did not match your annotation file exactly (including
+upper/lower case).
+<hr>
+<a href="fasta_www.cgi">Run FASTA Programs</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="fasta_www.cgi?rm=compare">Compare Two sequences</a>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!-- TMPL_VAR NAME=TITLE --></title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script src="def_select2.js" type="text/javascript" language="JavaScript">
+</script>
+<script>
+var annot1_def = "q_ann2_null";
+var annot2_def = 'ann2_ipr_up';
+<!-- TMPL_IF NAME='ANNOT1_SEQ' -->annot1_def = "q_" + annot_types[<!-- TMPL_VAR NAME='ANNOT1_SEQ' -->].id;<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME='ANNOT2_SEQ' -->
+annot2_def = annot_types[<!-- TMPL_VAR NAME='ANNOT2_SEQ' -->].id;<!-- /TMPL_IF -->
+
+// can_annot(this.form);
+</script>
+
+</head>
+<body onload='update_pgm(document.myform)'>
+<!-- $Id: compare.tmpl 35 2009-10-28 18:29:25Z wrp $ -->
+<!-- $Revision$ -->
+<table>
+<!-- TMPL_LOOP NAME=LINKS_LIST -->
+<tr>
+<td class="pgm_list" width="40%"><!-- TMPL_VAR NAME=LINK --></td>
+<!-- TMPL_IF NAME=ROWS -->
+<td valign="top" rowspan="<!-- TMPL_VAR NAME=ROWS -->"><!-- TMPL_VAR NAME=TEXT --></td>
+<!-- /TMPL_IF -->
+</tr>
+<!-- /TMPL_LOOP -->
+</table>
+<hr />
+<!--
+<p />I am coming from: <b> <!-- TMPL_VAR NAME=R_HOST --> </b>
+I am going to: <b> <!-- TMPL_VAR NAME=C_HOST --> </b>
+-->
+<form name="myform" enctype="multipart/form-data" method="post" action="<!-- TMPL_VAR NAME=SEARCH_URL -->">
+<input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->"/>
+<!-- TMPL_IF NAME=REM_RUN_MODE -->
+<input type="hidden" name="rem_rm" value="<!-- TMPL_VAR NAME=REM_RUN_MODE -->"/>
+<!-- /TMPL_IF -->
+<p>
+<b><font size="+1">Choose:</font> <font color="#990000">(A) program</font> and <font color="#990000">(B, C) sequences</font> to compare:</b><br />
+</p>
+<hr />
+<table>
+<tr>
+<td align="left">
+<b><font color="#990000">(A) Program:</font></b>
+<select name="pgm" onchange="update_pgm(this.form)">
+<!-- TMPL_LOOP NAME=SEARCH_PGM --> <option <!-- TMPL_VAR NAME=PGM_SEL --> value="<!-- TMPL_VAR NAME=PGM_VAL -->"><!-- TMPL_VAR NAME=PGM_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+<!-- TMPL_VAR NAME=OPTION1 -->
+</tr>
+<tr><td colspan="4"><hr /></td></tr>
+<tr>
+<td colspan="2" align="left">
+<b><font color="#990000">(B.1)</font> Enter first (query) sequence:&nbsp;</b>
+<select name="q_type">
+  <option value="fa">FASTA format</option>
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_ACC --> value="acc">Accession/GI number</option>
+</select>
+<!-- TMPL_IF NAME=SSR_FLAG -->
+<b>Subset range:</b>
+<input type="hidden" name="ssr_flag" value="<!-- TMPL_VAR NAME=SSR_FLAG -->"/>
+<input type="text" name="ssr" maxlength="10" size="10" value="<!-- TMPL_VAR NAME=SSR -->"/>
+<!-- /TMPL_IF -->
+</td>
+</tr>
+<tr>
+<td><textarea name="query" rows="8" cols="60"><!-- TMPL_VAR NAME=SEARCH_QUERY --></textarea>
+</td>
+<td valign="middle">
+<hr />
+Annotate Query Sequence (SwissProt accessions)<br />
+<select name="annot_seq1" onchange="update_annot1_def(this.form);" >
+<option value=1 id='q_ann2_null' selected="selected">No annotation</option>
+<option value=2 id='q_ann2_ipr_up'>InterPro domains/Uniprot features</option>
+<option value=3 id='q_ann2_ipr_up_nm'>InterPro domains/Uniprot func sites</option>
+<option value=4 id='q_ann2_up_up'>Uniprot domains/Uniprot features</option>
+<option value=5 id='q_ann2_ipr'>InterPro domains/no features</option>
+<option value=6 id='q_ann2_pfam'>Pfam domains</option>
+<option value=7 id='q_ann2_pfam_acc'>Pfam domains (PF00XXX)</option>
+<option value=8 id='q_ann2_cath'>CATH structural domains</option>
+<option value=9 id='q_ann2_cath_acc'>CATH classes (10.20.30.40)</option>
+<!--<option value=10 id='q_ann2_g3dsa'>Gene3D domains</option>
+<option value=11 id='q_ann2_g3dsa_acc'>Gene3D classes (10.20.30.40)</option>
+-->
+<option value=10 id='q_ann2_RPD3_acc'>RPD3 domains (PF00XXX)</option>
+<option value=11 id='q_ann2_vast'>VAST domains</option>
+<option value=13 id='q_ann2_exons_ncbi'>RefSeq Exons</option>
+<option value=14 id='q_ann2_exons_ensembl'>EBI/Uniprot Exons</option>
+</select><br />
+<a target='help_win' href="annot_file_fmt.html">Upload&nbsp;annotation&nbsp;file:</a>&nbsp;<input type="file" name="annot_seq1_file"/><br />
+<hr />
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Protein" target="entrez_window">Entrez protein</a> / <a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Nucleotide" target="entrez_window"> Entrez DNA </a> sequence browser</a><br />
+<a href="http://uniprot.org" target="entrez_window">Uniprot sequence browser</a><br />
+<br />
+</td>
+</tr>
+<tr>
+<td><b><font color="#990000">(B.2)</font> Or upload sequence from file:</b>&nbsp;<input type="file" name="query_file" />
+</tr>
+<tr>
+<td colspan="2">
+<table width="100%">
+<tr>
+<td>
+<input type="radio" name="sq_type" value="1" checked="checked" onclick="new_seqtype(this.form,1)" />Protein
+<input type="radio" name="sq_type" value="2" onclick="new_seqtype(this.form,2)" />DNA (both-strands)
+<input type="radio" name="sq_type" value="3" onclick="new_seqtype(this.form,3)" />DNA (forward only)
+<input type="radio" name="sq_type" value="4" onclick="new_seqtype(this.form,4)" />DNA (rev-comp only)
+</td>
+<td align="right">
+<div id="asn_file0"><a href="pssm_help.html" target="pssm_help">Use PSSM</a>: <input type="checkbox" name="enable_pssm" value="1" onclick="if (enable_pssm.checked == 1) { document.getElementById('asn_file').style.display = 'block';   this.form['smatrix'].disabled=true; this.form['gap'].value= -11;this.form['gap'].disabled=true; this.form['ext'].value= -1; this.form['ext'].disabled=true;} else {document.getElementById('asn_file').style.display = 'none';}"/></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<!-- TMPL_IF NAME=MSA_PSSM_FILE -->
+<tr>
+<td colspan="2"><!-- TMPL_VAR NAME=MSA_PSSM_FILE --></td>
+</tr>
+<!-- /TMPL_IF -->
+<tr><td colspan="4"><hr /></td></tr>
+<tr><td colspan="2" align="left">
+<b><font color="#990000">
+<!-- TMPL_IF NAME=Q2_FILE_UP -->(C.1)<!-- TMPL_ELSE -->(C)<!-- /TMPL_IF -->
+</font> Enter the second sequence: &nbsp;</b>
+<select name="q2_type">
+  <option value="fa">FASTA format</option>
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_ACC2 --> value="acc">Accession/GI number</option>
+</select>
+<!-- TMPL_IF NAME=HAVE_SSR2 -->
+<b>Subset range:</b>
+<input type="text" name="ssr2" maxlength="10" size="10" value="<!-- TMPL_VAR SSR2 -->" />
+<!-- /TMPL_IF -->
+</td>
+</tr>
+<tr>
+<td><textarea name="query2" rows="6" cols="60"><!-- TMPL_VAR NAME=SEARCH_QUERY2 --></textarea>
+</td>
+<td valign="middle" >
+<hr />
+Annotate Target Sequence (SwissProt accessions)<br />
+<select name="annot_seq2" onchange="update_annot1_def(this.form);" >
+<option value=1 id='ann2_null'>No annotation</option>
+<option value=2 id='ann2_ipr_up' selected="selected">InterPro Domains/Uniprot features</option>
+<option value=3 id='ann2_ipr_up' selected="selected">InterPro Domains/Uniprot func sites</option>
+<option value=4 id='ann2_up_up'>Uniprot domains/features</option>
+<option value=5 id='ann2_ipr'>InterPro domains/no features</option>
+<option value=6 id='ann2_pfam'>Pfam domains</option>
+<option value=7 id='ann2_pfam_acc'>Pfam domains (PF00XXX)</option>
+<option value=8 id='ann2_cath'>CATH structural domains</option>
+<option value=9 id='ann2_cath_acc'>CATH classes (10.20.30.40)</option>
+<option value=10 id='ann2_g3dsa'>Gene3D domains</option>
+<option value=11 id='ann2_g3dsa_acc'>Gene3D classes (10.20.30.40)</option>
+<option value=12 id='ann2_RPD3_acc'>RPD3 domains (PF00XXX)</option>
+<option value=13 id='ann2_exons_ncbi'>RefSeq Exons</option>
+<option value=14 id='ann2_exons_ensembl'>EBI/Uniprot Exons</option>
+</select><br />
+<a target='help_win' href="annot_file_fmt.html">Upload&nbsp;annotation&nbsp;file:</a>&nbsp;<input type="file" name="annot_seq2_file"/><br />
+<hr />
+<input type="submit" name="input" value="<!-- TMPL_VAR NAME=SUBMIT -->" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" name="reset" value="Reset Form" /></p>
+<!-- TMPL_IF NAME='DEBUG' -->
+<br />
+<input type="checkbox" name="DEBUG" value=1>debug</input>
+<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME=SHOW_REMOTE -->
+<input type="checkbox" name="remote" value="1" />remote
+<!-- /TMPL_IF -->
+</td>
+</tr>
+<!-- TMPL_IF NAME=Q2_FILE_UP -->
+<tr><td colspan="2" align="left">
+<b><font color="#990000">(C.2)</font> Or choose file of sequences/accessions: &nbsp;</b>
+<input type="file" name="q2_file_name"></input>
+</td>
+</tr>
+<!-- /TMPL_IF -->
+<!-- TMPL_IF SEGFLAG -->
+<tr>
+<td><input type="checkbox" name="segflag" value=1 checked="checked">Exclude lowercase (low complexity)</input></td><td>&nbsp;</td>
+</tr>
+<!-- /TMPL_IF -->
+<tr><td colspan="2"><hr /></td></tr>
+<tr>
+<td>
+<table>
+<tr>
+<th colspan="5" align="left">Other comparison options:</th>
+</tr>
+<tr>
+<td>
+<b>Scoring&nbsp;matrix:</b><br />
+<select name = "smatrix" onchange="update_gap(this.form)">
+ <option selected="selected" value="0">Blosum50</option>
+ <option value="1">Blosum62</option>
+ <option value="2">BlastP62</option>
+ <option value="3">Blosum80</option>
+ <option value="4">Pam250</option>
+ <option value="5">Pam120</option>
+ <option value="6">MD20</option>
+ <option value="7">MD10</option>
+ <option value="8">VT160</option>
+ <option value="9">OPTIMA</option>
+</select>
+</td>
+<td>
+<b>open:</b><br />
+<input type="text" name="gap" maxlength="4" size="3" value='-10'/>
+</td>
+<td>
+<b>ext:</b><br />
+<input type="text" name="ext" maxlength="4" size="3" value='-2' />
+</td>
+<!-- TMPL_VAR NAME=OPTION2 -->
+</tr>
+</table>
+</td>
+<!-- TMPL_IF NAME=OPTION3 --><!-- TMPL_VAR NAME=OPTION3 --><!-- /TMPL_IF -->
+<!-- TMPL_IF NAME=OPTION4 --><!-- TMPL_VAR NAME=OPTION4 --><!-- /TMPL_IF -->
+</tr>
+</table>
+</form>
+<br />
+<!-- TMPL_INCLUDE name="footer.html" -->
+<p>
+<!-- TMPL_INCLUDE name="copyright.html"> 
+</body>
+</html>

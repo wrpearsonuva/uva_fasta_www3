@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+<title>UVA FASTA Server - Introduction</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+<h1 align="left">FASTA Sequence Comparison at the U. of Virginia</h1>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" align="left">
+<h2><a class="nd" href="fasta_www.cgi">UVa FASTA Server</a></h2>
+</td>
+<!--#include virtual="fasta_news_inc.html" -->
+</tr>
+</table>
+<table>
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<table class="fasta" cellspacing="0" cellpadding="0" width="600" border="0" >
+<tr><td>
+To search large sequence databases (particularly DNA databases), please use the FASTA WWW service at: <a href="http://www.ebi.ac.uk/fasta33/">EMBL-EBI</a>.
+<p>
+</td></tr>
+<tr><td>
+If you are interested in using the FASTA WWW service for teaching a
+class, please email me (<a
+href="mailto:wrp@virginia.edu">wrp@virginia.edu</a>) and I can make
+arrangements for you to use an expanded set of computers.
+</td></tr>
+<tr><td><hr /></td></tr>
+</table>
+<table class="fasta" cellspacing="0" cellpadding="5" width="600" border="1" >
+<tr>
+<th  width="64" align="left">Program</th><th align="left">Description</th>
+</tr>
+<tr>
+<td><a href="fasta_www.cgi?rm=select&amp;pgm=fa">FASTA</a></td>
+<td>
+Compares a protein sequence to another protein sequence or to a protein
+database, or a DNA sequence to another DNA sequence or a DNA library.
+</td>
+</tr>
+<tr>
+<td><!-- <a href="http://fasta.bioch.virginia.edu/fasta_www2/fasta_www.cgi?rm=select&amp;pgm=sw"> -->
+<a href="fasta_www.cgi?rm=select&amp;pgm=sw">SSEARCH</a></td>
+<td>
+Perform a rigorous Smith-Waterman alignment between a protein
+sequence and another protein sequence or a protein database.
+</td>
+</tr>
+<tr>
+<td>
+<a href="fasta_www.cgi?rm=select&amp;pgm=gnw">GGSEARCH/</a> <a href="fasta_www.cgi?rm=select&amp;pgm=lnw">GLSEARCH </a></td>
+<td>
+
+Perform a rigorous Global/Global (GGSEARCH) or Global/Local (GLSEARCH)
+alignment between a protein sequence and another protein sequence or a
+protein database.  <a
+href="fasta_www.cgi?rm=select&amp;pgm=gnw">GGSEARCH</a> implements a
+Needleman-Wunsch like alignment, except that affine gap penalties are
+used. <a href="fasta_www.cgi?rm=select&amp;pgm=lnw">GLSEARCH</a> is
+most appropriate for global searches with a domain, which require local
+alignments within proteins.
+
+</td>
+</tr>
+<tr>
+<td><a href="fasta_www.cgi?rm=select&amp;pgm=fx">FASTX</a>/<br />
+<a href="fasta_www.cgi?rm=select&amp;pgm=fy">FASTY</a></td>
+<td>
+Compares a DNA sequence to a protein sequence database, translating
+the DNA sequence in three forward (or reverse) frames and allowing
+frameshifts.
+</td></tr>
+<tr><td>
+<a href="fasta_www.cgi?rm=shuffle">PRSS/<br />PRFX</a>
+</td>
+<td>
+Evaluates the significance of pairwise similarity scores using a Monte
+Carlo analysis.  The Smith-Waterman local similarity score for the two
+sequences is calculated, and then the statistical parameters <i>Lambda</i>
+and <i>K</i> from the <i>random</i> scores calculated by aligning the first sequence to 200 to 1000 times shuffles of the second sequence. PRFX
+does a similar shuffle, but compares a translated DNA sequence to a
+protein sequence using the FASTX algorithm.
+<br />&nbsp;<br />
+PRSS/PRFX can either shuffle the second sequence in its entirety
+(uniform shuffling) or shuffle the second sequence in 20 residue
+segments (window shuffle). This latter strategy preserves local amino
+acid composition biases, e.g. in transmembrane segments.
+</td>
+</tr>
+<tr>
+<td><a href="fasta_www.cgi?rm=select&amp;pgm=tfx">TFASTX</a>/<br />
+<a href="fasta_www.cgi?rm=select&amp;pgm=tfy">TFASTY</a>
+</td><td>
+Compares a protein sequence to a DNA sequence or DNA sequence
+library.  The DNA sequence is translated in three forward and three reverse
+frames, and the protein query sequence is compared to each of the six derived
+protein sequences.  The DNA sequence is translated from one end to
+the other; no attempt is made to edit out intervening sequences.
+</td></tr>
+<tr>
+<td><a
+href="fasta_www.cgi?rm=select&amp;pgm=fs">FASTS</a>/<br />
+<a href="fasta_www.cgi?rm=select&amp;pgm=tfs">TFASTS</a>
+</td>
+<td> Compares set of short peptide fragments, as would be obtained
+from mass-spec. analysis of a protein, against a
+protein (<tt>fasts</tt>) or DNA (<tt>tfasts</tt>) database.  A
+different format is required to specify the ordered peptide mixture:
+<pre>&gt;mgstm1
+MILG,MLLEYTD,MGDAP
+</pre>
+indicates three peptide fragments were found: <tt>MILG</tt>,
+<tt>MLLEYTD</tt>, and <tt>MGDAP</tt>.  The commas (<tt>,</tt>) are
+required to indicate the number of fragments in the mixture, but there
+should be no comma after the last residue.
+</td>
+</tr>
+<tr>
+<td> <a href="fasta_www.cgi?rm=lalign">LALIGN/<br />PLALIGN</a></td>
+<td>
+Compares two protein sequences to identify regions of internal sequence
+similarity.  While FASTA reports a single alignment between
+two sequences, LALIGN will report several sequence alignments if there
+are several similar regions.  LALIGN reports sequence alignments and
+similarity scores. PLALIGN plots out a graph of the sequence alignments,
+which looks much like a "dot-plot".
+</td></tr>
+<tr><td>
+<a href="fasta_www.cgi?rm=misc1&amp;pgm=pkd">GREASE</a>
+</td><td>
+Kyte-Doolittle hydropathy plot.  A modern transmembrane prediction program
+is available from <a href="http://www.ch.embnet.org/software/TMPRED_form.html">tmpred</a></td>
+</tr>
+<tr><td>
+<a href="fasta_www.cgi?rm=misc1&amp;pgm=gor">GARNIER</a>/<br />
+<a href="fasta_www.cgi?rm=misc1&amp;pgm=cho">CHOFAS</a>
+</td>
+<td>
+Protein secondary structure prediction (provided for teaching purposes
+only). Much better prediction algorithms are available from <a
+href="http://bioinf.cs.ucl.ac.uk/psipred/" target="pred_win">psipred</a>
+and <a
+href="http://cubic.bioc.columbia.edu/predictprotein/">PredictProtein</a>
+</td>
+</tr>
+</table>
+<hr />
+<h2>Other sequence analysis tools</h2>
+<table>
+<tr><td>
+Lowercase low-complexity regions with <a href="fasta_www.cgi?rm=misc1&amp;pgm=seg" target="pseg_win">Pseg</a>
+</tr></td>
+<tr><td>
+Generate a random protein sequence at Expasy: <a href="http://www.expasy.org/tools/randseq.html">randseq</a>
+</td></tr>
+</table>
+<hr />
+<!-- CONTENT DONE -->
+</body>
+</html>

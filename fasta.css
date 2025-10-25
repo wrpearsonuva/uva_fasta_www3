@@ -1,0 +1,80 @@
+BODY {background-color: #FFFFCC; color: #000000;}
+
+STRONG {font-size=18px; font-weight: bold; color: #CC0000;}
+
+TEXTAREA { font-family: courier, monospace }
+
+.TEXT {
+	font-family: arial,helvetica,sans-serif;
+	}
+
+.TEXTWIDE {
+	font-family: arial,helvetica,sans-serif;
+	}
+
+.medium1 {
+	font-size: 75%;
+	font-family: arial,helvetica,sans-serif;
+	}
+
+.medium2 {
+	font-size: 75%;
+	font-family: verdana;
+	}
+
+.medium3 {
+	font-size: 75%;
+	font-family: courier;
+	}
+	
+.medium4 {
+	font-size: 75%;
+	font-family: arial,helvetica,sans-serif;
+	font-style: italic;
+	}
+
+TD.pgm_list {
+	font-size: 12px;
+	font-family: arial,helvetica,sans-serif;
+	}
+
+A	{
+	color:#000099;
+	}
+	
+A.nd	{
+	color:#000099; text-decoration: none;
+	}
+	
+H1, .H1 {
+	font-size: 150%;
+	font-weight: bold;
+	font-family: arial,helvetica,sans-serif;
+	color: #CC0000;
+	}
+
+H2, .H2 {
+    font-size: 125%;
+	font-weight: bold;
+	font-family: arial,helvetica,sans-serif;
+	color: #CC0000;
+	}
+
+H3, .H3 {
+	font-size: 100%;
+	font-weight: bold;
+	font-family: arial,helvetica,sans-serif;
+	}
+
+H4, .H4 {
+	font-size: 100%;
+	font-weight: bold;
+	font-family: arial,helvetica,sans-serif;
+	}
+
+H5, .H5 {
+	font-size: 85%;
+	font-weight: bold;
+	font-style: italic;
+	font-family: arial,helvetica,sans-serif;
+	}

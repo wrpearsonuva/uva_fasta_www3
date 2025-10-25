@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Clean FASTA file (for MEME)</title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+</head>
+<body>
+<h2>Clean FASTA files for MEME</h2>
+
+<form name="myform" enctype="multipart/form-data" action='clean_fasta.cgi'  method='post'>
+This page was set up to "clean-up" sequence downloads from the UCSC
+browser so that they can be used as inputs to
+the <a href="http://meme-suite.org">MEME</a> suite of programs.  In
+particular, MEME requires that each uploaded sequence have a distinct
+sequence identifier, and the format used by UCSC does not always
+ensure that the text between the "&gt;" and the first space is
+unique.
+<p>
+In particular, a UCSC list of sequences can have an identifier like:
+<pre>
+>mm9_ct_UserTrack_3545_0 range=chr2:67108861-67108870 5'pad=0 3'pad=0 strand=+ repeatMasking=lower
+</pre>
+By default, the <code>clean_fasta</code> script (this web page) will convert those lines to:
+<pre>
+>mm9_ct_UserTrack_3545_0_range=chr2:67108861-67108870_5'pad=0_3'pad=0_strand=+_repeatMasking=lower
+</pre>
+If the <input type='checkbox' name='meme_chr' value=1>Extract CHR:coordinates from UCSC</input> is checked, then the output descriptions look like:
+<pre>
+>chr2:67108861-67108870
+</pre>
+<p>
+This page will not work with very large datasets.  A <code>perl</code> script that will work with large data sets is available here:
+<a href="fasta.bioch.virginia.edu/wrpearson/other/clean_fasta_pl.html">clean_fasta.pl</a>
+<p>
+<hr />
+<b>A. Paste in FASTA sequence</b>
+<p>
+<textarea name="query" rows="6" cols="60" ></textarea>
+<p>
+Or upload query from file:&nbsp;<input type="file" name="query_file" />
+<p>
+<input type='checkbox' name='meme_chr' value=1>Extract CHR:coordinates from UCSC</input>
+<p>
+<b>B.</b> <input type='submit' name='submit' value='Clean sequence'  />
+<p>
+</form>
+</body>
+</html>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+<!--#set var="FASTA_href" value="" -->
+
+<title>UVA FASTA Downloads</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+<h1>UVa FASTA Downloads</h1>
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" height="19" align="left">
+<h2><a class="nd" href="fasta_www.cgi">UVa FASTA Server</a></h2>
+</td>
+<!--#include virtual="fasta_news_inc.html" -->
+</tr>
+</table>
+
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<hr />
+If you are interested in using the FASTA WWW service for teaching a
+class, please email me (<a
+href="mailto:wrp@virginia.edu">wrp@virginia.edu</a>) and I can make
+arrangements for you to use a Beowulf cluster of FASTA servers.
+<hr />
+The following are a set of exercises to illustrate important
+priniciples in sequence similarity searching: (1) the relationship
+between homology and statistical estimates; (2) the importance of
+using protein (or translated protein) rather than DNA sequences for
+searching; (3) the similarity in the results produced by FASTA, BLAST,
+and SSEARCH (Smith-Waterman), and detection of local duplications from
+significant similarity.
+<p />
+Most of the searches in this exercise should be done against a small
+protein database, e.g. the <b>PIR1</b> database available at the FASTA
+WWW site.  Searching a small database makes it practical to
+consider each of the high scoring similarities, and to
+evaluate further whether they are likely to be biologically meaningful.
+<hr />
+<b> Identifying homologs and non-homologs; effects of scoring matrices
+and algorithms</b>
+<hr />
+<p />
+<p />
+<b>1.</b> Use the <a
+href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=select&amp;pgm=fa&amp;query=121694&amp;db=p"
+target="fasta_win">FASTA search page</a> to compare Drosophila
+glutathione transferase <a href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=121694&amp;dopt=fasta" target="entrez_win">
+GSTT1_DROME (gi|121694)</a> to the PIR1
+Annotated protein sequence database.
+
+<ol type="a">
+<li>
+What is the highest scoring non-homolog? (How would you confirm
+that your candidate non-homolog was truly unrelated?)
+<p /></li>
+<li>
+Note that this drosophila glutathione transferase shares significant
+similarity with both sequences from bacteria (SSPA_SHIFL, stringent
+starvation protein) and mammals.  How might you test whether the
+stringent starvation protein is homologous to glutathione
+transferases? (<i>Hint - search <b>SwissProt</b> for a more
+comprehensive view of the family</i>)
+<p /></li>
+
+<li>Compare the expectation (E()) value for the distant
+relationship between <tt><b>GSTT1_DROME</b></tt> and
+<tt><b>GSTM2_RAT</b></tt> (class-mu).  How would you demonstrate that
+<tt><b>GSTT1_DROME</b></tt> is homologous to <tt><b>GSTM2_RAT</b></tt>?
+<p /></li>
+
+<li> Examine how the expectation value changes with different scoring
+matrices (BLOSUM62, BlastP62, PAM250) and different gap
+penalties. (The default scoring matrix for the FASTA programs is
+BLOSUM50, with gap penalties of -10 to open a gap and -2 for each
+residue in the gap - e.g. -12 for a one residue gap).
+<p />
+What happens to the E()-value for the highest scoring unrelated
+sequence with the different matrices?
+<p />
+Look at the distribution of scores and the
+E()-value of the highest scoring unrelated sequence when the
+gap-open/gap-ext penalties are small (-7/-1).
+<p /></li>
+<li> Try the search with <a
+href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=select&amp;pgm=sw&amp;query=gstt1_drome&amp;db=p"
+target="fasta_win"> <b>ssearch</b></a> (Smith-Waterman).  Again, look
+at the E()-values for distant homologs and the highest scoring
+unrelated sequence.
+<p /></li>
+<li> (<i>optional)</i> Try the search with <em>ktup=1</em> (<a
+href="ktup_info.html" target="info_win">What is ktup?</a>).
+<b>FASTA</b> uses the <em>ktup</em> parameter to adjust the
+sensitivity and speed of the search.  With <em>ktup=2</em>,
+<b>FASTA</b> looks for "pairs" of matched identical residues to find
+regions of similarity.  <em>ktup=1</em> looks for singly-aligned
+residues, and thus takes longer.
+</li>
+</ol>
+<hr />
+<p />
+<b>2.</b> Do the same search (<tt>121694</tt>) using the Course
+<a
+href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=blast"
+target="blast_win"> BLAST</a> WWW page.
+<ol type='a'>
+<li>
+What is the highest scoring non-homolog?
+<p /></li>
+<li> How do the <b>blastp</b> E()-values compare with the
+<b>FASTA</b> (<tt>blosum62</tt>) E()-values for the distantly related
+mammalian and plant sequences?
+</li>
+</ol>
+<hr />
+<b>Comparison of Protein:Protein, translated DNA:protein to DNA:DNA searches - more sensitive DNA searches</b>
+<hr />
+
+<b>3.</b> In the next three exercises, we will try to find
+<b>gstt1_drome</b> homologs in the <i>Arabidopsis</i> genome, using
+(a) protein:protein (BLASTP), (b) DNA:protein (BLASTX), (c)
+protein:DNA (TBLASTN), and (d,e) DNA:DNA (BLASTN) searches.
+<p />
+<i>In each of the exercises below, the <b>BLASTP</b>, <b>BLASTX</b> etc. links are pre-set to search Arabidopsis sequences.</i>
+
+<ol type='a'>
+<li> <b>BLASTP</b>
+Compare the <a
+href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=121694&amp;dopt=fasta"
+target="entrez_win"> GSTT1_DROME (gi|121694)</a> protein sequence to Arabidopsis proteins using <a
+href="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=arabidopsis[orgn]%20AND%20srcdb_refseq[properties]&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=1&amp;HITLIST_SIZE=100&amp;NCBI_GI=on&amp;PAGE=Proteins&amp;PROGRAM=blastp&amp;SERVICE=plain&amp;SET_DEFAULTS.x=37&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=no&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes"
+target="blast_win">BLASTP</a>.
+<p />
+What are the E()-values for Arabidopsis <b>ATGSTT1</b>, <b>ATGSTF10</b>, <b>ATGSTZ1</b>and <b>ATGSTU4</b>
+</li>
+<li>
+<b>BLASTX</b>
+Try the same search using the <b>GSTT1_DROME</b> cDNA <a
+href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=nucleotide&amp;list_uids=8033&amp;dopt=fasta"
+target="entrez_win"> DMGST (gi|8033)</a> against <i>Arabidopsis</i> proteins using
+<a
+href="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=arabidopsis[orgn]%20AND%20srcdb_refseq[properties]&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=1&amp;HITLIST_SIZE=100&amp;NCBI_GI=on&amp;PAGE=Translations&amp;PROGRAM=blastx&amp;SERVICE=plain&amp;SET_DEFAULTS.x=37&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=no&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes"
+target="blast_win">BLASTX</a>.
+<p />
+What are the E()-values for Arabidopsis <b>ATGSTT1</b>, <b>ATGSTF10</b>, <b>ATGSTZ1</b>and <b>ATGSTU4</b>
+</li>
+<li>
+<b>TBLASTN</b>.  Use  
+<a
+href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=121694&amp;dopt=fasta"
+target="entrez_win"> GSTT1_DROME (gi|121694)</a> against translated <i>Arabidopsis</i> DNA using
+<a
+href="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=arabidopsis[orgn]%20AND%20srcdb_refseq[properties]&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=1&amp;HITLIST_SIZE=100&amp;NCBI_GI=on&amp;PAGE=Translations&amp;PROGRAM=tblastn&amp;SERVICE=plain&amp;SET_DEFAULTS.x=37&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=no&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes"
+target="blast_win">TBLASTN</a>.
+<p />
+What are the E()-values for Arabidopsis <b>ATGSTT1</b>, <b>ATGSTF10</b>, <b>ATGSTZ1</b>and <b>ATGSTU4</b>
+</li>
+<li> Finally, try the DNA:DNA comparison. 
+Use <a
+href="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi?CMD=Web&amp;LAYOUT=TwoWindows&amp;AUTO_FORMAT=Semiauto&amp;ALIGNMENTS=50&amp;ALIGNMENT_VIEW=Pairwise&amp;CLIENT=web&amp;DATABASE=nr&amp;DESCRIPTIONS=100&amp;ENTREZ_QUERY=arabidopsis[orgn]%20AND%20srcdb_refseq[properties]&amp;EXPECT=10&amp;FILTER=L&amp;FORMAT_OBJECT=Alignment&amp;FORMAT_TYPE=HTML&amp;GENETIC_CODE=1&amp;HITLIST_SIZE=100&amp;NCBI_GI=on&amp;PAGE=Nucleotides&amp;PROGRAM=blastn&amp;SERVICE=plain&amp;SET_DEFAULTS.x=37&amp;SET_DEFAULTS.y=5&amp;SHOW_OVERVIEW=on&amp;UNGAPPED_ALIGNMENT=no&amp;END_OF_HTTPGET=Yes&amp;SHOW_LINKOUT=yes"
+target="blast_win">BLASTN</a> to compare <tt>dmgst
+(gi|8033)</tt> to the DNA sequences in Arabidopsis.
+
+<p />Are there detectable Arabidopsis homologues?
+</li>
+<li>
+The default BLAST DNA parameters are designed
+for very close matches (98% identity).  Use the <a
+href="http://www.ncbi.nlm.nih.gov/BLAST/blastcgihelp.shtml#other_advanced">Other
+advanced options:</a> <tt>-r +5 -q -4 -G 10 -E 6</tt>, which targets the
+DNA search for 70% identity.
+</li>
+</ol>
+<hr />
+<b>Confirming statistical estimates with shuffles</b>
+<hr />
+<p />
+<b>4.</b> Use the <a href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=shuffle" target="fasta_win">PRSS shuffle</a> program to evaluate the statistical significance of a match.
+<ol type='a'>
+<li>
+Compare <a href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=121694&amp;dopt=fasta" target="entrez_win">
+GSTT1_DROME (gi|121694)</a> to <a href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=121694&amp;dopt=fasta" target="entrez_win">
+XURTG (gi|66611)</a> using <a href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=shuffle&amp;query=121694&amp;q_type=acc&amp;query2=66611&amp;q2_type=acc" target="fasta_win">PRSS</a>
+<p />What is the <i>E()-value</i>?  What database size is used to calculate the E()-value? Why?
+</li>
+<li>
+Compare <a href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=134594&amp;dopt=fasta" target="entrez_win">SKIL_HUMAN (gi|134594)</a> to <a href="http://www.ncbi.nlm.nih.gov/entrez/viewer.fcgi?db=protein&amp;list_uids=547774&amp;dopt=fasta" target="entrez_win">KINH_STRPU</a> (kinesin heavy chain) using <a href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=shuffle&amp;query=skil_human&amp;q_type=acc&amp;query2=kinh_strpu&amp;q2_type=acc" target="fasta_win">PRSS</a>.  Compare <b>with</b> or <b>without</b> window shuffling.
+</li>
+</ol>
+<hr />
+<b>Significant similarities within sequences - domain duplication</b>
+<hr />
+<p /><b>5.</b> Exploring domains with local alignments --- Calmodulin
+<ol type='a'>
+<li> Use <a href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=lalign&amp;pgm=lal&amp;query=calm_human&amp;q_type=acc&amp;query2=calm_human&amp;q2_type=acc"
+target="fasta_win">lalign</a> to examine local
+similarities between calmodulin <tt>CALM_HUMAN</tt> and itself.
+</li>
+<li> Use <a href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=lalign&amp;pgm=pal&amp;query=calm_human&amp;q_type=acc&amp;query2=calm_human&amp;q2_type=acc" target="fasta_win">plalign</a> to plot the same alignment.  How many repeats are present in this sequence.
+</li>
+<li>
+What happens to the domain alignment plot when you use a shallower scoring matrix (try BP62, MD20).
+</li>
+</ol>
+<p /><b>6.</b> Exploring domains with local alignments --- Death Associated Protein Kinase 1 (DAPK1)
+<ol type="a">
+<li> Use <a href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=lalign&amp;pgm=lal&amp;query=dapk1_human&amp;q_type=acc&amp;query2=dapk1_human&amp;q2_type=acc"
+target="fasta_win">lalign</a> to examine local
+similarities between <tt>DAPK1_HUMAN</tt> and itself.
+</li>
+<li> Use <a
+href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=lalign&amp;pgm=pal&amp;query=dapk1_human&amp;q_type=acc&amp;query2=dapk1_human&amp;q2_type=acc"
+target="fasta_win">plalign</a> to plot the same alignment.  How many
+repeats are present in this sequence.  Try <a
+href="<!--#echo var="FASTA_href" -->fasta_www.cgi?rm=lalign&amp;pgm=pal&amp;query=dapk1_human&amp;q_type=acc&amp;ssr=350-650&amp;query2=dapk1_human&amp;q2_type=acc&amp;ssr2=350-650"
+target="fasta_win">zooming in</a> by doing the alignment plot using
+the subset of the sequence from <tt>350-650</tt>
+</li>
+<li> What happens to the domain alignment plot when you use a shallower scoring matrix (try BP62, MD20).
+<p />
+You can look at the PFAM annotation of this protein at: <a href="http://pfam.janelia.org/protein?entry=p53355">DAPK1_HUMAN Pfam</a>
+</li>
+</ol>
+<p />
+For more complex domain alignments, try <tt>mwkw</tt>, or mouse RNA
+polymerase (<tt>rpb1_mouse</tt> resdiues 1500-) against itself.  Try
+the <tt>rpb1_mouse</tt> alignment using the MD20 scoring matrix as
+well as BLOSUM50.
+<hr />
+<p />
+Where to get the FASTA package: <a href="fasta_down.shtml">Download</a>
+<p />
+The "normal" <a href="http://fasta.bioch.virginia.edu/">FASTA WWW site: </a>
+<p />
+Contact Bill Pearson: <a href="mailto:wrp@virginia.edu">wrp@virginia.edu</a>
+<p />
+<hr />
+<!-- CONTENT END -->
+</td>
+</tr>
+</table>
+
+</body>
+</html>

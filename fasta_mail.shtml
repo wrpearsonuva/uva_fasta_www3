@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>UVA FASTA mailing list</title>
+
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td width="50%" height="19" align="left">
+<h2><a class="nd" href="fasta_list2.shtml">UVa FASTA Pages</a></h2>
+</td>
+<!--#include virtual="fasta_news_inc.html" -->
+</tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="0" width="725">
+<tr>
+<td valign="top" class="sidebar" width="125px">
+<!-- fasta sidebar -->
+<!--#include virtual="fasta_side.html" -->
+<!-- end sidebar -->
+</td>
+<td valign="top">
+<!-- INSERT CONTENT BELOW -->
+<h3>FASTA developer mailing list</h3>
+If you regularly install the latest version of the fasta3 package from
+<a href='http://fasta.bioch.virginia.edu/wrpearson/fasta'>fasta.bioch.virginia.edu/wrpearson/fasta</a>, you may want to join the fasta_list
+sympa mailing list.  I plan to use this list to announce new
+releases and solicit bug reports.
+<p />
+To join the mailing list, go to:
+<p />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href='http://lists.virginia.edu/sympa/info/fasta_list'>lists.virginia.edu/sympa/info/fasta_list</a>
+
+<p />Select <b>subscribe</b> from the lower left of the page, and on
+the linked page, enter your email address, and press <b>submit</b>.
+You will be asked to confirm your intention to join the list.
+<!-- CONTENT END -->
+</td>
+</tr>
+</table>
+
+</body>
+</html>
