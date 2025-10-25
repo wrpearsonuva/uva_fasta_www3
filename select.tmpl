@@ -51,14 +51,14 @@ var annot2_def = 'ann2_null';
 <!-- /TMPL_LOOP -->
 <tr>
 <td>
-<form name='ridform' action="fasta_www.cgi">
+<form name='ridform' action="fasta_www.pl">
 <input type="hidden" name="rm" value="retrieve" />
 Retrieve result <b>RID:</b> <input type="text" size="15" name="RID" />
 <input type="submit" name="submit" value="Get result" />
 </form>
 </td>
 <td>
-<a href="fasta_www.cgi?rm=status">Show recent searches</a>
+<a href="fasta_www.pl?rm=status">Show recent searches</a>
 </td>
 </tr>
 </table>
@@ -181,7 +181,7 @@ Annotate Query Sequence (SwissProt accessions)<br />
 </table>
 </td>
 <td align="center">
-<input type="submit" name="input" value="Search Database" onclick="this.form.rm.value='<!-- TMPL_VAR NAME=RUN_MODE -->'; this.form.action='fasta_www.cgi'; this.form.target='_self';" />
+<input type="submit" name="input" value="Search Database" onclick="this.form.rm.value='<!-- TMPL_VAR NAME=RUN_MODE -->'; this.form.action='fasta_www.pl'; this.form.target='_self';" />
 </td>
 </tr>
 <tr>
