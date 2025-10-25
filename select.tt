@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>[% TITLE %]</title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script src="def_select.js" type="text/javascript" language="JavaScript">
+</script>
+<script type="text/javascript">
+function OnSubmitForm()
+{
+  var pgm = document.myform['pgm'].options[document.myform['pgm'].selectedIndex].text;
+
+  document.myform.method ="post";
+  document.myform.enctype ="multipart/form-data";
+
+  if (pgm.indexOf("SSEARCH") == 0 ) {
+      document.myform.action = "[% SSEARCH_URL %]" ;
+  }
+  else {
+      document.myform.action ="[% SEARCH_URL %]";
+  }
+  return true;
+}
+</script>
+</head>
+<body onload='update_pgm(document.myform)'>
+<!-- $Id: select.tmpl,v 1.32 2007/01/13 19:09:27 wrp Exp $ -->
+<form name="myform" action="" onsubmit="return OnSubmitForm();">
+
+<table>
+[% FOREACH LINKS_H IN LINKS_LIST %]
+<tr>
+<td class="pgm_list" width="40%">[% LINKS_H.LINK %]</td>
+[% IF LINKS_h.ROWS %]
+<td  valign="top" rowspan="[% LINKS_H.ROWS %]">[% LINKS_H.TEXT %]</td>
+[% END %]
+</tr>
+[% END %]
+</table>
+<hr />
+<!--
+<p />I am coming from: <b> [% R_HOST %] </b>
+I am going to: <b> [% C_HOST %] </b>
+%]
+<p />
+<b><font size="+1">Choose:</font> <strong>(A) Program</strong>, <strong>(B) Query (sequence/accession)</strong>, <strong>(C) Database</strong> and <strong>(D) Start Search:</strong></b>
+<hr />
+<p />
+<input type="hidden" name="rm" value="[% RUN_MODE %]" />
+<input type="hidden" name="rem_rm" value="[% REM_RUN_MODE %]" />
+<p />
+<table>
+<tr>
+<td>
+<b><strong>(A) Program:</strong></b>
+<select name="pgm" onchange="update_pgm(this.form)">
+[% FOR H IN SEARCH_PGM %] <option [% H.PGM_SEL %] value="[% H.PGM_VAL %]">[% H.PGM_DESC %]</option>
+[% END %]</select>
+</td>
+[% OPTION1 %]
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr><td colspan="2" align="left">
+<b><strong>(B) Query sequence:&nbsp;</strong></b>
+<select name="q_type">
+  <option value="fa">FASTA format</option>
+  <option [% SEARCH_FRM_ACC %] value="acc">Accession/GI number</option>
+</select>
+
+<b>Subset range:</b>
+<input type="text" name="ssr" maxlength="10" size="10" value="[% SSR %]" /> <input type="checkbox" name="ssr_flag" value="1" />Use Subset range
+</td>
+</tr>
+<tr>
+<td><textarea name="query" rows="6" cols="60" >[% SEARCH_QUERY %]</textarea>
+</td>
+<td valign="middle">
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Protein" target="entrez_window">Entrez protein sequence browser</a><br /><br />
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Nucleotide" target="entrez_window">Entrez DNA sequence browser</a>
+<br />
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<table width="100%">
+<tr>
+<td>
+<input type="radio" name="sq_type" value="1" checked="checked" onclick="new_seqtype(this.form,1)" />Protein
+<input type="radio" name="sq_type" value="2" onclick="new_seqtype(this.form,2)" />DNA (both-strands)
+<input type="radio" name="sq_type" value="3" onclick="new_seqtype(this.form,3)" />DNA (forward only)
+<input type="radio" name="sq_type" value="4" onclick="new_seqtype(this.form,4)" />DNA (rev-comp only)
+</td>
+<td align="right">
+<div id="asn_file0"><a href="pssm_help.html" target="pssm_help">Use PSSM</a>: <input type="checkbox" name="enable_pssm" value="1" onclick="if (enable_pssm.checked == 1) { document.getElementById('asn_file').style.display = 'block';} else {document.getElementById('asn_file').style.display = 'none';}" /></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+[% IF MSA_PSSM_FILE %]
+<tr>
+<td colspan="2">[% MSA_PSSM_FILE %]</td>
+</tr>
+[% END %]
+<tr><td colspan="2"><hr /></td></tr>
+<!-- display the database table %]
+<tr>
+<th align="left"><strong>(C) Database:</strong></th>
+<th align="center"> <strong>(D) Start Search</strong> </th>
+</tr>
+<tr>
+<td>
+<table>
+<tr>
+<th align="left">Protein</th>
+<th align="left">DNA</th>
+</tr>
+<tr>
+<td width="50%">
+<select name="p_lib">
+[% FOR P IN LIB_P %] <option value="[% P.LIB_VAL %]">[% P.LIB_DESC %]</option>
+[% END %]</select>
+</td>
+<td width="50%">
+<select name="n_lib">
+[% FOR N IN LIB_N %] <option value="[% N.LIB_VAL %]">[% N.LIB_DESC %]</option>
+[% END %]</select>
+</td>
+</tr>
+</table>
+</td>
+<td align="center">
+<input type="submit" name="input" value="Search Database" />
+</td>
+</tr>
+<tr>
+<td>[% IF LIB_OPT %][% LIB_OPT %][% ELSE %]&nbsp;[% END %]</td>
+<td align="center"><input type="reset" name="reset" /><br />
+[% IF DEBUG %]
+<input type="checkbox" name="DEBUG" value="1" />debug
+[% END %]
+[% IF SHOW_REMOTE %]
+<input type="checkbox" name="remote" value="1" />remote
+[% END %]
+</td>
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr>
+<td>
+<table>
+<tr>
+<th colspan="5" align="left">Other search options:</th>
+</tr>
+<tr>
+<td>
+<b>Scoring&nbsp;matrix:</b><br />
+<select name = "smatrix" onchange="update_gap(this.form)">
+ <option selected="selected" value="0">Blosum50</option>
+ <option value="1">Blosum62</option>
+ <option value="2">BlastP62</option>
+ <option value="3">Blosum80</option>
+ <option value="4">Pam250</option>
+ <option value="5">Pam120</option>
+ <option value="6">MD20</option>
+ <option value="7">MD10</option>
+</select>
+</td>
+<td>
+<b>open:</b><br />
+<input type="text" name="gap" maxlength="4" size="3" value='-10' />
+</td>
+<td>
+<b>ext:</b><br />
+<input type="text" name="ext" maxlength="4" size="3" value='-2' />
+</td>
+[% OPTION2 %]
+</tr>
+</table>
+</td>
+<td>
+<table>
+<tr>
+<th colspan="2" align="left">Output&nbsp;limits:</th>
+</tr>
+<tr>
+<td><b>E():</b><br /><input type="text" name="eval" maxlength="8" size="5" /></td>
+<td><b>Best&nbsp;E():</b><br /><input type="text" name="etop" maxlength="8" size="5" /></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form>
+<br />
+
+[% INCLUDE "footer.html" %]
+<p />
+[% INCLUDE "copyright.html" %]
+
+</body>
+</html>

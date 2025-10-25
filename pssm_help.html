@@ -1,0 +1,83 @@
+<html>
+<head>
+<title>Smith-Waterman searches with BLAST PSSM's</title>
+</head>
+<body>
+<hr>
+<CENTER>
+<a href="fasta_www.cgi">Search Databases with FASTA</a> | 
+<a href="fasta_www.cgi?rm=shuffle">Statistical Significance from Shuffles</a> | 
+<a href="http://fasta.bioch.virginia.edu/wrpearson/fasta/"> Get FASTA</a>
+</center>
+<hr>
+<h2>Searches with PSI-BLAST PSSM's</h2>
+<p>
+The FASTA <b>SSEARCH</b> and <b>PRSS</b> programs can use the
+Smith-Waterman algorithm to compare a BLAST Position Specific Scoring
+Matrix (Altschul, et al, 1997 <A
+href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=PubMed&cmd=Retrieve&dopt=Citation&list_uids=9254694">[Entrez]</a>)
+to a sequence database (<b>SSEARCH</b>) or evaluate the statistical
+significance of a PSSM:sequence alignment using <b>PRSS</b>.  Searches
+and shuffles using <b>SSEARCH</B> or <b>PRSS</b> use both a query
+sequence and an encoded <b>Position Specific Scoring Matrix</b>
+(PSSM).
+<p>
+Checking the option: <b>Use PSSM:</b> <input type=checkbox></input><br>
+presents an option uploading an ASN.1 PSSM file you have saved.
+<! --  or downloading PSI-BLAST RID file. -->
+<p>
+PSSMs can be obtained either with (1) the <A href="chaps.cgi"
+target=chaps>CHAPS</a> program, which takes a set of sequences, aligns
+them with Clustal (), and then produces a PSSM using PSI-BLAST, or (2)
+directly from the NCBI PSI-BLAST program after a search.  PSSM files
+saved from <A href="chaps.cgi" target=chaps>CHAPS</a> can be uploaded
+using the:
+<hr>
+Upload PSSM ASN.1 file<br>
+<input type="file" name="msa_asn_file"></input>
+<br>
+<hr>
+option that appears
+when <b>SSEARCH</b> or <b>PRSS</b> is selected as the comparison
+program.  If you upload a PSSM ASN.1 file, you must be certain that
+you use the first sequence in the multiple alignment as the query
+sequence - the <b>SSEARCH</b> and <b>PRSS</b> programs detect
+differences between the query sequence and the sequences in the PSSM,
+and will report an error if they differ.
+<p>
+PSSM's are also available from
+NCBI's <a href="http://www.ncbi.nlm.nih.gov/blast/Blast.cgi"
+target=blast>PSI-BLAST WWW site</a>.  After you have performed <b>two or more</b>
+iterations of a PSI-BLAST search, you can evaluate the statistical
+significance of the expectation value estimates from the last
+iteration by downloading the NCBI PSSM (the link is currently at the
+top/center in the <tt>Download</tt> menu, you need
+the <tt>PssmWithParameters ASN.1</tt>.  Currently, this file will only
+work if you have uploaded or pasted a FASTA sequence file in the box.
+It does not work if only an Accession number was provided.
+<p>
+Download the <tt>PssmWithParameter</tt> file, and upload using:
+<hr>
+Upload PSSM ASN.1 file<br>
+<input type="file" name="msa_asn_file"></input>
+<br>
+<hr>
+<!--
+<hr />
+Get PSSM from NCBI Blast RID:<br>
+<input type="text" name="msa_asn_rid" size=25></input>
+<br>
+<hr />
+-->
+Once again, the query sequence used for the search or shuffle must
+match the first sequence used in the PSI-BLAST search.
+<p>
+<hr>
+<CENTER>
+<a href="fasta_www.cgi">Search Databases with FASTA</a> | 
+<a href="fasta_www.cgi?rm=shuffle">Statistical Significance from Shuffles</a> | 
+<a href="http://fasta.bioch.virginia.edu/wrpearson/fasta/"> Get FASTA</a>
+</center>
+<hr>
+</body>
+</html>

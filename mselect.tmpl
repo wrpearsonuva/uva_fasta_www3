@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!-- TMPL_VAR NAME=TITLE --></title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script src="def_select2.js" type="text/javascript" language="JavaScript">
+</script>
+<script type="text/javascript">
+function OnSubmitForm()
+{
+  var pgm = document.myform['pgm'].options[document.myform['pgm'].selectedIndex].text;
+
+  document.myform.method ="post";
+  document.myform.enctype ="multipart/form-data";
+
+  if (pgm.indexOf("SSEARCH") == 0 ) {
+      document.myform.action = "<!-- TMPL_VAR NAME=SSEARCH_URL -->" ;
+  }
+  else {
+      document.myform.action ="<!-- TMPL_VAR NAME=SEARCH_URL -->";
+  }
+  return true;
+}
+</script>
+</head>
+<body onload='update_pgm(document.myform)'>
+<!-- $Id: mselect.tmpl 35 2009-10-28 18:29:25Z wrp $ -->
+<!-- $Revision$ -->
+<form name="myform" action="" onsubmit="return OnSubmitForm();">
+
+<table>
+<!-- TMPL_LOOP NAME=LINKS_LIST -->
+<tr>
+<td width="40%"><!-- TMPL_VAR NAME=LINK --></td>
+<!-- TMPL_IF NAME=ROWS -->
+<td  valign="top" rowspan="<!-- TMPL_VAR NAME=ROWS -->"><!-- TMPL_VAR NAME=TEXT --></td>
+<!-- /TMPL_IF -->
+</tr>
+<!-- /TMPL_LOOP -->
+</table>
+<hr />
+<!--
+<p />I am coming from: <b> <!-- TMPL_VAR NAME=R_HOST --> </b>
+I am going to: <b> <!-- TMPL_VAR NAME=C_HOST --> </b>
+-->
+<p />
+<b><font size="+1">Choose:</font> 
+<font color="#990000">(A) Program</font>,
+<font color="#990000">(B) Query (sequence/accession)</font>,
+<font color="#990000">(C.1) Multiple alignment or (C.2) PSSM ASN.1 file</font>,
+<font color="#990000">(D) Database</font>
+and <font color="#990000">(E) Start Search:</font></b>
+<hr />
+<p />
+<input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->" />
+<p />
+<input type="hidden" name="sq_type" value="0" />
+<table>
+<tr>
+<td>
+<b><font color="#990000">(A) Program:</font></b>
+<select name="pgm" onchange="update_pgm(this.form)">
+<!-- TMPL_LOOP NAME=SEARCH_PGM --> <option <!-- TMPL_VAR NAME=PGM_SEL --> value="<!-- TMPL_VAR NAME=PGM_VAL -->"><!-- TMPL_VAR NAME=PGM_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+<!-- TMPL_VAR NAME=OPTION1 -->
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr><td colspan="2" align="left">
+<b><font color="#990000">(B) Query sequence:&nbsp;</font></b>
+<select name="q_type">
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_FA --> value="fa">FASTA format</option>
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_ACC --> value="acc">Accession/GI number</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><textarea name="query" rows="6" cols="60"><!-- TMPL_VAR NAME=SEARCH_QUERY --></textarea>
+</td>
+<td valign="middle">
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Protein" target="entrez_window">Entrez protein sequence browser</a><br /><br />
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Nucleotide" target="entrez_window">Entrez DNA sequence browser</a>
+<br />
+</td>
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr><td colspan="2"  align="left">
+Either <b><font color="#990000">(C.1) Multiple Alignment</font></b>
+<!-- TMPL_IF NAME=MSA_FILE_UP -->
+&nbsp;&nbsp;&nbsp;
+Upload Multiple Alignment from File:&nbsp;<input type="file" name="msa_file_name" />
+<!-- /TMPL_IF -->
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<b>Or paste in multiple alignment:</b><br />
+<textarea name="msa_query" rows="6" cols="80"><!-- TMPL_VAR NAME=MSA_QUERY --></textarea>
+<p>
+or <b><font color="#990000">(C.2) Multiple Alignment:</font></b> <!-- TMPL_VAR NAME=MSA_PSSM_FILE -->
+</td>
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<!-- display the database table -->
+<tr>
+<th align="left"><font color="#990000">(D) Database:</font></th>
+<th align="center"> <font color="#990000">(E) Start Search</font> </th>
+</tr>
+<tr>
+<td>
+<table>
+<tr>
+<th align="left">Protein</th>
+<th align="left">DNA</th>
+</tr>
+<tr>
+<td width="50%">
+<select name="p_lib">
+<!-- TMPL_LOOP NAME=LIB_P --> <option value="<!-- TMPL_VAR NAME=LIB_VAL -->" <!-- TMPL_VAR NAME=LIB_SELECT -->><!-- TMPL_VAR NAME=LIB_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+<td width="50%">
+<select name="n_lib">
+<!-- TMPL_LOOP NAME=LIB_N --> <option value="<!-- TMPL_VAR NAME=LIB_VAL -->" <!-- TMPL_VAR NAME=LIB_SELECT -->><!-- TMPL_VAR NAME=LIB_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+</tr>
+<tr>
+<td><div id='annot2_div' style='display:inline;'>Annotations: <select name="annot_seq2"/>
+<option value=1 id='ann2_null' >No annotation</option>
+<option value=2 id='ann2_pfam' selected="selected">Pfam domains</option>
+<option value=3 id='ann2_pfam' >Pfam domains (PF12345)</option>
+</select>
+</div></td>
+</tr>
+</table>
+</td>
+<td align="center">
+<input type="submit" name="input" value="Submit Query"/>
+</td>
+</tr>
+<tr>
+<td><input type="checkbox" name="segflag" value="1" checked="checked" />Exclude low complexity (seg)</td>
+<td align="center">
+<!-- TMPL_IF NAME=DEBUG -->
+<input type="checkbox" name="DEBUG" value="1" />debug
+<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME=SHOW_REMOTE -->
+<input type="checkbox" name="remote" value="1" />remote
+<!-- /TMPL_IF -->
+</td>
+</tr>
+</table>
+<hr />
+<b>Other options:</b><br />
+<table>
+<tr>
+<td>
+<b>Scoring matrix:</b><br />
+<select name = "smatrix" onchange="update_gap(this.form)">
+ <option value="0">Blosum50</option>
+ <option selected="selected" value="1">Blosum62</option>
+ <option value="2">BlastP62</option>
+ <option value="3">Blosum80</option>
+ <option value="4">Pam250</option>
+ <option value="5">Pam120</option>
+ <option value="6">MD20</option>
+ <option value="7">MD10</option>
+</select>
+</td>
+<td>
+<b>open:</b><br />
+<input type="text" name="gap" maxlength="4" size="3" value='11' />
+</td>
+<td>
+<b>ext:</b><br />
+<input type="text" name="ext" maxlength="4" size="3" value='1' />
+</td>
+<!-- TMPL_VAR NAME=OPTION2 -->
+</tr>
+</table>
+<br />
+
+<b>Output limits:</b><br />
+<b>E():</b><input type="text" name="eval" maxlength="8" size="5" />
+<b>Best E():</b><input type="text" name="etop" maxlength="6" size="4" />
+<!--
+<b>scores:</b><input type="text" name="best" maxlength="3" size="3" />
+<b>alignments:</b><input type="text" name="align" maxlength="3" size="3"/>
+-->
+</form>
+<br />
+
+<!-- TMPL_INCLUDE name="footer.html" -->
+<p />
+<!-- TMPL_INCLUDE name="copyright.html" -->
+
+</body>
+</html>

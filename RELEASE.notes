@@ -1,0 +1,616 @@
+28-Aug-2023
+
+Fixes to psi2_search to use current versions of ncbi-blast+
+
+(1) changes to psisearch2_msa.pl to work with current NCBI-BLAST+ --
+    putting ClustalW in header of MSA fed to psiblast
+
+(2) remove uri_escape() from process_domain_colors.pl (breaks reading
+    of query sequence in hidden psisearch results)
+
+================================================================
+2-Jan-2014
+
+plot_domain3t.cgi has been modified to provide coordinates on separate
+outside lines with &no_embed=1.  It also distributes the offsets
+appropriately when the alignments are not the same length.
+
+================================================================
+25-Sep-2013
+
+plot_domain3t.cgi is an extension of plot_domain2t.cgi that: (1) reads
+long program/domain arguments from a file, if the "file=" and
+"offset=" arguments are provided. (2) does a better job with offsets,
+particularly for reverse complement matches.  
+
+================================================================
+6-Jun-2013
+
+A LOT of work has been done to add domain plotting to alignment displays.
+
+plot_domain2t.cgi works properly showing both the aligned domains
+(regions=) and the query and library domains (doms) whether aligned or
+not.  Most coordinate offset issues have been addressed (if a query or
+library is a sub-sequence, the annotations will typically be based on
+the full sequence, and their coordinates must be transformed).
+
+Several issues:
+
+(1) it would be better to have annot_seq run from 0 (no script) to
+top, rather than use 1 for no script.  '1' is used for no-script to
+over-ride defaults. perhaps a0 would be better.
+
+(2) there are problems with domain color consistency between qRegion and Region.
+
+================================================================
+10-April-2013
+
+The Web code has been substantially expanded to provide graphic domain
+information as an alternative to alignments and to provide more
+information about sub-alignment scoring.
+
+The following major changes have been made:
+
+(1) A new environment variable, "DOMAIN_PLOT_URL", is provided that
+allows a script to provide SVG graphics objects.  From FASTA_WWW.pm:
+
+  $ENV{'DOMAIN_PLOT_URL'} = qq(<object data="$domain_plot_url_cgi?pgm=%s&amp;q_name=%s&amp;q_cstart=%ld&amp;q_cstop=%ld&amp;q_astart=%ld&amp;q_astop=%ld&amp;l_name=%s&amp;l_cstart=%ld&amp;l_cstop=%ld&amp;l_astart=%ld&amp;l_astop=%ld&amp;regions=%s&amp;doms=%s\" width=\"660\" height=\"$svg_height\"></object>\n);
+
+where $domain_plot_url is typically "plot_domain2t.cgi".
+
+(2) if $run_href->{domain_color}=\&process_domain_colors is set, then
+    that function is run as $aln_output =
+    process_domain_colors($run_href, $pgm, $aln_output), which can add
+    colors to domains, and also insert CSS to hide/show all or
+    individual alignments.
+
+(3) various new arguments in select.tmpl allow the annotation database
+    to be set by default, and to hide alignments by default.
+
+================================================================
+20-July-2010
+
+Added system("ulimit -t $BACK_TIMEOUT; $command") to background processes to
+force them to stop after 1 hr CPU time (should be a parameter).
+
+22-June-2010
+
+rm=searchg (search genomes) not working because modes to rm=search
+(use_query, query1_type) had not been propagated to searchg.  Fixed.
+
+15-Apr-2010
+
+For some reason, < TMPL_VAR NAME=REMOTE_FILE > was not being
+interpolated properly in wait.tmpl.  As a result, the host did not
+know the neame of the remote result file.  Using <!-- TMPL_VAR
+NAME=REMOTE_FILE --> fixed things (perhaps < TMPL_VAR > fails, but
+<TMPL_VAR> works).
+
+8-Nov-2009
+
+At some point, the NCBI stopped providing their binary encoded PSSM's
+from PSI-BLAST and started providing a text-mode ASN.1
+PssmWithParameters.  The FASTA programs cannot parse text-mode ASN.1
+PSSM's, so to use the PSSMs, the installation requires the NCBI
+Toolbox program "asntool" and the file "asn/asn.all".   If asntool is
+installed in $BL_BIN_DIR and asn.all is in $BL_DATA_DIR, then the text
+ASN.1 files are converted to binary ASN.1 files, which ssearch35 and
+other programs can read.
+
+28-Oct-2009
+
+Provide fast_libs_e.www example.  More complete description of
+installation in README.
+
+CHAPS.pm allows uploading of HMM files for calibration.  The PSSM and
+HMM can be hidden on the CHAPS page using CSS.
+
+15-Oct-2009
+
+Session information is saved for searches done in the background.  A
+primitive "Status page" is available (fasta_www.cgi?rm=status), which
+allows links to previous results.
+
+13-Oct-2009
+
+Remote searching is enhanced with load.cgi, node_status.sh, and
+node_status.pl load balancing.  load.cgi reports the current load on
+node machines. node_status.pl takes a list of nodes (from
+fawww_defs.pl) and checks the current load.  node_status.sh
+continuously runs node_status.pl (sleeping for 60 sec between
+checks) and updates $LOG_DIR/node_status.log.
+
+If $LOG_DIR/node_status.log exists, then fast_www.cgi rm=remote reads
+this file and selects the node to run from the half of the nodes with
+the lowest load.  (It doesn't pick the lowest load, because the load
+status may be updated only periodically.)
+
+11-Oct-2009
+
+rm=hmm_select was not working, but has been fixed by transferring in a
+functional hmm_select.tmpl from the fasta_www2cshl version.
+hmm_search works properly, in the background.
+
+provide get_safe_filename() (which can only be a filname prefix, no
+'/' or '.' and get_safe_string().
+
+10-Oct-2009
+
+Remote searching now works.  Currently, some of the headers around the
+output are duplicated.  When "$USE_REMOTE" is enabled, the "remote()"
+function is used, which does an LWP::UserAgent POST to the remote
+machine, and immediately checks for the file name on the remote
+machine.  It then gives a local file name and remote filename (and
+remote_host) to the wait.tmpl wait page.  wait_result() has been
+modified to check for param('remote_host'), and, if it is present, it
+does the user-agent to check the status on the remote host.  If status
+is <!-- DONE -->, then the result file is downloaded to a local result
+file, and the local result_file_DONE created, which is then read and
+displayed as usual.
+
+4-Oct-2009
+
+Only functions that need to fork() fork now.  Basically, just the
+search functions, not the shuffle/comparison functions.  lalign()
+should be given the option to fork for very long comparisons.
+
+3-Oct-2009
+
+A fork()'ing background process has been successfully implemented in
+FASTA_WWW.pm.  Right now, for every function (even those that do not
+need it), the job is put into the background and a "searching ..."
+page is displayed.  When the results are finished, the "searching ..."
+page is replaced by the results.
+
+This has been successfully tested with several long sequences against
+nr.  It works.  It did uncover a problem with very large outputs
+(produced by searching very large databases) -- if there is too much
+output, then only some of the output is displayed.  The solution to
+this is to use -b 500 -d 250, which seems to allow complete results to
+be displayed.  These arguments should be available on the select page.
+
+A problem with the current strategy is that once the job has started,
+it cannot be stopped.  Moreover, for reasons I do not understand, it
+is not possible to generate a _DONE file that indicates the search is
+done (instead, we wait for the results file to become available -- I
+worry that 
+
+1-Oct-2009
+
+FASTA_WWW2_branch_20091001
+
+Start branch to allow background searches, with updates.
+
+30-Jan-2009
+
+Functions common between FASTA_WWW.pm and CHAPS.pm have been extracted
+into fawww_subs.pl.
+
+10-Nov-2008
+
+Add additional output options to the main search page to allow
+histogram to be turned on (it is now off by default), and provide -m
+0, -m 1, and -m 2 alignment options.
+
+Provide option to upload a ASN.1 PSSM file in mselect mode.
+
+14-Jan-2008
+
+Fix unfortunate bug that prevented DNA gi|number lookups from working
+properly.
+
+30-Oct-2007
+
+Modifications to CHAPS.pm, fawww_pgms.pl to support fully MUSCLE and
+T-COFFEE alignments.  Most of these changes involved slightly
+reformatting t_coffee and muscle output to fake hmmbuild into thinking
+it was clustal output.  In addition, t_coffee requires a -newtree
+file, and access to /bin/mkdir.
+
+31-Aug-2007
+
+All $*_DIR variables ($TMP_DIR, $BIN_DIR, etc) are now guaranteed not
+to end with "/", e.g. "/seqprg/bin", not "/seqprg/bin/".  Thus, all
+references to those variables can use "$TMP_DIR/$fasta_bin" rather
+than $TMP_DIR . "/" $fasta_bin.
+
+29-Aug-2007
+
+In the FASTA package, ps_lav has been changed to lav2ps, and there now
+also an lav2svg, which produces SVG output from .lav files.  This
+allows a high quality lalign35 SVG output, which is easier to edit
+(with Illustrator) than a .ps file.  As a result, there is now a
+tmp_lav.cgi, which can use dev=png,pdf, or svg.  One can then produce
+all of the graphics for a plalign35 alignment plot with the lines:
+
+  my $svg_url="tmp_lav.cgi?name=$url_psname&Z=1&del=no&size=600x$y_height&dev=svg";
+  my $gif_url="tmp_lav.cgi?name=$url_psname&Z=1&del=no&size=600x$y_height&dev=png";
+  $output .= qq(\n<pre>$err\n</pre>\n<hr />\n);
+  $output .= qq(<p /><a href="$tmp_pdfname">Click for PDF</a>\n);
+  $output .= qq(<p /><a href="$tmp_pdfname">\n);
+  $output .= qq(<object data="$svg_url" width="600" height="624" type="image/svg+xml">\n);
+  $output .= qq(<img src="$gif_url" />\n</object>\n);
+  $output .= qq(</a>\n);
+  $output .= qq(<p /><a href="$tmp_pdfname">Click for PDF</a>\n<p />\n);
+
+For Firefox and Safari, at least, the resulting output shows PNG if the
+browser is not SVG capable, and SVG if it is.
+
+14-Aug-2007
+
+Modify code in fasta_www.cgi and fawww_defs.pl to more robustly
+identify $DOCUMENT_ROOT.  In addition, modify directory for TMP_FILES
+to be outside of $DOCUMENT_ROOT, so that the writeable directory
+cannot be used to serve pages.
+
+Replace tmp_png.cgi with tmp_gs.cgi, which also writes pdf files, so that
+files are not served from a write-able directory.
+
+9-July-2007	CVS fa_www_r3b2
+
+remove \r from sequence ID's for fastacmd.
+
+30-May-2007
+
+Incorporate lalign35 -m 11, ps_lav
+
+23-April-2007
+
+Modify program names for FASTA35. 
+
+
+26-February-2007
+
+Include HTML::Entities::encode for text that could end up on an error
+page or in a <textarea> to avoid Cross Site Scripting (XSS).
+
+29-January-2007
+
+Modify include $ENV{PATH}='/usr/bin' for taint checking in down_file.cgi.
+
+Add Do_log() to CHAPS.pm, move get_hosts() from FASTA_WWW.pm to fawww_defs.pl
+for both FASTA_WWW.pm and CHAPS.pm.
+
+28-January-2007
+
+Use $ENV{DOCUMENT_ROOT} to determine location of $TMP_DIR and
+$LOG_DIR, and enable carpout on $LOG_DIR/errors.log.  This required a
+bit of work to de-taint $ENV{DOCUMENT_ROOT}, but greatly simplifies
+installations and enables carpout.
+
+13-January-2007
+
+fasta_intro.shtml, fasta_list2.shtml validate as XHTML 1.0 Transitional.
+
+12-January-2007
+
+Replace fasta_intro.html with fasta_intro.shtml, and clean up the text
+and links.
+
+Provide psi_frame.html to run PSI-search within a frame - to try to
+avoid confusion with the "real" PSI-BLAST.
+
+8-January-2007
+
+Add page, fix links, for fasta_class.shtml.
+
+Many introductory text pages on the site require that the Apache SSI
+API be enabled.  This requires "Options Includes" on the directory and
+
+    AddType text/html .shtml
+    AddHandler server-parsed .shtml
+
+3-January-2007
+
+Several files have been added to provide a more attractive entry to
+the programs.  In addition, CSS is used to provide a more consistent
+appearance.  The "fastm" program, which compares ordered peptides or
+DNA sequences to a protein or DNA database has been added to the
+search menu.
+
+Taint checking (-Tw) has been added to fasta_www.cgi and chaps.cgi.
+chaps2.tmpl and chaps3.cgi have been removed.
+
+20-December-2006
+
+Modify various calls to File::Temp() to push a reference to $tmp_fh
+into a list, so that the reference to the file persists as long as the
+program is running.  This allows us to use UNLINK => $DEF_UNLINK, and
+delete lots of tmp files appropriately.  Without this list, files can
+be deleted to soon.
+
+13-November-2006
+
+Modify $RUN_URL, $HOST_NAME, $CGI_DIR, $SS_RUN_URL, ... to keep
+searches on the same host unless $ALT_HOST_CGI or $SS_ALT_HOST_CGI is
+set.
+
+11-November-2006
+
+rm=hmm_select2 can be used to scan an HMM against an uploaded file, or
+a list of sequences, or a database.
+
+The links surrounding output vary by function.
+
+10-November-2006	CVS fa_www_r3b0
+
+chaps.cgi/CHAPS.pm and fasta_www.cgi/FASTA_WWW.pm have been extended
+to support additional multiple alignment methods (muscle) and searches
+with HMMER Hidden Markov Models.  rm=hmm_select is available, which is
+linked to chaps.cgi.
+
+1-November-2006
+
+Modify get_ncbi() to use NCBI eutils API, rather than earlier Entrez
+URLs.  It is now possible to submit an Entrez query as an accession
+number and get back a list of sequences.
+
+Modify get_query() to overrule param('q_type') eq acc if
+param('query') starts with '>' or is longer than 100 characters.
+
+Allow rm=compare_r to be run remotely.
+
+[
+To enable a run mode to be executed remotely, one needs to:
+ (1) add CAN_REMOTE => 1 to the fawww_pgms.pl menu mode structure
+ (2) add a hidden variable to the menu name="rem_rm" value=<!-- TMPL_VAR NAME=REM_RUN_MODE -->
+ (3) add rem_remote_files if necessary to the remote run mode structure.
+]
+
+20-October-2006
+
+The "misc1_r" run-mode is now indirect as "misc1_rx", which behaves
+differently for pgm=pkd (Kyte-Doolittle, misc1_rkd) than for the other
+programs.  Adding misc1_rseg would allow the removal of the "seg"
+specific code in FASTA_WWW.pm.
+
+The code to initialize the run mode functions has been simplified and
+automated.  All the keys of %run_list are run modes pointing to
+&do_search(); all the keys of %form_list point to &do_form().  Adding
+run-modes now only requies a modification to %run_list or %form_list.
+
+18-October-2006
+
+Support for searches/shuffles with PSSM's, either produced by CHAPS or
+with NCBI's PSI-BLAST, has been extensively implemented.  Any search
+with ssearch34 or prss34 can be done with a PSSM.  PSSM's can be
+uploaded as ASN.1 files (produced by chaps.cgi or other PSI-BLAST
+runs), or they can be obtained using an NCBI RID from a PSI-BLAST
+search.
+
+PSSM's can now be uploaded from a file, as can small databases with
+the Compare Sequences page.
+
+select.tmpl and compare.tmpl have been modified to use
+enctype="multipart/form-data" so they support file uploads.
+
+The list of functions that can parse arguments has been expanded to
+include:
+   get_text2file - take a text argument and write it to a tmpfile,
+	           returning the file name)
+   get_file2file - upload a file and write it to a tmpfile
+   get_rid2file  - download a PSSM using its RID and write the
+	           unencoded version to a file
+
+Also, get_text2file, get_file2file, get_rid2file use sprintf($opt,
+$result) to provide more flexible formatting of arguments, e.g. '-P
+"pssm.asn1 2"' can now be produced.
+
+The "remote" mode has been modified to allow remote searches with
+PSSM's; this appears to work.  select.tmpl now has a REM_RUN_MODE to
+preserve the previous run mode when the run-mode has changed to
+"remote", either because of $USE_REMOTE, or because the original run
+mode was "search" but the "remote" option was selected, so do_search()
+calls remote(), setting the original run mode parameter (rem_rm).
+
+Run modes can now have pgm dependent sub-modes. For example,
+
+   'msearch_x' => {
+       indirect => { 
+          pbp => msearch_pbp,
+	  pss => msearch_pss,
+       }
+   }
+
+so that msearch_x with pgm=pbp behaves like run mode msearch_bpb.
+
+16-October-2006
+
+Several changes have been made to provide better support for
+multiple-sequence searches.  do_form() now calls:
+    load_links() - to load the links between the other pages, and the
+		   short description.
+
+    load_vars() - to load the various template variables for the page
+		  that are otherwise static.
+
+    load_inputs() - to pre-populate the form with arguments supplied
+		    to to it (default program name, sequence accession, etc.
+
+load_inputs() can now use $form_href->{inp_dep_list} to deal with form
+argument dependencies in an ordered fashion.  For example,
+param('query') can be derived from param('mquery').
+
+After dependencies are examined, the $form_href->{inputs} are parsed.
+
+Right now, these dependencies are only used in do_form(), but they
+could also be used to provide alternative strategies for do_search()
+arguments.  The method works at the param() level; it does not use
+actual Perl variables.
+
+11-October-2006 
+
+Provide option of searching comparing two sequences where one of the
+sequences is a file of sequences or accession numbers.  Also provide
+file-upload option for mselect mode (note that currently, mselect does
+not go anywhere).
+
+7-October-2006
+
+Add a new mode, rm=mselect, which provides the form input for a search
+with a multiple alignment.  Simplify the collection of options in
+do_search using an OPTIONS hash from fawww_pgms.pl.
+
+25-September-2006
+
+Combined BLAST form menu with FASTA form menu (select.tmpl).  Combined
+all two sequence forms (lalign, shuffle, compare) into compare.tmpl.
+There are now only three template files:
+
+  select.tmpl  - for entering a query and selecting a database
+	         (rm=select, selectg, blast)
+  compare.tmpl - for entering two sequences
+	         (rm=compare, shuffle, lalign)
+  misc1.tmpl   - for entering one sequence
+
+The links at top of form pages is now template driven.  Provided
+descriptions for rm=select, selectg.  Text for descriptions is
+provided by fawww_pgm_text.pl, as is text for options.
+
+4-September-2006
+
+Changed README to RELEASE.notes, added README that lists files in
+package and perl modules.
+
+2-September-2006
+
+Both do_form() and do_search() are now fully table driven (see
+fawww_pgms.pl), with very little code specific for a single program
+(seg is the exception). Functions can have options, and post-options,
+which go before and after the query/library sequence symbols.
+do_form() gets tables from %form_list{} (fawww_pgms.pl) to produce the
+initial menu forms.  do_search() gets tables from %run_list{} to obtain
+parameters for the executing programs.
+
+Because many run modes are parsed by the same function, the number of
+run modes has increased substantially (lalign_r, blast_r, compare2,
+etc.).
+
+30-August-2006
+
+Add more parameters to rm=misc1,lalign,shuffle so that the program and
+query can be specified in a more uniform way.
+
+All the menu display functions have been greatly simplified to use
+do_menu() and a table that specifies the template file name, the
+programs, and the libraries (when appropriate).
+
+25-August-2006
+
+Incorporated rm=blast, which works properly for BLASTP and BLASTX
+searches.  BLAST searches use p_type=blast and rm=search.  Right now,
+BLAST searches do not use a FASTLIBS file, but they probably should.
+Indeed, although FASTA searches use the abbreviation to specify the
+search, this is unnecessary; it should work to simply use the library
+file name (with ENV variable expansion) that is available as the last
+argument in the FASTLIBS file.
+
+misc1.tmpl enables/disables the option strings for functions that have
+different options (Kyte-Doolittle window size, Seg domains/lower case).
+
+21-August-2006
+
+Modifications to support grease/garnier/chofas with rm=misc1.
+rm=misc1, rm=lalign, rm=shuffle, and rm=compare2 all do their actual
+work with rm=search2.  rm=misc1 looks very much like rm=lalign in
+rm=search2.  search2() function now uses $q->param("p_type") to
+choose the function to perform.  $p_type can be "shuffle2", "lalign2",
+or "misc1" (The number indicates the number of sequences involved.)
+
+Changes to make get_fastacmd() more robust.  Unfortunately, open3()
+would hang sometimes in my hands, so I have gone back to open, and now
+loose stderr.
+
+17-August-2006
+
+Modifications to support lalign/plalign with rm=lalign.  rm=lalign is
+virtually identical to rm=shuffle (using lalign.tmpl), but provides
+more complex output post-processing to support lalign's lack of HMTL
+formatting and postscript output processing for plalign.  Add the
+program tmp_png.cgi to provide the PNG image of the plalign alignment.
+
+6-June-2006
+
+Modifications to include prss/prfx shuffles with a new mode,
+rm=shuffle.  rm=shuffle uses shuffle.tmpl to display the options
+(shuffle.tmpl is very similar to compare.tmpl - the two templates
+might be merged), and then to run rm=search2 shuffle=1.
+
+28-April-2006
+
+Remote searches can be done either with rm=remote, or with
+remote=1. The logic in FASTA_WWW.pm::search() could be modified to
+allow different levels of remote, e.g. to specify that the search be
+run remotely from a remote host.  This would require the "remote"
+option to be decremented and re-sent.  One could also automatically
+check to see if remote searching were possible, and do the search
+locally if not.
+
+24-April-2006
+
+An additional run mode: rm=remote, has been added to allow remote
+script execution.
+
+The code has been modified to parse the FAST_LIBS and FAST_GNMS file
+directly to produce lists of protein and DNA sequence databases.
+fawww_libs.pl now only needs to have lists of programs and scoring
+matrices.
+
+20-April-2006
+
+The FASTA_WWW project provides a simple, full-function, FASTA WWW
+server designed for teaching.  It provides the ability to run the
+FASTA programs from a WWW site, with options for selecting programs,
+libraries, and search parameters, and, once a search is finished -
+researching the results.
+
+The program requires the following CPAN perl modules:
+
+CGI
+CGI::Application
+HTML::Template
+LWP
+
+One version of the program uses the blast (ftp.ncbi.nih.gov/blast)
+fastacmd program to extract sequences out of the NR database, so that
+searches can use accession identifiers and gi numbers, in addition to
+pasted in sequences.
+
+These scripts use GGI::Application to provide a simple, modular
+strategy for displaying pages for selecting programs and databases and
+entering query sequences, and for running searches or comparing
+sequences.  The actual page displayed, or program run, depends on the
+"run mode" (rm).
+
+Currently, two different selection pages are available:
+
+(1)  fasta_www.cgi?rm=select
+
+provides the selection page for database searches.  This page is used
+for both general purpose database searches and for searches against
+individual genomes and proteomes (fasta_www.cgi?rm=select&gnm=1).
+
+(2)  fasta_www.cgi?rm=select2
+
+provides the selection page for comparison of two sequences.
+
+In addition, there are two "run modes" for searches/comparisons,
+rm=search for searches against a comprehensive database or organism
+proteome/genome, and rm=compare for comparing two sequences.
+
+In addition to the program scripts, which are found in FASTA_WWW.pm,
+site-specific customizations are found in fasta_cgi.pl and
+fasta_libs.pl.
+
+fawww_defs.pl describes where programs and WWW scripts can be found.
+
+fawww_libs.pl lists the set of programs that can be run, and the
+databases they can be run against.  fawww_libs.pl depends greatly on
+abbreviation to file name mappings provided in a "FASTLIBS" file.
+"FASTLIBS" files are used by the FASTA programs to identify
+databases.  (A more sophisticated version of these scripts would parse
+the FASTLIBS file, rather than duplicate part of it for the WWW site.)
+
+24-April-2006
+
+An additional run mode: rm=remote

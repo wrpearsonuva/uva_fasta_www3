@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- INCLUDE CSS styles -->
+<!--#include virtual="fasta_css.html" -->
+
+<title>UVA PSI-Search Server</title>
+<!-- INCLUDE META info -->
+<!--#include virtual="fasta_meta.html" -->
+<!-- close the header, open the body, table, and sidebar -->
+</head>
+
+<body topmargin="0" vspace="0" leftmargin="0" hspace="0" marginheight="0" marginwidth="0">
+<table border="0" cellspacing="0" cellpadding="0" width="725" height="19">
+<tr>
+<td align="left" width="50%"><h2 align=left>PSI-Search at the U. of Virginia</h2></td>
+<td align="right" width="50%"><h2 align=right><a class=nd
+href="fasta_www.cgi" target="fasta_win">UVa FASTA Server</a></h2></td>
+</tr>
+<tr>
+<td class="fasta" colspan=2>
+The PSI-Search server <b>(1)</b> submits sequences to the NCBI
+PSI-Blast server,
+<b>(2)</b> retrieves the results, <b>(3)</b> calculates the
+statistical significance of the alignments using <a
+href="fasta_www.cgi?rm=select&pgm=sw">SSEARCH</a> and <a
+href="fasta_www.cgi?rm=select&pgm=rss">PRSS</a>, and then <b>(4)</b>
+adds the SSEARCH and PRSS statistical estimates to the PSI-BLAST
+output.  The SSEARCH/PRSS E()-values are then used to select sequences
+for the next iteration.
+<p>
+PSI-Search seeks to emulate PSI-Blast, but currently it does not work
+with subsets of sequences properly.<br>
+Please paste in domains, <b>do not specify a subsequence</b>.
+</td>
+</table>
+</BODY>
+</HTML>

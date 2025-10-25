@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>The FASTA ktup parameter</title>
+<link href="fasta.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<a href="fasta_class.shtml">FASTA Exercises</a>
+<hr>
+<h2>What is <i>ktup</i>?</h2>
+<p>
+Both <b>FASTA</b> and <b>BLAST</b> use a rapid word-based lookup
+strategy to speed the initial phase of the similarity search.  In
+protein searches, <b>FASTA</b> looks for pairs of aligned identical
+amino-acids, e.g.
+<pre>
+seq1   KDKEAYADRQELQDELRQEREARQKLEMMIKELKLQILKSSKTAKE
+       . ::.    .::..::..::. ::: :.. :::. .:         
+seq2   NAKEGLEKIEELEEELENERKLRQKSELQRKELESRIEELQDQLET
+         ^^      ^^  ^^  ^^  ^^^     ^^^
+</pre>
+<p>
+With <i>ktup=2</i>, <b>FASTA</b> would ignore a region like:
+<pre>
+seq1 LNKKLLNLKQAGEHLKPE
+     .....:. ..  :.:. .
+seq2 FEEEFLETREQYEKLQKD
+</pre>
+in the initial scanning phase.  Thus, searches with <i>ktup=1</i> can
+be more sensitive than searches with <i>ktup=2</i>.  However, a more
+sensitive algorithm may also raise the scores of unrelated sequences,
+so that the statistical significance of an intermediate-distance match
+is reduced, while the significance of a very distance match is improved.
+<P>
+<B>BLAST</B> also looks for initial similarities using a word-size
+(<i>ktup</i>) of 3, but <B>BLAST</B> looks for conservative
+substitutions as well as identities. Thus, <B>BLAST</B> with a
+wordsize of 3 is often more sensitive than <B>FASTA</B> with a
+<i>ktup=2</i>.
+<p>
+For DNA sequences, FASTA uses a <i>ktup=6</i> by default.  DNA
+searches with <i>ktup=3</i> are even more sensitive, but <i>ktup=1</i>
+is less sensitive (at a given statistical significance threshold) than
+<i>ktup=3</i> for DNA.  <i>ktup=1</i> is appropriate when searching for
+oligonucleotides (&lt; 20 nt).
+<hr>
+<a href="fasta_class.shtml">FASTA Exercises</a>
+</body>
+</html>

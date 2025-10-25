@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- RUNNING:< TMPL_VAR NAME=RESULT_FILE > -->
+<!--  <meta http-equiv="refresh" content="5;url=fasta_ws.cgi?rm=< TMPL_VAR RUN_MODE >&result_rm=< TMPL_VAR RESULT_RM >&result_pgm=< TMPL_VAR RESULT_PGM >&RID=< TMPL_VAR RID >" /> -->
+<script language="JavaScript">
+refresh = 2;
+function submitform() {
+//-- alert("waited " + refresh + ' sec before submit');
+document.forms['myform'].submit();
+}
+
+function onloadf(){
+  txt_refresh = "<!-- TMPL_VAR REFRESH_TIME -->";
+  if (txt_refresh) { refresh = parseInt(txt_refresh);}
+  else {refresh = 2;}
+  if (refresh < 2) { refresh = 2;}
+  if (refresh > 60) { refresh = 60;}
+  setTimeout('submitform();',refresh * 1000);
+}
+</script>
+
+<title>Searching -- please wait</title>
+
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+</head>
+<body onload='onloadf();'>
+<!-- $Id: wait.tmpl,v 1.1.2.9 2009/10/12 13:05:53 wrp Exp $ -->
+<!-- $Revision$ -->
+
+<form name="myform" action="fasta_ws.cgi" method="post">
+<input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->" />
+<input type="hidden" name="result_rm" value="<!-- TMPL_VAR NAME=RESULT_RM -->" />
+<input type="hidden" name="debug" value="<!-- TMPL_VAR NAME=DEBUG -->" />
+<input type="hidden" name="dbg_output" value="<!-- TMPL_VAR NAME=DBG_OUTPUT -->" />
+<input type="hidden" name="result_pgm" value="<!-- TMPL_VAR NAME=RESULT_PGM -->" />
+<input type="hidden" name="RID" value="<!-- TMPL_VAR NAME=RID -->" />
+<input type="hidden" name="refresh_time" value="<!-- TMPL_VAR NAME=REFRESH_TIME -->" />
+<input type="hidden" name="query_info" value="<!-- TMPL_VAR QUERY_INFO -->" />
+<input type="hidden" name="lib_info" value="<!-- TMPL_VAR LIB_INFO -->" />
+<input type="hidden" name="comments" value="<!-- TMPL_VAR COMMENTS -->" />
+<input type="hidden" name="spaces" value="<!-- TMPL_VAR NAME=SPACES -->" />
+<input type="hidden" name="s_time" value="<!-- TMPL_VAR NAME=S_TIME -->" />
+<!-- TMPL_IF REMOTE_HOST -->
+<input type="hidden" name="remote_host" value="<!-- TMPL_VAR NAME=REMOTE_HOST -->" />
+<input type="hidden" name="remote_file" value="<!-- TMPL_VAR NAME=REMOTE_FILE -->" />
+<!-- /TMPL_IF -->
+<!-- <input type="submit" name="submit" value="Check Result"/> -->
+</form>
+<!-- TMPL_INCLUDE name="footer2.html" -->
+<p>Searching ...<!-- TMPL_VAR SPACES --> Elapsed time: <!-- TMPL_VAR E_TIME --> secs<br />
+Result ID <b>RID</b>: <input type='text' name='rid' size='15' value='<!-- TMPL_VAR RID -->' /> (The <b>RID</b> can be used to retrieve long searches.)
+</p>
+<br /><b>Query: </b><!-- TMPL_VAR QUERY_INFO -->
+<!-- TMPL_IF LIB_INFO -->
+<br /><b>Library: </b><!-- TMPL_VAR LIB_INFO -->
+<!-- /TMPL_IF -->
+<br /><!-- TMPL_IF COMMENTS --><p><b>Comments:</b> <!-- TMPL_VAR COMMENTS --></p><!-- /TMPL_IF -->
+<p>  Checking in <!-- TMPL_VAR REFRESH_TIME --> sec.</p>
+<!-- TMPL_INCLUDE name="footer2.html" -->
+</body>
+</html>

@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title><!-- TMPL_VAR NAME=TITLE --></title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script src="def_select2.js" type="text/javascript"
+	language="JavaScript" />
+
+</script>
+<script type="text/javascript">
+function OnSubmitForm()
+{
+  var pgm = document.myform['pgm'].options[document.myform['pgm'].selectedIndex].text;
+
+  document.myform.method ="post";
+  document.myform.enctype ="multipart/form-data";
+
+  if (pgm.indexOf("SSEARCH") == 0 ) {
+      document.myform.action = "<!-- TMPL_VAR NAME=SSEARCH_URL -->" ;
+  }
+  else {
+      document.myform.action ="<!-- TMPL_VAR NAME=SEARCH_URL -->";
+  }
+  return true;
+}
+
+var annot1_def = "q_ann2_null";
+var annot2_def = 'ann2_null';
+<!-- TMPL_IF NAME='ANNOT1_SEQ' -->annot1_def = "q_" + annot_types[<!-- TMPL_VAR NAME='ANNOT1_SEQ' -->].id;
+<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME='ANNOT2_SEQ' -->annot2_def = annot_types[<!-- TMPL_VAR NAME='ANNOT2_SEQ' -->].id;
+<!-- /TMPL_IF -->
+
+</script>
+</head>
+<body>
+<!-- body onload='update_pgm(document.myform)' -->
+<!-- $Id: select.tmpl,v 1.36.2.2 2009/10/09 13:49:31 wrp Exp $ -->
+<!-- $Revision$ -->
+
+<table>
+<!-- TMPL_LOOP NAME=LINKS_LIST -->
+<tr>
+<td class="pgm_list" width="40%"><!-- TMPL_VAR NAME=LINK --></td>
+<!-- TMPL_IF NAME=ROWS -->
+<td  valign="top" rowspan="<!-- TMPL_VAR NAME=ROWS -->"><!-- TMPL_VAR NAME=TEXT --></td>
+<!-- /TMPL_IF -->
+</tr>
+<!-- /TMPL_LOOP -->
+<tr>
+<td>
+<form name='ridform' action="fasta_www.cgi">
+<input type="hidden" name="rm" value="retrieve" />
+Retrieve result <b>RID:</b> <input type="text" size="15" name="RID" />
+<input type="submit" name="submit" value="Get result" />
+</form>
+</td>
+<td>
+<a href="fasta_www.cgi?rm=status">Show recent searches</a>
+</td>
+</tr>
+</table>
+<hr />
+<!--
+<p />I am coming from: <b> <!-- TMPL_VAR NAME=R_HOST --> </b>
+I am going to: <b> <!-- TMPL_VAR NAME=C_HOST --> </b>
+-->
+<form name="myform" action="" enctype="multipart/form-data" onsubmit="return OnSubmitForm();">
+<p>
+<b><font size="+1">Choose:</font> <strong>(A) Program</strong>, <strong>(B) Query (sequence/accession)</strong>, <strong>(C) Database</strong> and <strong>(D) Start Search:</strong></b></p>
+<hr />
+<p>
+<input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->" />
+<input type="hidden" name="rem_rm" value="<!-- TMPL_VAR NAME=REM_RUN_MODE -->" />
+</p>
+<table>
+<tr>
+<td>
+<b><strong>(A) Program:</strong></b>
+<select name="pgm" onchange="update_pgm(this.form)">
+<!-- TMPL_LOOP NAME=SEARCH_PGM --> <option <!-- TMPL_VAR NAME=PGM_SEL --> value="<!-- TMPL_VAR NAME=PGM_VAL -->"><!-- TMPL_VAR NAME=PGM_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+<!-- TMPL_VAR NAME=OPTION1 -->
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr><td colspan="2" align="left">
+<b><strong>(B) Query sequence:&nbsp;</strong></b>
+<select name="q_type">
+  <option value="fa">FASTA format</option>
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_ACC --> value="acc">Accession/GI number</option>
+</select>
+
+<b>Subset range:</b>
+<input type="text" name="ssr" maxlength="10" size="10" value="<!-- TMPL_VAR NAME=SSR -->" /> <input type="checkbox" name="ssr_flag" value="1" />Use Subset range
+</td>
+</tr>
+<tr>
+<td><textarea name="query" rows="8" cols="60" ><!-- TMPL_VAR NAME=SEARCH_QUERY --></textarea>
+</td>
+<td valign="middle">
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Protein" target="entrez_window">Entrez protein browser</a> <br />
+<a href="http://uniprot.org" target="entrez_window">Uniprot sequence browser</a><br />
+<br />
+</td>
+</tr>
+<tr>
+<td>Or upload query from file:&nbsp;<input type="file" name="query_file" /></td></tr>
+<tr>
+<td colspan="2">
+<table width="100%">
+<tr>
+<td>&nbsp;</td>
+<td align="right">
+<div id="asn_file0"><a href="pssm_help.html" target="pssm_help">Use PSSM</a>: <input type="checkbox" name="enable_pssm" value="1" onclick="if (enable_pssm.checked == 1) { document.getElementById('asn_file').style.display = 'block'; this.form['smatrix'].disabled=true; this.form['gap'].value= -11;this.form['gap'].disabled=true; this.form['ext'].value= -1; this.form['ext'].disabled=true;} else {document.getElementById('asn_file').style.display = 'none';}" /></div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+<!-- TMPL_IF NAME=MSA_PSSM_FILE -->
+<tr>
+<td colspan="2"><!-- TMPL_VAR NAME=MSA_PSSM_FILE --></td>
+</tr>
+<!-- /TMPL_IF -->
+<tr><td colspan="2"><hr /></td></tr>
+<!-- display the database table -->
+<tr>
+<td align="left"><strong>(C) Database:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</td>
+<td align="center" valign="top"> <strong>(D) Start Search</strong> </td>
+</tr>
+<tr>
+<td>
+<table>
+<tr>
+<th align="left">Protein</th>
+<th align="left">&nbsp;</th>
+</tr>
+<tr>
+<td width="50%">
+<select name="p_lib">
+<!-- TMPL_LOOP NAME=LIB_P --> <option value="<!-- TMPL_VAR NAME=LIB_VAL -->" <!-- TMPL_VAR NAME=LIB_SELECT -->><!-- TMPL_VAR NAME=LIB_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+</td>
+<!--
+<td width="50%">
+<select name="n_lib">
+<!-- TMPL_LOOP NAME=LIB_N --> <option value="<!-- TMPL_VAR NAME=LIB_VAL -->" <!-- TMPL_VAR NAME=LIB_SELECT -->><!-- TMPL_VAR NAME=LIB_DESC --></option>
+<!-- /TMPL_LOOP --></select>
+-->
+</td>
+</tr>
+</table>
+</td>
+<td align="center">
+<input type="submit" name="input" value="Search Database" onclick="this.form.rm.value='<!-- TMPL_VAR NAME=RUN_MODE -->'; this.form.action='fasta_www.cgi'; this.form.target='_self';" />
+</td>
+</tr>
+<tr>
+<td><div id='annot2_div' style='display:inline;'>Annotations: <select name="annot_seq2"/>
+<option value=1 id='ann2_null' >No annotation</option>
+<option value=2 id='ann2_pfam' selected="selected">Pfam domains</option>
+<option value=3 id='ann2_pfam' >Pfam domains (PF12345)</option>
+</select>
+</div></td>
+</tr>
+<tr>
+<td><!-- TMPL_IF NAME=LIB_OPT --><!-- TMPL_VAR NAME=LIB_OPT --><!-- TMPL_ELSE -->&nbsp;<!-- /TMPL_IF --></td>
+<td align="center"><input type="reset" name="reset" /><br />
+<!-- TMPL_IF NAME=DEBUG -->
+<input type="checkbox" name="DEBUG" value="1" />debug
+<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME=SHOW_REMOTE -->
+<input type="checkbox" name="remote" value="1" />remote
+<!-- /TMPL_IF -->
+</td>
+</tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr><td colspan="2"><b>Comments</b> (optional):
+<input type="text" maxlength="100" size="60" name="comments" />
+</td></tr>
+<tr><td colspan="2"><hr /></td></tr>
+<tr>
+<td>
+<table>
+<tr>
+<th colspan="5" align="left">Other search options:</th>
+</tr>
+<tr>
+<td>
+</td>
+<!-- TMPL_VAR NAME=OPTION2 -->
+</tr>
+</table>
+</td>
+<!-- TMPL_IF NAME=OPTION3 --><!-- TMPL_VAR NAME=OPTION3 --><!-- /TMPL_IF -->
+<!-- TMPL_IF NAME=OPTION4 --><!-- TMPL_VAR NAME=OPTION4 --><!-- /TMPL_IF -->
+</table>
+</form>
+<!-- TMPL_INCLUDE name="footer.html" -->
+<!-- TMPL_INCLUDE name="copyright.html" -->
+
+</body>
+</html>

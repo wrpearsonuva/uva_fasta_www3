@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Misc Protein Analysis</title>
+<link rel="stylesheet" href="fasta.css" type="text/css" />
+
+<script type="text/javascript">
+var set_options;
+function update_pgm(form) {
+
+    var pgm_val = form['pgm'].options[form['pgm'].selectedIndex].value;
+
+	form.kd_window.disabled=true;
+
+/* 	form.seg_domain[0].disabled=true;
+	form.seg_domain[1].disabled=true;
+*/
+    document.getElementById('option_pkd').style.display = 'none';
+    document.getElementById('option_seg').style.display = 'none';
+	
+    if (pgm_val == 'pkd' || pgm_val == 'tkd') {
+      document.getElementById('option_pkd').style.display = 'block';
+      form.kd_window.disabled=false;
+    }
+    else if (pgm_val == 'seg') {
+        document.getElementById('option_seg').style.display = 'block';
+	form.seg_domain[0].disabled=false;
+	form.seg_domain[1].disabled=false;
+    }
+}
+</script>
+
+</head>
+<body onload='update_pgm(document.myform)'>
+<!-- $Id: misc1.tmpl 35 2009-10-28 18:29:25Z wrp $ -->
+<!-- $Revision$ -->
+<form name="myform" enctype="multipart/form-data" method="post" action="fasta_www.cgi">
+<input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->" />
+<input type="hidden" name="p_type" value="misc1" />
+<input type="hidden" name="sq_type" value="1" />
+<table>
+<!-- TMPL_LOOP NAME=LINKS_LIST -->
+<tr>
+<td class="pgm_list" width="40%"><!-- TMPL_VAR NAME=LINK --></td>
+<!-- TMPL_IF NAME=ROWS -->
+<td valign="top" rowspan="<!-- TMPL_VAR NAME=ROWS -->"><!-- TMPL_VAR NAME=TEXT --></td>
+<!-- /TMPL_IF -->
+</tr>
+<!-- /TMPL_LOOP -->
+</table>
+<!--
+<p />I am coming from: <b> <!-- TMPL_VAR NAME=R_HOST --> </b>
+I am going to: <b> <!-- TMPL_VAR NAME=C_HOST --> </b>
+-->
+<h2>Choose:</h2>
+<b> <font color="#990000">(A) Program</font>, <font color="#990000">(B)
+Protein (sequence/accession)</font> <font color="#990000">
+(C) Analyze protein:</font></b>
+<hr />
+<table>
+<tr>
+<td>
+<b><font color="#990000">(A) Program:</font></b>
+<select name="pgm" onchange="update_pgm(this.form)">
+<!-- TMPL_LOOP NAME=SEARCH_PGM --> <option <!-- TMPL_VAR NAME=PGM_SEL --> value="<!-- TMPL_VAR NAME=PGM_VAL -->"><!-- TMPL_VAR NAME=PGM_DESC --></option>
+<!-- /TMPL_LOOP --></select><br />&nbsp;
+</td>
+<td align="center">
+<div id="option_pkd">
+Window:
+<select name="kd_window">
+<option value="9" selected="selected">9</option>
+<option value="13">13</option>
+<option value="17">17</option>
+<option value="21">21</option>
+</select>&nbsp;<br />&nbsp;</div>
+<div id="option_seg">
+Show low complexity as:<br /><input type="radio" name="seg_domain" value="1" checked="checked" />Lower case<input type="radio" name="seg_domain" value="2" />Domains</div>
+</td>
+</tr>
+<tr>
+<td colspan="2">
+<hr />
+</td>
+</tr>
+<tr><td colspan="2" align="left">
+<b><font color="#990000">(B) Protein sequence:&nbsp;</font></b>
+<select name="q_type">
+  <option value="fa">FASTA format</option>
+  <option <!-- TMPL_VAR NAME=SEARCH_FRM_ACC --> value="acc">Accession/GI number</option>
+</select>
+</td>
+</tr>
+<tr>
+<td><textarea name="query" rows="6" cols="60"><!-- TMPL_VAR NAME=SEARCH_QUERY --></textarea>
+</td>
+<td valign="middle">
+<a href="http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=Protein" target="entrez_window">Entrez protein sequence browser</a>
+</td>
+</tr>
+<tr>
+<td>Upload sequence from file:&nbsp;<input type="file" name="query_file" />
+</tr>
+</table>
+<hr />
+<!-- display the database table -->
+<table>
+<tr>
+<th align="left"> <font color="#990000">(C) Do Analysis</font> </th>
+<td width="33%" align="center">
+<input type="submit" name="input" value="Submit Sequence" />
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td align="center">
+<!-- TMPL_IF NAME=DEBUG -->
+<input type="checkbox" name="DEBUG" value="1" />debug
+<!-- /TMPL_IF -->
+</td>
+</tr>
+</table>
+</form>
+<br />
+<!-- TMPL_INCLUDE name="footer.html" -->
+<p>
+<!-- TMPL_INCLUDE name="copyright.html" -->
+
+</body>
+</html>

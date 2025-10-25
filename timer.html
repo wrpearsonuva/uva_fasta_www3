@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Hello!</title>
+<meta http-equiv="refresh" content="10" />
+</head>
+<body>
+<h2>Auto-Refresh in <span id="CDTimer">???</span> secs.</h2> 
+<script language="JavaScript" type="text/javascript">
+/*<![CDATA[*/
+var TimerVal = 10;
+var TimerSPan = document.getElementById("CDTimer");
+function CountDown(){
+   setTimeout( "CountDown()", 1000 );
+   TimerSPan.innerHTML=TimerVal;
+   TimerVal=TimerVal-1;
+   if (TimerVal<0) { TimerVal=0 } //improvement by vivalibre, tq
+}
+CountDown()
+/*]]>*/
+</script>
+</body>
+</html>
