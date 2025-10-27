@@ -9,12 +9,11 @@ use strict;
 use lib qw(.);
 
 use LWP::Simple;
-use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 use CGI qw(header param);
 
-use Fawww_begin;
-
-Fawww_begin::begin_log();
+BEGIN {
+    do "Fawww_begin.pl";
+}
 
 use vars qw( $OK_CHARS $HOST_NAME $HOST_DIR $CGI_DIR $BIN_DIR 
 	     $TMP_DIR $GS_BIN $DEF_UNLINK $LAV_SVG $LAV_GS $lav_cmd

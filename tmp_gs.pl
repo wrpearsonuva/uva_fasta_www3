@@ -7,13 +7,14 @@ use strict;
 use lib qw(.);
 
 use LWP::Simple;
-use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 use CGI qw(header param);
 
+BEGIN {
+    do "Fawww_begin.pl";
+}
+
 use Fawww_begin;
-
 Fawww_begin::begin_log();
-
 
 use vars qw( $OK_CHARS $HOST_NAME $HOST_DIR $CGI_DIR $BIN_DIR
 	     $TMP_DIR $GS_BIN $PPM_BIN $LOG_FILE $lhost

@@ -4,15 +4,15 @@ use strict;
 
 use lib qw(.);
 
+BEGIN {
+    do "Fawww_begin.pl";
+}
+
 use FASTA_WS;
 
 use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 
 $ENV{PATH} = "/usr/bin";
-
-use Fawww_begin;
-
-Fawww_begin::begin_log();
 
 # uncomment for debugging from command line
 # use CGI;

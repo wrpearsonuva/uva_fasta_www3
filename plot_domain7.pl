@@ -57,14 +57,16 @@ use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 
 $ENV{PATH} = ".:/bin:/usr/bin:/seqprg/bin";
 
-use Fawww_begin;
-
-#use URI::Escape;
+BEGIN {
+    do "Fawww_begin.pl";
+}
 
 use vars qw( $OK_CHARS $HOST_NAME $HOST_DIR $CGI_DIR $BIN_DIR $SQL_DB_HOST
 	     $TMP_DIR $GS_BIN $DEF_UNLINK $LAV_SVG $LAV_GS $lav_cmd
 	     $PPM_BIN $LOG_FILE $lhost $PFAM_FAM_URL $IPRO_FAM_URL
 	     $file $device $tmp_lav $size $z_param);
+
+#use URI::Escape;
 
 require "./fawww_defs.pl";
 

@@ -1,9 +1,10 @@
-package Fawww_begin;
+
+## use in BEGIN {do Fawww_begin.pl;}
+
 use strict;
 use warnings;
 use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 
-sub begin_log {
   my $DOC_ROOT=$ENV{DOCUMENT_ROOT};
   my $DEF_ROOT = "/var/www"; # ex01/ex02
   $DOC_ROOT = $DEF_ROOT unless($DOC_ROOT);
@@ -17,8 +18,3 @@ sub begin_log {
   print STDERR "TMP_ROOT: $TMP_ROOT - DOCUMENT_ROOT: $DOC_ROOT\n";
   open(LOG, ">> $TMP_ROOT/logs/errors.log") or die "$TMP_ROOT $!";
   carpout(\*LOG);
-
-  return $TMP_ROOT;
-}
-
-1;
