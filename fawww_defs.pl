@@ -54,7 +54,7 @@ $DOC_ROOT =~ s/[^$OK_CHARS]/_/go;
 ($DOC_ROOT) = $DOC_ROOT =~ m/^\s*(.*)/;  # de-taint and remove leading spaces
 #print STDERR "ENV_DOC_ROOT: $ENV{DOCUMENT_ROOT} - DOCUMENT_ROOT: $DOC_ROOT\n";
 
-#my @TMP_ROOTL = split(/\//,$DOC_ROOT);
+my @TMP_ROOTL = split(/\//,$DOC_ROOT);
 my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp/www";
 
 unless ($TMP_ROOT) {
