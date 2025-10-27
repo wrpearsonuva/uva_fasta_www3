@@ -54,15 +54,25 @@ $DOC_ROOT =~ s/[^$OK_CHARS]/_/go;
 ($DOC_ROOT) = $DOC_ROOT =~ m/^\s*(.*)/;  # de-taint and remove leading spaces
 #print STDERR "ENV_DOC_ROOT: $ENV{DOCUMENT_ROOT} - DOCUMENT_ROOT: $DOC_ROOT\n";
 
-my @TMP_ROOTL = split(/\//,$DOC_ROOT);
-my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp";
-#my $TMP_ROOT = "/Library/WebServer/Documents/tmp";
+#my @TMP_ROOTL = split(/\//,$DOC_ROOT);
+my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp/www";
+
+unless ($TMP_ROOT) {
+    print STDERR "TMP_ROOT not defined: " .__FILE__ . "::" . __LINE__ . "\n";    
+    $TMP_ROOT = "/var/tmp/www";
+} else {
+    print STDERR "TMP_ROOT defined: " .__FILE__ . "::" .  __LINE__ . ":: $TMP_ROOT\n";
+}
+
+## $TMP_ROOT = "/var/tmp/www" unless ($TMP_ROOT);
 
 ####
 $LOG_DIR="$TMP_ROOT/logs";	# log directory
 $LOG_FILE= "$TMP_ROOT/logs/errors.log";	# error log
 $TMP_DIR="$TMP_ROOT/files";	# location for temp files
 $ENV{TMP_DIR} = $TMP_DIR;
+
+print STDERR "TMP_DIR: $TMP_DIR\n";
 
 ################
 # (2) site-specific locations for program binaries
@@ -200,6 +210,10 @@ sub Do_log
     $date = `/bin/date`;
     chop($date);
     my $log_file= $LOG_DIR . "/fasta_www.log";
+
+    print STDERR "opening fasta_www.log: $log_file\n";
+    print STDERR "log::: $date\t$r_host\t$0\t$pgm_log\n";
+
     open(LOG,">> $log_file") || return;
     print LOG "$date\t$r_host\t$0\t$pgm_log\n";
     close(LOG);

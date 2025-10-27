@@ -121,9 +121,9 @@
 
 @pgm_blist =
   (
-   {pgm=>"bp", label=>"BLASTP: protein vs protein", binary=>"blastp_annot_cmd.sh -html=1", q_sq=>0, l_sq=>0, title=>"BLASTP"},
+   {pgm=>"bp", label=>"BLASTP: protein vs protein", binary=>"blastp_annot_cmd.sh --html=1", q_sq=>0, l_sq=>0, title=>"BLASTP"},
    # {pgm=>"bn", label=>"BLASTN: DNA vs DNA", binary=>"blastall -p blastn", q_sq=>1, l_sq=>1, title=>"BLASTN"},
-   {pgm=>"bx", label=>"BLASTX: DNA vs protein", binary=>"blastp_annot_cmd.sh -html=1 --pgm=blastx", q_sq=>0, l_sq=>0, title=>"BLASTX"},
+   {pgm=>"bx", label=>"BLASTX: DNA vs protein", binary=>"blastp_annot_cmd.sh --html=1 --pgm=blastx", q_sq=>0, l_sq=>0, title=>"BLASTX"},
    # {pgm=>"tn", label=>"TBLASTN: protein vs DNA", binary=>"blastall -p tblastn", q_sq=>0, l_sq=>1, title=>"TBLASTN"},
   );
 
