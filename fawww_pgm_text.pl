@@ -462,7 +462,7 @@ $psi2_footer = <<EOS ;
 <hr />
 <center>
 <a href="fasta_www.cgi?rm=psi2_select">Search Databases with PSI-SEARCH2</a> |
-<a href="fasta_www.cgi?rm=search">Search Databases with FASTA/SSEARCH</a> |
+<a href="fasta_www.cgi?rm=select">Search Databases with FASTA/SSEARCH</a> |
 <a href="fasta_www.cgi?rm=status">Search Status</a>
 </center>
 <hr />

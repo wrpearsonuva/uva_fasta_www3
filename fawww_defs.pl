@@ -47,6 +47,8 @@ $DOC_ROOT = $DEF_ROOT unless($DOC_ROOT);
 
 $SQL_DB_HOST="wrpa48.bioch.virginia.edu";
 
+$ENV{SQL_DB_HOST}=$SQL_DB_HOST;
+
 ####
 # variables/script used to set temporary file directory
 #
