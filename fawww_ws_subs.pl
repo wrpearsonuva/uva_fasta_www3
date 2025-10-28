@@ -2,7 +2,7 @@
 # Base URL for service
 my $baseUrl = 'http://wwwdev.ebi.ac.uk/Tools/services/rest/fasta';
 
-my $scriptName = "fasta_ws.cgi";
+my $scriptName = "fasta_ws.pl";
 
 sub rest_request {
 	my $requestUrl = shift;
