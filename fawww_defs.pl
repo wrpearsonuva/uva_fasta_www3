@@ -60,11 +60,12 @@ my @TMP_ROOTL = split(/\//,$DOC_ROOT);
 my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp/www";
 
 unless ($TMP_ROOT) {
-    print STDERR "TMP_ROOT not defined: " .__FILE__ . "::" . __LINE__ . "\n";    
+##    print STDERR "TMP_ROOT not defined: " .__FILE__ . "::" . __LINE__ . "\n";    
     $TMP_ROOT = "/var/tmp/www";
-} else {
-    print STDERR "TMP_ROOT defined: " .__FILE__ . "::" .  __LINE__ . ":: $TMP_ROOT\n";
 }
+## else {
+##    print STDERR "TMP_ROOT defined: " .__FILE__ . "::" .  __LINE__ . ":: $TMP_ROOT\n";
+## }
 
 ## $TMP_ROOT = "/var/tmp/www" unless ($TMP_ROOT);
 
