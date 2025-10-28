@@ -1116,7 +1116,7 @@ my $vdom_opt='';
 	 www_opts => {
 		      hide_align => { arg => \$HIDE_ALIGN, val => \&get_option, cmd_arg=>1},
 		     },
-	 submit_dest => "fasta_www.cgi",
+	 submit_dest => "fasta_www.pl",
 	 domain_color => \&process_domain_colors,
 	 header => $psi2_footer,
 	 footer => $psi2_footer,
@@ -1189,39 +1189,39 @@ my $vdom_opt='';
 %page_links =
   (
    select => { desc => qq(Search Databases with FASTA),
-	       link => qq(fasta_www.cgi?rm=select),
+	       link => qq(fasta_www.pl?rm=select),
 	     },
 
    psi2_select => { desc => qq(Search Databases with PSI-SEARCH2),
-	       link => qq(fasta_www.cgi?rm=psi2_select),
+	       link => qq(fasta_www.pl?rm=psi2_select),
 	     },
 
    rmch_select => { desc => qq(Search RPD3 with FASTA),
-	       link => qq(fasta_www.cgi?rm=rmch_select),
+	       link => qq(fasta_www.pl?rm=rmch_select),
 	     },
    selectg => { desc => qq(Search Proteomes/Genomes),
-		link => qq(fasta_www.cgi?rm=selectg)},
+		link => qq(fasta_www.pl?rm=selectg)},
    blast => { desc => qq(Search Databases with BLAST),
-	      link => qq(fasta_www.cgi?rm=blast)},
+	      link => qq(fasta_www.pl?rm=blast)},
    phmmer => { desc => qq(Search Databases with HMMER3),
-	      link => qq(fasta_www.cgi?rm=phmmer)},
+	      link => qq(fasta_www.pl?rm=phmmer)},
    mselect => { desc => qq(Search Databases with PSSMs),
-		 link => qq(fasta_www.cgi?rm=mselect)},
+		 link => qq(fasta_www.pl?rm=mselect)},
    hmm_select => { desc => qq(Search Databases with HMMs),
-		 link => qq(fasta_www.cgi?rm=hmm_select)},
+		 link => qq(fasta_www.pl?rm=hmm_select)},
    hmm_select2 => { desc => qq(Scan Sequences with HMMs),
-		 link => qq(fasta_www.cgi?rm=hmm_select2)},
+		 link => qq(fasta_www.pl?rm=hmm_select2)},
    compare => { desc => qq(Compare Two Sequences ),
-		link => qq(fasta_www.cgi?rm=compare)
+		link => qq(fasta_www.pl?rm=compare)
 	      },
    shuffle => { desc => "Statistical Significance from Shuffles",
-		link => "fasta_www.cgi?rm=shuffle"},
+		link => "fasta_www.pl?rm=shuffle"},
    lalign => { desc => "Find Internal Duplications (<b>lalign/plalign</b>)",
-	       link => "fasta_www.cgi?rm=lalign"},
+	       link => "fasta_www.pl?rm=lalign"},
    lplalign => { desc => "Find Internal Duplications (<b>lalign/plalign</b>)",
-	       link => "fasta_www.cgi?rm=lplalign"},
+	       link => "fasta_www.pl?rm=lplalign"},
    misc1 =>  { desc => "Hydropathy/Secondary-Structure/<tt>seg</tt>",
-	       link => "fasta_www.cgi?rm=misc1"}
+	       link => "fasta_www.pl?rm=misc1"}
   );
 
 %page_link_list =
