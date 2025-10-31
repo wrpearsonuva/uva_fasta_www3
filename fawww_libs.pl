@@ -16,59 +16,59 @@
 # 4: library type (")
 # 5: title for output page
 
-@pgm_fslist = ({pgm=>"fap", label=>"FASTA: protein:protein", binary=>"fasta36 -p", q_sq=>0, l_sq=>0, title=>"FASTA",
+@pgm_fslist = ({pgm=>"fap", label=>"FASTA: protein:protein", binary=>"fasta36 -p -T 16", q_sq=>0, l_sq=>0, title=>"FASTA",
 	       ws_name =>"fasta",ws_opt => {stype => 'protein'}},
-	       {pgm=>"sw", label=>"SSEARCH: local protein:protein", binary=>"ssearch36 -p", q_sq=>0, l_sq=>0, title=>"SSEARCH",
+	       {pgm=>"sw", label=>"SSEARCH: local protein:protein", binary=>"ssearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"SSEARCH",
 	       ws_name=>'ssearch', ws_opt => {stype => 'protein'}},
-	      {pgm=>"gnw", label=>"GGSEARCH: global protein:protein", binary=>"ggsearch36 -p", q_sq=>0, l_sq=>0, title=>"GGSEARCH",
+	      {pgm=>"gnw", label=>"GGSEARCH: global protein:protein", binary=>"ggsearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"GGSEARCH",
 	       ws_name=>'ggsearch', ws_opt => {stype => 'protein'}},
-	      {pgm=>"lnw", label=>"GLSEARCH: global/local protein:protein", binary=>"glsearch36 -p", q_sq=>0, l_sq=>0, title=>"GLSEARCH",
+	      {pgm=>"lnw", label=>"GLSEARCH: global/local protein:protein", binary=>"glsearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"GLSEARCH",
 	       ws_name=>'glsearch', ws_opt => {stype => 'protein'}},
-	      {pgm=>"fx", label=>"FASTX: DNA vs protein", binary=>"fastx36", q_sq=>1, l_sq=>0, title=>"FASTX",
+	      {pgm=>"fx", label=>"FASTX: DNA vs protein", binary=>"fastx36 -T 16", q_sq=>1, l_sq=>0, title=>"FASTX",
 	       ws_name=>'fastx', ws_opt => {stype => 'dna'}},
-	      {pgm=>"fy", label=>"FASTY: DNA vs protein", binary=>"fasty36", q_sq=>1 , l_sq=>0, title=>"FASTY",
+	      {pgm=>"fy", label=>"FASTY: DNA vs protein", binary=>"fasty36 -T 16", q_sq=>1 , l_sq=>0, title=>"FASTY",
 	       ws_name=>'fasty', ws_opt => {stype => 'dna'}},
-	      {pgm=>"fad", label=>"FASTA: DNA:DNA", binary=>"fasta36 -n", q_sq=>1, l_sq=>1, title => "FASTA",
+	      {pgm=>"fad", label=>"FASTA: DNA:DNA", binary=>"fasta36 -n -T 16", q_sq=>1, l_sq=>1, title => "FASTA",
 	       ws_name=>'fasta', ws_opt => {stype => 'dna'}},
-	      {pgm=>"tfx", label=>"TFASTX: protein vs DNA", binary=>"tfastx36", q_sq=>0, l_sq=>1, title=>"TFASTX",
+	      {pgm=>"tfx", label=>"TFASTX: protein vs DNA", binary=>"tfastx36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTX",
 	       ws_name=>'tfastx', ws_opt => {stype => 'protein'}},
-	      {pgm=>"tfy", label=>"TFASTY: protein vs DNA", binary=>"tfasty36", q_sq=>0, l_sq=>1, title=>"TFASTY",
+	      {pgm=>"tfy", label=>"TFASTY: protein vs DNA", binary=>"tfasty36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTY",
 	       ws_name=>'tfasty', ws_opt => {stype => 'protein'}},
-	      {pgm=>"fs", label=>"FASTS: unordered peptides vs protein", binary=>"fasts36", q_sq=>0, l_sq=>0, title=>"FASTS"},
-	      {pgm=>"tfs", label=>"TFASTS: unordered peptides vs DNA", binary=>"tfasts36", q_sq=>0, l_sq=>1, title=>"TFASTS"},
-	      {pgm=>"ff", label=>"FASTF: mixed peptides vs protein", binary=>"fastf36", q_sq=>0, l_sq=>0, title=>"FASTF"},
-	      {pgm=>"tff", label=>"TFASTF: mixed peptides vs DNA ", binary=>"tfastf36", q_sq=>0, l_sq=>1, title=>"TFASTF"},
-	      {pgm=>"fmd", label=>"FASTM: ordered oligonucleotides vs DNA", binary=>"fastm36 -n", q_sq=>1, l_sq=>1, title=>"FASTA"},
-	      {pgm=>"fsd", label=>"FASTS: unordered oligonucleotides vs :DNA", binary=>"fasts36 -n", q_sq=>1, l_sq=>1, title=>"FASTA"}
+	      {pgm=>"fs", label=>"FASTS: unordered peptides vs protein", binary=>"fasts36 -T 16", q_sq=>0, l_sq=>0, title=>"FASTS"},
+	      {pgm=>"tfs", label=>"TFASTS: unordered peptides vs DNA", binary=>"tfasts36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTS"},
+	      {pgm=>"ff", label=>"FASTF: mixed peptides vs protein", binary=>"fastf36 -T 16", q_sq=>0, l_sq=>0, title=>"FASTF"},
+	      {pgm=>"tff", label=>"TFASTF: mixed peptides vs DNA ", binary=>"tfastf36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTF"},
+	      {pgm=>"fmd", label=>"FASTM: ordered oligonucleotides vs DNA", binary=>"fastm36 -n -T 16", q_sq=>1, l_sq=>1, title=>"FASTA"},
+	      {pgm=>"fsd", label=>"FASTS: unordered oligonucleotides vs :DNA", binary=>"fasts36 -n -T 16", q_sq=>1, l_sq=>1, title=>"FASTA"}
 	      );
 
 
 
-@pgm_flist = ({pgm=>"fap", label=>"FASTA: protein:protein", binary=>"fasta36 -p", q_sq=>0, l_sq=>0, title=>"FASTA",
+@pgm_flist = ({pgm=>"fap", label=>"FASTA: protein:protein", binary=>"fasta36 -p -T 16", q_sq=>0, l_sq=>0, title=>"FASTA",
 	       ws_name =>"fasta",ws_opt => {stype => 'protein'}},
-	      {pgm=>"fad", label=>"FASTA: DNA:DNA", binary=>"fasta36 -n", q_sq=>1, l_sq=>1, title => "FASTA",
+	      {pgm=>"fad", label=>"FASTA: DNA:DNA", binary=>"fasta36 -n -T 16", q_sq=>1, l_sq=>1, title => "FASTA",
 	       ws_name=>'fasta', ws_opt => {stype => 'dna'}},
-	      {pgm=>"fx", label=>"FASTX: DNA vs protein", binary=>"fastx36", q_sq=>1, l_sq=>0, title=>"FASTX",
+	      {pgm=>"fx", label=>"FASTX: DNA vs protein", binary=>"fastx36 -T 16", q_sq=>1, l_sq=>0, title=>"FASTX",
 	       ws_name=>'fastx', ws_opt => {stype => 'dna'}},
-	      {pgm=>"fy", label=>"FASTY: DNA vs protein", binary=>"fasty36", q_sq=>1 , l_sq=>0, title=>"FASTY",
+	      {pgm=>"fy", label=>"FASTY: DNA vs protein", binary=>"fasty36 -T 16", q_sq=>1 , l_sq=>0, title=>"FASTY",
 	       ws_name=>'fasty', ws_opt => {stype => 'dna'}},
-	      {pgm=>"tfx", label=>"TFASTX: protein vs DNA", binary=>"tfastx36", q_sq=>0, l_sq=>1, title=>"TFASTX",
+	      {pgm=>"tfx", label=>"TFASTX: protein vs DNA", binary=>"tfastx36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTX",
 	       ws_name=>'tfastx', ws_opt => {stype => 'protein'}},
-	      {pgm=>"tfy", label=>"TFASTY: protein vs DNA", binary=>"tfasty36", q_sq=>0, l_sq=>1, title=>"TFASTY",
+	      {pgm=>"tfy", label=>"TFASTY: protein vs DNA", binary=>"tfasty36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTY",
 	       ws_name=>'tfasty', ws_opt => {stype => 'protein'}},
-	      {pgm=>"fs", label=>"FASTS: unordered peptides vs protein", binary=>"fasts36", q_sq=>0, l_sq=>0, title=>"FASTS"},
-	      {pgm=>"tfs", label=>"TFASTS: unordered peptides vs DNA", binary=>"tfasts36", q_sq=>0, l_sq=>1, title=>"TFASTS"},
-	      {pgm=>"ff", label=>"FASTF: mixed peptides vs protein", binary=>"fastf36", q_sq=>0, l_sq=>0, title=>"FASTF"},
-	      {pgm=>"tff", label=>"TFASTF: mixed peptides vs DNA ", binary=>"tfastf36", q_sq=>0, l_sq=>1, title=>"TFASTF"},
-	      {pgm=>"fmd", label=>"FASTM: ordered oligonucleotides vs DNA", binary=>"fastm36 -n", q_sq=>1, l_sq=>1, title=>"FASTA"},
-	      {pgm=>"fsd", label=>"FASTS: unordered oligonucleotides vs :DNA", binary=>"fasts36 -n", q_sq=>1, l_sq=>1, title=>"FASTA"}
+	      {pgm=>"fs", label=>"FASTS: unordered peptides vs protein", binary=>"fasts36 -T 16", q_sq=>0, l_sq=>0, title=>"FASTS"},
+	      {pgm=>"tfs", label=>"TFASTS: unordered peptides vs DNA", binary=>"tfasts36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTS"},
+	      {pgm=>"ff", label=>"FASTF: mixed peptides vs protein", binary=>"fastf36 -T 16", q_sq=>0, l_sq=>0, title=>"FASTF"},
+	      {pgm=>"tff", label=>"TFASTF: mixed peptides vs DNA ", binary=>"tfastf36 -T 16", q_sq=>0, l_sq=>1, title=>"TFASTF"},
+	      {pgm=>"fmd", label=>"FASTM: ordered oligonucleotides vs DNA", binary=>"fastm36 -n -T 16", q_sq=>1, l_sq=>1, title=>"FASTA"},
+	      {pgm=>"fsd", label=>"FASTS: unordered oligonucleotides vs :DNA", binary=>"fasts36 -n -T 16", q_sq=>1, l_sq=>1, title=>"FASTA"}
 	      );
 
-@pgm_slist = ({pgm=>"sw", label=>"SSEARCH: local protein:protein", binary=>"ssearch36 -p", q_sq=>0, l_sq=>0, title=>"SSEARCH",
+@pgm_slist = ({pgm=>"sw", label=>"SSEARCH: local protein:protein", binary=>"ssearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"SSEARCH",
 	       ws_name=>'ssearch', ws_opt => {stype => 'protein'}},
-	      {pgm=>"gnw", label=>"GGSEARCH: global protein:protein", binary=>"ggsearch36 -p", q_sq=>0, l_sq=>0, title=>"GGSEARCH",
+	      {pgm=>"gnw", label=>"GGSEARCH: global protein:protein", binary=>"ggsearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"GGSEARCH",
 	       ws_name=>'ggsearch', ws_opt => {stype => 'protein'}},
-	      {pgm=>"lnw", label=>"GLSEARCH: global/local protein:protein", binary=>"glsearch36 -p", q_sq=>0, l_sq=>0, title=>"GLSEARCH",
+	      {pgm=>"lnw", label=>"GLSEARCH: global/local protein:protein", binary=>"glsearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"GLSEARCH",
 	       ws_name=>'glsearch', ws_opt => {stype => 'protein'}},
 	      );
 
@@ -94,19 +94,19 @@
 		 pgl => 'glsearch36',
 	       );
 
-@pgm_shuff_list = ({pgm=>"rss", label=>"PRSS: protein:protein", binary=>"ssearch36 -p", q_sq=>0, l_sq=>0, title=>"PRSS"},
-		   {pgm=>"rssd", label=>"PRSS: DNA:DNA", binary=>"ssearch36 -n", q_sq=>1, l_sq=>1, title=>"PRSS"},
-		   {pgm=>"rfx", label=>"PRFX: DNA:protein", binary=>"fastx36", q_sq=>1, l_sq=>0, title=>"PRFX"},
+@pgm_shuff_list = ({pgm=>"rss", label=>"PRSS: protein:protein", binary=>"ssearch36 -p -T 16", q_sq=>0, l_sq=>0, title=>"PRSS"},
+		   {pgm=>"rssd", label=>"PRSS: DNA:DNA", binary=>"ssearch36 -n -T 16", q_sq=>1, l_sq=>1, title=>"PRSS"},
+		   {pgm=>"rfx", label=>"PRFX: DNA:protein", binary=>"fastx36 -T 16", q_sq=>1, l_sq=>0, title=>"PRFX"},
 		   );
 
 @pgm_lalign_list = (
-    {pgm=>"lpal", label=>"LALIGN/PLALIGN: protein:protein", binary=>"lalign36", q_sq=>0, l_sq=>0, title=>"LALIGN/PLALIGN"},
-    {pgm=>"lal", label=>"LALIGN: protein:protein", binary=>"lalign36", q_sq=>0, l_sq=>0, title=>"LALIGN"},
-    {pgm=>"pal", label=>"PLALIGN: plot protein:protein", binary=>"lalign36", q_sq=>0, l_sq=>0, title=>"PLALIGN"},
-    {pgm=>"", label=>"---", binary=>"lalign36", q_sq=>0, l_sq=>0, title=>"PLALIGN"},
-    {pgm=>"lpald", label=>"LALIGN/PLALIGN: DNA:DNA", binary=>"lalign36", q_sq=>1, l_sq=>1, title=>"LALIGN/PLALIGN"},
-    {pgm=>"lald", label=>"LALIGN: DNA:DNA", binary=>"lalign36", q_sq=>1, l_sq=>1, title=>"LALIGN"},
-    {pgm=>"pald", label=>"PLALIGN: plot DNA:DNA", binary=>"lalign36", q_sq=>1, l_sq=>1, title=>"PLALIGN"},
+    {pgm=>"lpal", label=>"LALIGN/PLALIGN: protein:protein", binary=>"lalign36 -T 16", q_sq=>0, l_sq=>0, title=>"LALIGN/PLALIGN"},
+    {pgm=>"lal", label=>"LALIGN: protein:protein", binary=>"lalign36 -T 16", q_sq=>0, l_sq=>0, title=>"LALIGN"},
+    {pgm=>"pal", label=>"PLALIGN: plot protein:protein", binary=>"lalign36 -T 16", q_sq=>0, l_sq=>0, title=>"PLALIGN"},
+    {pgm=>"", label=>"---", binary=>"lalign36 -T 16", q_sq=>0, l_sq=>0, title=>"PLALIGN"},
+    {pgm=>"lpald", label=>"LALIGN/PLALIGN: DNA:DNA", binary=>"lalign36 -T 16", q_sq=>1, l_sq=>1, title=>"LALIGN/PLALIGN"},
+    {pgm=>"lald", label=>"LALIGN: DNA:DNA", binary=>"lalign36 -T 16", q_sq=>1, l_sq=>1, title=>"LALIGN"},
+    {pgm=>"pald", label=>"PLALIGN: plot DNA:DNA", binary=>"lalign36 -T 16", q_sq=>1, l_sq=>1, title=>"PLALIGN"},
     );
 
 @pgm_mlist =
