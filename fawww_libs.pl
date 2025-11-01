@@ -151,9 +151,11 @@
 
 @hmmp_list = (
 	      ["a","PIR1 Annotated (rel. 66)","pir1"],
-	      ["q","Swissprot (Uniprot)","uniprot_sprot"],
+              ["p","QFO20 (150K)","qfo20"],
+	      ["q","QFO78 (0.9M)","pfam34_qfo78"],
+	      ["s","Swissprot (Uniprot)","uniprot_sprot"],
 	      ["d","PDB Structures (NCBI)","pdbaa_pdb"],
-	      ["s","NCBI Refseq Proteins","refseq_protein"],
+#	      ["s","NCBI Refseq Proteins","refseq_protein"],
 #	      ["n","NCBI nr","nr"],
 	      ["w","Wormpep","wormpep"],
 	     );
