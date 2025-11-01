@@ -677,7 +677,12 @@ sub do_search {
 				      }
 		   );
 
-    my $json_params = encode_json(\%run_data);
+    my $json = JSON::PP->new();
+    $json->allow_blessed(1);
+
+    my $json_params = $json->encode(\%run_data);
+##    my $json_params = encode_json(\%run_data);
+
     $json_params = uri_encode($json_params);
 
     unless (my $pid =fork()) {
