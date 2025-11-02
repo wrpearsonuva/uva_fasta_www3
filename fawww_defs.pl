@@ -75,7 +75,7 @@ $LOG_FILE= "$TMP_ROOT/logs/errors.log";	# error log
 $TMP_DIR="$TMP_ROOT/files";	# location for temp files
 $ENV{TMP_DIR} = $TMP_DIR;
 
-print STDERR "TMP_DIR: $TMP_DIR\n";
+## print STDERR "TMP_DIR: $TMP_DIR\n";
 
 ################
 # (2) site-specific locations for program binaries
