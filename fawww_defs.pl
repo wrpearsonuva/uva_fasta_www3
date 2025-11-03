@@ -127,7 +127,7 @@ $DEF_RELIB_AA="q";  # on my system, "q" is swissprot.
 $NODE_STATUS_FILE="$TMP_ROOT/logs/node_status.log";
 # location of scripts on node
 $NODE_RUN_DIR="/fasta_www3";
-$NODE_RUN_CGI="/fasta_www3/fasta_www.pl";
+$NODE_RUN_CGI="/fasta_www3/fasta_www.cgi";
 ####
 # list of hosts to distribute across
 #@NODE_HOSTS = qw( ex01 ex01 ex02 ex02);
@@ -159,17 +159,17 @@ $CGI_DIR = "";
 #$RUN_URL="fasta_www.cgi";	# fasta_www.cgi -- should not be needed,
                                 # FASTA_WWW.pm has $ENV{SCRIPT_NAME}
 $RUN_URL = $ENV{SCRIPT_NAME} unless ($RUN_URL);
-$RUN_URL = "fasta_ws.pl" unless($RUN_URL);
+$RUN_URL = "fasta_ws.cgi" unless($RUN_URL);
 
-$DOMAIN_PLOT_URL = "plot_domain7.pl";
+$DOMAIN_PLOT_URL = "plot_domain7.cgi";
 
 ####
 # allow some searches on other hosts.  Disabled by default
 $SS_ALT_HOST_CGI = 0;
 $SS_HOST_NAME="http://wrp-rpi5.local:8080/";
 $SS_CGI_DIR="fasta_www3/";
-$SS_RUN_URL="fasta_www.pl";
-$WS_RUN_URL="fasta_ws.pl";
+$SS_RUN_URL="fasta_www.cgi";
+$WS_RUN_URL="fasta_ws.cgi";
 
 # machines to do searches on (can be several ALT_HOSTS running seach_run.pl
 #@ALT_HOSTS = qw( fasta.bioch.virginia.edu );

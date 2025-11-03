@@ -93,7 +93,7 @@ EOS
       $this_iter = $run_data_hr->{this_iter} = 2;
     }
 
-    my $submit_dest = "fasta_www.pl";
+    my $submit_dest = "fasta_www.cgi";
     if (defined($run_href->{submit_dest} && $run_href->{submit_dest})) {
       $submit_dest = $run_href->{submit_dest};
     }
@@ -414,7 +414,7 @@ EOS
 	    #      $line .= qq(<object type="image/svg+xml" data="$svg_obj" width="$width" height="$height"></object>\n);
 	    $output .= "$svg_obj";
 	    my $gff_link = $link_mod_cgi_pgm;
-	    $gff_link =~ s/domain7\.pl/domain_gff.pl/;
+	    $gff_link =~ s/domain7\.cgi/domain_gff.cgi/;
 
 	    $output .= qq(<a href="$link_mod_cgi_pgm" target='svg_win'>[Domains]</a><a href="$gff_link" target='gff_win'>[GFF]</a>\n);
 	    next;
@@ -428,7 +428,7 @@ EOS
 	    my $link_mod_cgi_pgm = $mod_cgi_pgm . "&amp;mag=1.5&amp;no_embed=1";
 	    $output .= qq(<object type="image/svg+xml" data="$mod_cgi_pgm" width="$width" height="$height"></object>);
 	    my $gff_link = $link_mod_cgi_pgm;
-	    $gff_link =~ s/domain7\.pl/domain_gff.pl/;
+	    $gff_link =~ s/domain7\.cgi/domain_gff.cgi/;
 	    $gff_link .= '&amp;bed_fmt=1';
 
 	    $output .= qq(<a href="$link_mod_cgi_pgm" target='svg_win'>[Domains]</a><a href="$gff_link" target='svg_win'>[BED]</a>\n);
@@ -450,7 +450,7 @@ EOS
 	  $line =~ s/\n$//s;
 	  my $link_mod_cgi_pgm = $mod_cgi_pgm . '&amp;mag=1.5&amp;no_embed=1';
 	  my $gff_link = $link_mod_cgi_pgm;
-	  $gff_link =~ s/domain7\.pl/domain_gff.pl/;
+	  $gff_link =~ s/domain7\.cgi/domain_gff.cgi/;
 	  $gff_link .= '&amp;bed_fmt=1';
 
 	  $line .= qq(<a href="$link_mod_cgi_pgm" target='svg_win'>[Domains]</a><a href="$gff_link" target='svg_win'>[BED]</a>\n);

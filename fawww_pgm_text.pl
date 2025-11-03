@@ -10,7 +10,7 @@ its size greatly reduces sensitivity.  The best first choice for
 searching is a genome database from a closely related organism
 (e.g. <b>RefSeq Human</b> for vertebrates).
 <p>
-The <a href="fasta_www.pl?rm=selectg">Individual
+The <a href="fasta_www.cgi?rm=selectg">Individual
 Proteomes/Genomes</a> page provides searches against selected prokaryotes.
 </p>
 <p>
@@ -22,7 +22,7 @@ EOS
 $select_opt1 = <<EOS ;
 <td align="center">
 Compare your own sequences:<br />
-<input type="submit" name="compare2" value="Compare sequences" onclick="this.form.rm.value='compare'; this.form.action='fasta_www.pl'; this.form.target='_self';" />
+<input type="submit" name="compare2" value="Compare sequences" onclick="this.form.rm.value='compare'; this.form.action='fasta_www.cgi'; this.form.target='_self';" />
 </td>
 EOS
 
@@ -87,7 +87,7 @@ EOS
 $selectg_text = <<EOS
 This page provides a selection of prokaryotic and fungal genomes, as well as
 <i>C. elegans</i> and <i>Drosophila</i>.  Complete mammalian genomes
-are available on the <a href="fasta_www.pl?rm=select">Comprehensive
+are available on the <a href="fasta_www.cgi?rm=select">Comprehensive
 Database</a> FASTA search page.
 <p>
 <!--#include virtual="fasta_page_inc.html" -->
@@ -346,7 +346,7 @@ EOS
 
 $blast_text = <<EOS
 This <b>BLAST</b> website is for demonstration purposes; it provides
-the same protein databases as the <a href="fasta_www.pl">FASTA</a>
+the same protein databases as the <a href="fasta_www.cgi">FASTA</a>
 WWW site.
 <p>
 For reliable <b>BLAST</b> searches, use the <a
@@ -377,7 +377,7 @@ EOS
 
 $psiblast_text = <<EOS
 This <b>PSI-BLAST</b> website is for demonstration purposes; it provides
-the same protein databases as the <a href="fasta_www.pl">FASTA</a>
+the same protein databases as the <a href="fasta_www.cgi">FASTA</a>
 WWW site, and allows one to search with either PSI-BLAST or PSI-SEARCH.
 <p>
 For reliable <b>BLAST</b> searches, use the <a
@@ -391,7 +391,7 @@ EOS
     ;
 
 $phmmer_text = <<EOS
-This <b>PHMMER</b> provides the same search libraries as <a href="fasta_www.pl?rm=select">FASTA</a> and <a href="fasta_www.pl?rm=blast">BLAST</a>.
+This <b>PHMMER</b> provides the same search libraries as <a href="fasta_www.cgi?rm=select">FASTA</a> and <a href="fasta_www.cgi?rm=blast">BLAST</a>.
 </p>
 <p>
 <!--#include virtual="fasta_page_inc.html" -->

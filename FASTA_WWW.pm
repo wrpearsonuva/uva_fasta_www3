@@ -174,7 +174,7 @@ sub do_form {
   load_inputs($form_href,$tmpl,$q);
 
 # this seems a bit out of place, it could be done by load_form()
-# and $RUN_URL is always fasta_www.pl (though it could have a run-mode)
+# and $RUN_URL is always fasta_www.cgi (though it could have a run-mode)
 #
 
 # these could  be changed for more sophisticated re-searching
@@ -1001,14 +1001,14 @@ sub status_result {
       my $result_file = $ses_params_hr->{result_file};
       my $result_link = "";
       if (-e "$TMP_DIR/$result_file".".res_DONE") {
-	$result_link = qq(<a href="fasta_www.pl?rm=retrieve&RID=$result_file">$result_file</a>);
+	$result_link = qq(<a href="fasta_www.cgi?rm=retrieve&RID=$result_file">$result_file</a>);
       }
       elsif ($ses_params_hr->{remote_host}) {
 	if (check_remote_result($q,
 				$ses_params_hr->{remote_host},
 				$ses_params_hr->{remote_file},
 				$result_file)) {
-	  $result_link = qq(<a href="fasta_www.pl?rm=retrieve&RID=$result_file">$result_file</a>);
+	  $result_link = qq(<a href="fasta_www.cgi?rm=retrieve&RID=$result_file">$result_file</a>);
 	}
 	else {$result_link=$result_file;}
       }
@@ -1171,7 +1171,16 @@ sub display_result {
 # check to see if program generates html output
 #
     if ($run_href->{no_html}) {
-      $output .= "<p />\n<pre>$err</pre>\n<hr /><p />\n<pre>\n$run_output\n</pre>\n";}
+	if ($err) {
+	    $output .= "<p />\n<pre>$err</pre>\n<hr /><p />\n";
+	}
+	if ($run_output) {
+	    $output .= "<pre>\n$run_output\n</pre>\n";
+	}
+	else {
+	    $output .= "<pre>\n***No run output***\n</pre>\n";
+	}
+    }
     else {
       if (!$raw_mode && !$on_remote && $run_href->{domain_color}) {
 	$output .= $run_href->{domain_color}($run_href, $run_data_hr, $pgm, $run_output,$self->query);
@@ -2183,7 +2192,7 @@ sub set_url_envs {
   my ($q, $run_href) = @_;
   my $gnm_str = $run_href->{link_url_ref};;
 
-  $ENV{'REF_URL'} = qq(<a href="seq_info.pl?db=%s&amp;cmd=Search&amp;term=%s&amp;doptcmdl=DocSum">Sequence Lookup</a>&nbsp;&nbsp;);
+  $ENV{'REF_URL'} = qq(<a href="seq_info.cgi?db=%s&amp;cmd=Search&amp;term=%s&amp;doptcmdl=DocSum">Sequence Lookup</a>&nbsp;&nbsp;);
 
 #   $ENV{'SRCH_URL'} = qq(<a href="$search_url_cgi?rm=search$gnm_str&amp;query=%s&amp;q_type=acc&amp;db=%s&amp;lib=%s&amp;pgm=%s&amp;start=%ld&amp;stop=%ld&amp;n1=%d&amp;o_pgm=%s\">Re-search database</a>&nbsp;&nbsp;);
 
@@ -2390,9 +2399,9 @@ sub process_svg_out {
     $dopts = "&". join("&",values(%$dopts_ref));
   }
 
-  my $tmp_pdfname = "tmp_lav.pl?name=$url_psname&Z=1&del=no&size=6000x$y_height"."0&dev=pdf" . $dopts;
-  my $svg_url="tmp_lav.pl?name=$url_psname&Z=1&del=no&size=660x$y_height&dev=svg" . $dopts;
-  my $gif_url="tmp_lav.pl?name=$url_psname&Z=1&del=no&size=660x$y_height&dev=png" . $dopts;
+  my $tmp_pdfname = "tmp_lav.cgi?name=$url_psname&Z=1&del=no&size=6000x$y_height"."0&dev=pdf" . $dopts;
+  my $svg_url="tmp_lav.cgi?name=$url_psname&Z=1&del=no&size=660x$y_height&dev=svg" . $dopts;
+  my $gif_url="tmp_lav.cgi?name=$url_psname&Z=1&del=no&size=660x$y_height&dev=png" . $dopts;
 
   my $output = "";
 
@@ -2489,9 +2498,9 @@ sub process_ps_out {
     $dopts = "&". join("&",values(%$dopts_ref));
   }
 
-  my $tmp_pdfname = "tmp_gs.pl?name=$url_psname&del=no&size=6000x$y_height"."0&dev=pdf" . $dopts;
+  my $tmp_pdfname = "tmp_gs.cgi?name=$url_psname&del=no&size=6000x$y_height"."0&dev=pdf" . $dopts;
 
-  my $gif_url="tmp_gs.pl?name=$url_psname&del=no&size=600x$y_height&dev=png" . $dopts;
+  my $gif_url="tmp_gs.cgi?name=$url_psname&del=no&size=600x$y_height&dev=png" . $dopts;
   my $output .= qq(\n<pre>$err\n</pre>\n<hr />\n);
   $output .= qq(<p /><a href="$tmp_pdfname">Click for PDF</a>\n);
   $output .= qq(<p /><a href="$tmp_pdfname"><IMG SRC="$gif_url" ALT="[PNG image]"></a>\n);

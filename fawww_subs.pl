@@ -454,7 +454,13 @@ sub get_ncbi {
 	       . "retstart=$retstart&retmax=$retmax&"
                . "db=$db&query_key=$querykey&WebEnv=$webenv";
 
-	    $efetch .= get($url);
+	    my $this_fetch = get($url);
+	    if ($this_fetch) {
+	      $efetch .= $this_fetch;
+	    }
+	    else {
+	      print STDERR "get(url) empty count: $count restart:$restart url: $url\n";
+	    }
 	}
 #	print STDERR $efetch;
 	if ($efetch =~ m/\|sp\|/) {
