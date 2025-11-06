@@ -93,7 +93,7 @@ MSA method:
 <td width=40% align=right><input type="reset" value="Reset Form"></td>
 <td width=20% align=center><input type="submit" value="Download Multiple Alignment" onClick="this.form.rm.value='clustal'; this.form.action='down_file.cgi';"></td>
 <td align=left>
-<input type="submit" value="Send to PSI-BLAST" onClick="window.open('', 'psisearch', 'scrollbars=yes,toolbar=yes,menubar=yes,resizable=yes,location=yes,statusbar=yes'); this.form.target='psisearch'; this.form.rm.value='mselect'; this.form.action='fasta_www.pl';"></td>
+<input type="submit" value="Send to PSI-BLAST" onClick="window.open('', 'psisearch', 'scrollbars=yes,toolbar=yes,menubar=yes,resizable=yes,location=yes,statusbar=yes'); this.form.target='psisearch'; this.form.rm.value='mselect'; this.form.action='fasta_www.cgi';"></td>
 <!--
 <td width=40% align=left><input type="submit" value="Send to PSI-BLAST" onClick="window.open('', 'psiblast', 'scrollbars=yes,toolbar=yes,menubar=yes,resizable=yes,location=yes'); this.form.target='psiblast'; this.form.action='pblast_frm.cgi';"></td>
 -->
@@ -140,7 +140,7 @@ Show HMM: <input type="checkbox" checked name="show_hmm" value="1" onClick="show
 <td width=20% align=center><input type="submit" value="Download HMM" onClick="this.form.rm.value='hmm'; this.form.action='down_file.cgi';"></td>
 <td> 
 <input type="hidden" name="hmm_query">
-<input type="submit" value="Send HMM to HMMSearch" onClick="this.form.rm.value='hmm_select'; this.form.hmm_query.value=this.form.hmm.value; this.form.action='fasta_www.pl';">
+<input type="submit" value="Send HMM to HMMSearch" onClick="this.form.rm.value='hmm_select'; this.form.hmm_query.value=this.form.hmm.value; this.form.action='fasta_www.cgi';">
 </td>
 </tr>
 </table>

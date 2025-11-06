@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <!-- RUNNING:<!-- TMPL_VAR NAME=RESULT_FILE --> -->
-<!--  <meta http-equiv="refresh" content="5;url=fasta_www.pl?rm=<!-- TMPL_VAR NAME=RUN_MODE -->&result_rm=<!-- TMPL_VAR NAME=RESULT_RM -->&result_pgm=<!-- TMPL_VAR NAME=RESULT_PGM -->&result_file=<!-- TMPL_VAR NAME=RESULT_FILE -->" /> -->
+<!--  <meta http-equiv="refresh" content="5;url=fasta_www.cgi?rm=<!-- TMPL_VAR NAME=RUN_MODE -->&result_rm=<!-- TMPL_VAR NAME=RESULT_RM -->&result_pgm=<!-- TMPL_VAR NAME=RESULT_PGM -->&result_file=<!-- TMPL_VAR NAME=RESULT_FILE -->" /> -->
 <script language="JavaScript">
 refresh = 2;
 function submitform() {
@@ -32,7 +32,7 @@ function onloadf(){
 <!-- $Id: wait.tmpl,v 1.1.2.9 2009/10/12 13:05:53 wrp Exp $ -->
 <!-- $Revision$ -->
 
-<form name="myform" action="fasta_www.pl" method="post">
+<form name="myform" action="fasta_www.cgi" method="post">
 <input type="hidden" name="rm" value="<!-- TMPL_VAR NAME=RUN_MODE -->" />
 <input type="hidden" name="result_rm" value="<!-- TMPL_VAR NAME=RESULT_RM -->" />
 <input type="hidden" name="debug" value="<!-- TMPL_VAR NAME=DEBUG -->" />
