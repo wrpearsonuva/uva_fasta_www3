@@ -339,7 +339,7 @@ function update_pgm(form) {
     }
 
     if (pgm_val == 'fs' || pgm_val == 'tfs' ||
-	pgm_val == 'ff' || pgm_val == 'tf') {
+	pgm_val == 'ff' || pgm_val == 'tfx') {
       if (pgm_val == 'fs' || pgm_val == 'ff') {
 	 if (form['n_lib']) {form['n_lib'].disabled = true;}
 
@@ -408,6 +408,7 @@ function update_pgm(form) {
       if (form['p_lib']) {form['p_lib'].disabled = true;}
       if (form['n_lib']) {form['n_lib'].disabled = false;}
       if (form.sq_type[0]) {form.sq_type[1].disabled = true;}
+      update_matrix_menu(form, pmatrix, 1);
     }
 
     can_annot(form);
