@@ -442,9 +442,12 @@ sub domain_name {
       my $url = "set/pfam/entry/pfam/$pf_acc";
       my $res = get_https($loc . $url);
 
-      my $clan_info = decode_json($res);
+      my $clan_info = '';
+      if ($res) {
+	  $clan_info = decode_json($res);
+      }
 
-      if (exists($clan_info->{results}[0]{metadata})) {
+      if ($clan_info && exists($clan_info->{results}[0]{metadata})) {
 	  ($clan_acc, $clan_id) = @{$clan_info->{results}[0]{metadata}}{qw(accession name)};
 	  $domain_clan{$pf_acc} = { clan_acc=>$clan_acc, clan_id=>$clan_id};
       }
