@@ -2,6 +2,10 @@ User-agent: *
 Disallow: /fasta_www3/chaps.cgi
 Disallow: /fasta_www3/down_file.cgi
 Disallow: /fasta_www3/fasta_www.cgi
+Disallow: /fasta_www3/fasta_ws.cgi
 Disallow: /fasta_www3/index.cgi
-Disallow: /fasta_www3/plot_domain7.cgi
+Disallow: /fasta_www3/lav2plt.cgi
+Disallow: /fasta_www3/seq_info.cgi
+Disallow: /fasta_www3/tmp_gs.cgi
+Disallow: /fasta_www3/tmp_lav.cgi
 Disallow: /fasta_www3/plot_domain_gff.cgi

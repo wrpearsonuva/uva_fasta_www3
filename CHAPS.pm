@@ -314,18 +314,18 @@ sub gen_msa {
   close($ifh);
 
   if ($q->param('msa_pgm') =~ m/muscle/) {
-      `$BIN_DIR/muscle -quiet -in $ifilename -out $ofilename -clw`;
+      `$BIN_DIR/muscle -quiet -align $ifilename -output $ofilename`;
   }
-  elsif ($q->param('msa_pgm') =~ m/tcoffee/) {
-      $ENV{HOME_4_TCOFFEE} = $TMP_DIR;
-      $ENV{TMP_4_TCOFFEE} = $TMP_DIR;
-      $ENV{DIR_4_TCOFFEE} = $TMP_DIR;
-      $ENV{NO_ERROR_REPORT_4_TCOFFEE} = 1;
-      $ENV{NO_WARNING_4_TCOFFEE} = 1;
-#      print STDERR "$BIN_DIR/t_coffee -infile $ifilename -outfile $ofilename\n";
-      `$BIN_DIR/t_coffee -infile $ifilename -outfile $ofilename -quiet -no_warning -newtree $tfilename`;
-      unlink($tfilename);
-  }
+#   elsif ($q->param('msa_pgm') =~ m/tcoffee/) {
+#       $ENV{HOME_4_TCOFFEE} = $TMP_DIR;
+#       $ENV{TMP_4_TCOFFEE} = $TMP_DIR;
+#       $ENV{DIR_4_TCOFFEE} = $TMP_DIR;
+#       $ENV{NO_ERROR_REPORT_4_TCOFFEE} = 1;
+#       $ENV{NO_WARNING_4_TCOFFEE} = 1;
+# #      print STDERR "$BIN_DIR/t_coffee -infile $ifilename -outfile $ofilename\n";
+#       `$BIN_DIR/t_coffee -infile $ifilename -outfile $ofilename -quiet -no_warning -newtree $tfilename`;
+#       unlink($tfilename);
+#   }
   else {	# run clustalw
       `$BIN_DIR/clustalw -infile=$ifilename -outfile=$ofilename -type=protein`;
   }

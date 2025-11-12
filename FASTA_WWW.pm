@@ -610,7 +610,8 @@ sub do_search {
     $output .= "<pre>$pgm_cmd $pgm_args\n</pre>\n";
   }
 
-#  $pgm_args =~ s/[^$OK_CHARS]/_/go;
+#  print STDERR "OK_CHARS:--$OK_CHARS--\n";
+  $pgm_args =~ s/[^$OK_CHARS]/_/go;
   ($pgm_args) = $pgm_args =~ m/^\s*(.*)/; # de-taint and remove leading spaces
 
 #  print STDERR join("::",@cmd_list),"\n";
@@ -1712,11 +1713,13 @@ sub get_lib {
   elsif ($lib_db =~ /^P/i) {
     if (scalar($q->param("p_lib"))) {$fa_lib = $q->param("p_lib");}
     else {$fa_lib = "a";}
+    $fa_lib =~ s/\W+/_/g;
     ($fa_file, $fa_info) = scan_fastlibs($fa_lib, $run_href->{lib_env},0);
   }
   else {
     if (scalar($q->param("n_lib"))) {$fa_lib = scalar($q->param("n_lib"));}
     else {$fa_lib = "m";}
+    $fa_lib =~ s/\W+/_/g;
     ($fa_file, $fa_info) = scan_fastlibs($fa_lib, $run_href->{lib_env},1);
   }
 
@@ -1741,11 +1744,13 @@ sub get_lib_full {
   if ($lib_db =~ /^P/i) {
     if (scalar($q->param("p_lib"))) {$fa_lib = scalar($q->param("p_lib"));}
     else {$fa_lib = "a";}
+    $fa_lib =~ s/\W+/_/g;
     return scan_fastlibs($fa_lib, $run_href->{lib_env}, 0);
   }
   else {
     if (scalar($q->param("n_lib"))) {$fa_lib = scalar($q->param("n_lib"));}
     else {$fa_lib = "m";}
+    $fa_lib =~ s/\W+/_/g;
     return scan_fastlibs($fa_lib, $run_href->{lib_env}, 1);
   }
 }
@@ -1772,11 +1777,15 @@ sub scan_fastlibs {
 	close FLIBS;
 	my ($lib_info, $lib) = (split(/\$/))[0, -1];
 #	print STDERR "found $lib \n";
-	unless ($lib =~ m/^\{/) { return $lib;}
+	unless ($lib =~ m/^\{/) { 
+	    close FLIBS;
+	    return $lib;
+	}
 	else {
 #	  my ($env) = ($lib =~ m/{(\w+)}/);
 #	  print STDERR "looking for $env: $ENV{$env}\n";
 	  $lib =~ s/\{(\w+)\}/$ENV{$1}/;
+	  close FLIBS;
 	  return ($lib, $lib_info);
 	}
       }

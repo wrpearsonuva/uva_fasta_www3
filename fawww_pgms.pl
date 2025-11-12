@@ -434,9 +434,9 @@ my $vdom_opt='';
    { tmpl=>"hmm_select.tmpl",
      pgm_ref=>\@pgm_hmmlist, pgm_def=>"hmms",
      lib_ref=> \@hmmp_list,
-     inputs =>
-     { hmm_query => {HMM_QUERY => "this"}
-     },
+##     inputs =>
+##     { hmm_query => {HMM_QUERY => "this"}
+##     },
      outputs =>
      { TITLE => qq(HMM Sequence Comparison),
        HMM_FILE_UP => 1,
@@ -450,9 +450,9 @@ my $vdom_opt='';
    { tmpl=>"hmm_select2.tmpl",
      pgm_ref=>\@pgm_hmmlist, pgm_def=>"hmms",
      lib_ref=> \@hmmp_list,
-     inputs =>
-     { hmm_query => {HMM_QUERY => "this"}
-     },
+##     inputs =>
+##     { hmm_query => {HMM_QUERY => "this"}
+##     },
      outputs =>
      { TITLE => qq(HMM Sequence Comparison),
        HMM_FILE_UP => 1,
