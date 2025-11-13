@@ -39,8 +39,8 @@
 
 Protein and DNA sequence library files can be downloaded from many
 different sources, including the <a
-href="ftp://ftp.ncbi.nih.gov/blast/db">NCBI</a> and <a
-href="ftp://ftp.ebi.ac.uk/pub/databases/">EMBL-EBI</a>.
+href="https://ftp.ncbi.nih.gov/blast/db">NCBI</a> and <a
+href="https://ftp.ebi.ac.uk/pub/databases/">EMBL-EBI</a>.
 
 <h4>Library formats</h4>
 The <b>FASTA</b> programs work with many different library formats;

@@ -26,7 +26,7 @@ $RUN_TIMEOUT = 120; # 2 min for IPC::Run in foreground
 ####
 # string used for sanitizing file names
 #$OK_CHARS='\"\+\-a-zA-Z0-9_.@ \/%:';
-$OK_CHARS='\'\"=!\+\-\w\.@\s\\\\/%\:';
+$OK_CHARS='\'"=!\+\-\w\.@\s\\\\/%\:';
 
 ################
 # (2) Site-specific file locations
@@ -163,11 +163,12 @@ $RUN_URL = $ENV{SCRIPT_NAME} unless ($RUN_URL);
 $RUN_URL = "fasta_ws.cgi" unless($RUN_URL);
 
 $DOMAIN_PLOT_URL = "plot_domain7.cgi";
+$ENV{PLOT_PGM} = "plot_domain7.cgi";
 
 ####
 # allow some searches on other hosts.  Disabled by default
 $SS_ALT_HOST_CGI = 0;
-$SS_HOST_NAME="http://wrp-rpi5.local:8080/";
+$SS_HOST_NAME=$HOST_NAME;
 $SS_CGI_DIR="fasta_www3/";
 $SS_RUN_URL="fasta_www.cgi";
 $WS_RUN_URL="fasta_ws.cgi";
@@ -197,8 +198,8 @@ EOF1
 $msg2 = <<EOF2 ;
 <p>
 <font size=+1>
-The FASTA package can be downloaded from <A href="ftp://ftp.virginia.edu/pub/fasta">
-ftp://ftp.virginia.edu/pub/fasta</a></font>
+The FASTA package can be downloaded from <A href="https://github.com/wrpearson/fasta36">
+github.com/wrpearson/fasta36</a></font>
 <p>
 <A href="mailto:wrp\@virginia.edu">wrp\@virginia.edu</a>
 <p>
