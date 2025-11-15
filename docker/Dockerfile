@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y \
 RUN cpanm install Your::Module
 
 # Copy your application code
-COPY . /app
+COPY .. /app
 WORKDIR /app
 
 # Define the command to run your Perl application
@@ -22,7 +22,7 @@ CMD ["perl", "your_app.pl"]
 
 
 FROM nginx:bookworm
-COPY . /usr/share/nginx/html
+COPY .. /usr/share/nginx/html
 MKDIR /usr/share/nginx/html/annot
-COPY ./annot /usr/share/nginx/html/annot
+COPY ../annot /usr/share/nginx/html/annot
 EXPOSE 80
