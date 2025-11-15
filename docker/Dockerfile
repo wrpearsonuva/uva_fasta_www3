@@ -23,6 +23,6 @@ CMD ["perl", "your_app.pl"]
 
 FROM nginx:bookworm
 COPY .. /usr/share/nginx/html
-MKDIR /usr/share/nginx/html/annot
+RUN mkdir -p /usr/share/nginx/html/annot
 COPY ../annot /usr/share/nginx/html/annot
 EXPOSE 80
