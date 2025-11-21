@@ -67,8 +67,8 @@ my %args = ();
 if ($q->param("file")) { # read "real" args from file, but still get embed from command line
   my $file_name = $q->param("file");
   $file_name =~ s/[^$OK_CHARS]/_/go;
-  my $file_offset = get_safe_number("",$q->param("offset"));
-  my $file_cnt = get_safe_number("",$q->param("a_cnt"));
+  my $file_offset = get_safe_number("",scalar($q->param("offset")));
+  my $file_cnt = get_safe_number("",scalar($q->param("a_cnt")));
 
   open(my $ann_fd, "<", "$TMP_DIR/$file_name") || die "cannot open $TMP_DIR/$file_name";
   seek($ann_fd, $file_offset, 0);
@@ -320,17 +320,17 @@ sub print_regions_gff {
 sub get_safe_number {
   my ($opt, $p_arg) = @_;
   
-  unless ($p_arg) {return "";}
+  unless (defined($p_arg)) {return "";}
 
   if ($p_arg =~ m/DEFAULT/i) {return "";}
 
   ($p_arg) = ($p_arg =~ m/([E\d\-\.]+)/i);
-  unless ($p_arg) {return "";}
+  unless (length($p_arg)>0) {return "";}
 
   if ($opt =~ m/%/) {
       return sprintf($opt,$p_arg);
   }
-  elsif ($opt) {
+  elsif (length($opt)>0) {
       return "$opt $p_arg";
   }
   return $p_arg;

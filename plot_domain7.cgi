@@ -114,7 +114,7 @@ my %args = ();
 #
 my $g_mag = 1;
 if ($q->param("mag")) {
-  $g_mag = get_safe_number("",scalar($q->param("mag")));
+  $g_mag = get_safe_number("",scalar(scalar($q->param("mag"))));
 }
 
 my $invert=0;
@@ -130,7 +130,7 @@ if ($q->param("no_embed")) {
 }
 
 if ($q->param("max_xax")) {
-  $max_xax = get_safe_number("",$q->param("max_xax"));
+  $max_xax = get_safe_number("",scalar($q->param("max_xax")));
 }
 
 if (($q->param("clip") && $q->param("clip") =~ m/n/i) || $q->param("noclip")
@@ -142,12 +142,12 @@ elsif ($q->param('clip')) {
 }
 
 if ($q->param("paper")) {
-  $paper = get_safe_number("",$q->param("paper"));
+  $paper = get_safe_number("",scalar($q->param("paper")));
   $coords = 1 if ($paper);
 }
 
 if ($q->param("coords")) {
-  $coords = get_safe_number("",$q->param("coords"));
+  $coords = get_safe_number("",scalar($q->param("coords")));
 }
 
 ## set font sizes
@@ -168,8 +168,12 @@ $g_ticksize *= $g_mag;
 if ($q->param("file")) { # read "real" args from file, but still get embed from command line
   my $file_name = $q->param("file");
   $file_name =~ s/[^$OK_CHARS]/_/go;
-  my $file_offset = get_safe_number("",$q->param("offset"));
-  my $file_cnt = get_safe_number("",$q->param("a_cnt"));
+  my $file_offset = get_safe_number("",scalar($q->param("offset")));
+  my $file_cnt = get_safe_number("",scalar($q->param("a_cnt")));
+
+  if ($file_offset !~ m/^\d+$/) {
+      die "file_offset: $file_offset non-numeric";
+  }
 
   open(my $ann_fd, "<", "$TMP_DIR/$file_name") || die "cannot open $TMP_DIR/$file_name";
   seek($ann_fd, $file_offset, 0);
@@ -1440,6 +1444,10 @@ sub canon_file_name {
 sub print_regions {
   my ($region_str, $l_descr, $hscores, $q_dom_info_r, $l_dom_info_r) = @_;
 
+  if ($region_str eq "") {
+      return;
+  }
+
   my @region_lines = split(/\n/s,$region_str);
 
   my $output = "<style>\n";
@@ -1549,17 +1557,17 @@ sub check_max_xax {
 sub get_safe_number {
   my ($opt, $p_arg) = @_;
   
-  unless ($p_arg) {return "";}
+  unless (defined($p_arg)) {return "";}
 
   if ($p_arg =~ m/DEFAULT/i) {return "";}
 
   ($p_arg) = ($p_arg =~ m/([E\d\-\.]+)/i);
-  unless ($p_arg) {return "";}
+  unless (length($p_arg)>0) {return "";}
 
   if ($opt =~ m/%/) {
       return sprintf($opt,$p_arg);
   }
-  elsif ($opt) {
+  elsif (length($opt)>0) {
       return "$opt $p_arg";
   }
   return $p_arg;

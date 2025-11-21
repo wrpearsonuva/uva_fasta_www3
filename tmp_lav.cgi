@@ -121,15 +121,18 @@ else {
 sub get_safe_number {
   my ($opt, $p_arg) = @_;
   
-  unless ($p_arg) {return "";}
+  unless (defined($p_arg)) {return "";}
 
   if ($p_arg =~ m/DEFAULT/i) {return "";}
 
   ($p_arg) = ($p_arg =~ m/([E\d\-\.]+)/i);
-  unless ($p_arg) {return "";}
+  unless (length($p_arg)>0) {return "";}
 
   if ($opt =~ m/%/) {
       return sprintf($opt,$p_arg);
   }
-  return "$opt $p_arg";
+  elsif (length($opt)>0) {
+      return "$opt $p_arg";
+  }
+  return $p_arg;
 }
