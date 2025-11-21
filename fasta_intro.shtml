@@ -36,7 +36,7 @@
 <!-- INSERT CONTENT BELOW -->
 <table class="fasta" cellspacing="0" cellpadding="0" width="600" border="0" >
 <tr><td>
-To search large sequence databases (particularly DNA databases), please use the FASTA WWW service at: <a href="http://www.ebi.ac.uk/fasta33/">EMBL-EBI</a>.
+To search large sequence databases (particularly DNA databases), please use the FASTA WWW service at: <a href="https://www.ebi.ac.uk/jdispatcher/sss/fasta?database=uniprotkb_swissprot">EMBL-EBI</a>.
 <p>
 </td></tr>
 <tr><td>
@@ -59,7 +59,7 @@ database, or a DNA sequence to another DNA sequence or a DNA library.
 </td>
 </tr>
 <tr>
-<td><!-- <a href="http://fasta.bioch.virginia.edu/fasta_www2/fasta_www.cgi?rm=select&amp;pgm=sw"> -->
+<td>
 <a href="fasta_www.cgi?rm=select&amp;pgm=sw">SSEARCH</a></td>
 <td>
 Perform a rigorous Smith-Waterman alignment between a protein
