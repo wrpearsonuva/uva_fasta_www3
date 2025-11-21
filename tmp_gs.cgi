@@ -22,7 +22,6 @@ use vars qw( $OK_CHARS $HOST_NAME $HOST_DIR $CGI_DIR $BIN_DIR
 
 require "./fawww_defs.pl";
 
-
 $file = param("name");
 $file =~ s/[;><&\*`\|\s]//g;
 

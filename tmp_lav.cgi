@@ -128,5 +128,8 @@ sub get_safe_number {
   ($p_arg) = ($p_arg =~ m/([E\d\-\.]+)/i);
   unless ($p_arg) {return "";}
 
+  if ($opt =~ m/%/) {
+      return sprintf($opt,$p_arg);
+  }
   return "$opt $p_arg";
 }

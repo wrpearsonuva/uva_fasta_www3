@@ -73,7 +73,13 @@ sub get_safe_number {
   unless ($p_arg) {return "";}
 
 #  return "$opt $p_arg";
-  return sprintf($opt,$p_arg);
+  if ($opt =~ m/%/) {
+    return sprintf($opt,$p_arg);
+  }
+  elsif ($opt) {
+    return "$opt $p_arg";
+  }
+  return $p_arg;
 }
 
 sub get_safe_string {
@@ -81,10 +87,16 @@ sub get_safe_string {
 
   unless ($p_arg) {return "";}
 
-#  $p_arg =~ s/[^$OK_CHARS]/_/go;
-#  ($p_arg) = ($p_arg =~ m/([$OK_CHARS]+)/);
+  $p_arg =~ s/[^$OK_CHARS]/_/go;
+  ($p_arg) = ($p_arg =~ m/([$OK_CHARS]+)/);
 
-  return sprintf($opt,$p_arg);
+  if ($opt =~ m/%/) {
+    return sprintf($opt,$p_arg);
+  }
+  elsif ($opt) {
+    return "$opt $p_arg";
+  }
+  return $p_arg;
 }
 
 sub get_string2file {

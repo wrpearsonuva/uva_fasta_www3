@@ -38,18 +38,22 @@ use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 
 use CGI qw(header param start_html end_html);
 
-my $OK_CHARS='\"\+\-a-zA-Z0-9_.@ \/%:';
-my $DEF_ROOT = "/home/www";	# ex01/ex02
-my $DOC_ROOT=$ENV{DOCUMENT_ROOT};
-$DOC_ROOT = $DEF_ROOT unless($DOC_ROOT);
-$DOC_ROOT =~ s/[^$OK_CHARS]/_/go;
-($DOC_ROOT) = $DOC_ROOT =~ m/^\s*(.*)/;  # de-taint and remove leading spaces
-my @TMP_ROOTL = split(/\//,$DOC_ROOT);
-my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp";
-my $TMP_DIR="$TMP_ROOT/files";	# location for temp files
-$ENV{TMP_DIR} = $TMP_DIR;
+$ENV{PATH} = ".:/bin:/usr/bin:/seqprg/bin";
+BEGIN {
+    do "./Fawww_begin.pl";
+}
+
+use vars qw( $OK_CHARS $HOST_NAME $HOST_DIR $CGI_DIR $BIN_DIR $SQL_DB_HOST
+	     $TMP_DIR $GS_BIN $DEF_UNLINK $LAV_SVG $LAV_GS $lav_cmd
+	     $PPM_BIN $LOG_FILE $lhost $PFAM_FAM_URL $IPRO_FAM_URL
+	     $file $device $tmp_lav $size $z_param);
+
+require "./fawww_defs.pl";
 
 my $q = new CGI;
+
+my @valid_args=qw( q_name l_name pgm q_cstart q_cstop l_cstart l_cstop q_astart q_astop l_astart l_astop regions doms );
+my %valid_args = map { $_ => 1 } @valid_args;
 
 my @arg_names = ();
 my %args = ();
@@ -62,8 +66,9 @@ my %args = ();
 #
 if ($q->param("file")) { # read "real" args from file, but still get embed from command line
   my $file_name = $q->param("file");
-  my $file_offset = $q->param("offset");
-  my $file_cnt = $q->param("a_cnt");
+  $file_name =~ s/[^$OK_CHARS]/_/go;
+  my $file_offset = get_safe_number("",$q->param("offset"));
+  my $file_cnt = get_safe_number("",$q->param("a_cnt"));
 
   open(my $ann_fd, "<", "$TMP_DIR/$file_name") || die "cannot open $TMP_DIR/$file_name";
   seek($ann_fd, $file_offset, 0);
@@ -82,11 +87,25 @@ if ($q->param("file")) { # read "real" args from file, but still get embed from 
 }
 else {
   @arg_names = $q->param();
-  %args = map { $_ => scalar($q->param($_)) } @arg_names;
+  my $tmp_arg = "";
+  my $ROK_CHARS = $OK_CHARS.";\{\}\|~";
+  for my $arg (@arg_names) {
+      if (defined($valid_args{$arg}) && defined($q->param($arg)) && $q->param($arg)) {
+	  $tmp_arg = scalar($q->param($arg));
+	  $tmp_arg =~ s/[^$ROK_CHARS]/_/go;
+	  $args{$arg} = $tmp_arg;
+      }
+      # else {
+      # 	  print STDERR "***".__FILE__.":".__LINE__ ." q->param{$arg} without value: ::" . $q->param($arg) ."::\n";
+      # }
+  }
 }
 
 my $bed_fmt=0;
-if ($q->param('bed_fmt')) { $bed_fmt=$q->param('bed_fmt');}
+if ($q->param('bed_fmt')) {
+    $bed_fmt=$q->param('bed_fmt');
+    $bed_fmt =~ s/^\d+$//;
+}
 
 ## parse string arguements into [q_] region/site/domain arrays
 #
@@ -296,4 +315,23 @@ sub print_regions_gff {
   }
 
   print "</pre>\n<hr />\n";
+}
+
+sub get_safe_number {
+  my ($opt, $p_arg) = @_;
+  
+  unless ($p_arg) {return "";}
+
+  if ($p_arg =~ m/DEFAULT/i) {return "";}
+
+  ($p_arg) = ($p_arg =~ m/([E\d\-\.]+)/i);
+  unless ($p_arg) {return "";}
+
+  if ($opt =~ m/%/) {
+      return sprintf($opt,$p_arg);
+  }
+  elsif ($opt) {
+      return "$opt $p_arg";
+  }
+  return $p_arg;
 }

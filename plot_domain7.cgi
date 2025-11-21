@@ -74,7 +74,6 @@ use vars qw($pminx $pmaxx $pminy $pmaxy $lvstr $max_x $max_y
 	    $fxscal $fyscal $fxoff $fyoff $x_rev $y_rev
 	    @block_colors %color_names $text_font $invert);
 
-
 my @valid_args=qw( q_name l_name pgm q_cstart q_cstop l_cstart l_cstop q_astart q_astop l_astart l_astop regions doms );
 my %valid_args = map { $_ => 1 } @valid_args;
 
@@ -115,7 +114,7 @@ my %args = ();
 #
 my $g_mag = 1;
 if ($q->param("mag")) {
-  $g_mag = $q->param("mag");
+  $g_mag = get_safe_number("",scalar($q->param("mag")));
 }
 
 my $invert=0;
@@ -131,7 +130,7 @@ if ($q->param("no_embed")) {
 }
 
 if ($q->param("max_xax")) {
-  $max_xax = $q->param("max_xax");
+  $max_xax = get_safe_number("",$q->param("max_xax"));
 }
 
 if (($q->param("clip") && $q->param("clip") =~ m/n/i) || $q->param("noclip")
@@ -143,12 +142,12 @@ elsif ($q->param('clip')) {
 }
 
 if ($q->param("paper")) {
-  $paper = $q->param("paper");
+  $paper = get_safe_number("",$q->param("paper"));
   $coords = 1 if ($paper);
 }
 
 if ($q->param("coords")) {
-  $coords = $q->param("coords");
+  $coords = get_safe_number("",$q->param("coords"));
 }
 
 ## set font sizes
@@ -168,8 +167,9 @@ $g_ticksize *= $g_mag;
 #
 if ($q->param("file")) { # read "real" args from file, but still get embed from command line
   my $file_name = $q->param("file");
-  my $file_offset = $q->param("offset");
-  my $file_cnt = $q->param("a_cnt");
+  $file_name =~ s/[^$OK_CHARS]/_/go;
+  my $file_offset = get_safe_number("",$q->param("offset"));
+  my $file_cnt = get_safe_number("",$q->param("a_cnt"));
 
   open(my $ann_fd, "<", "$TMP_DIR/$file_name") || die "cannot open $TMP_DIR/$file_name";
   seek($ann_fd, $file_offset, 0);
@@ -191,15 +191,18 @@ if ($q->param("file")) { # read "real" args from file, but still get embed from 
 else {
   @arg_names = $q->param();
 ##  %args = map { $_ => scalar($q->param($_)) if defined($valid_args{$_} && $q->param($_)) } @arg_names;
+  my $tmp_arg = "";
+  my $ROK_CHARS = $OK_CHARS.";\{\}\|~";
   for my $arg (@arg_names) {
       if (defined($valid_args{$arg}) && defined($q->param($arg)) && $q->param($arg)) {
-	  $args{$arg} = scalar($q->param($arg))
+	  $tmp_arg = scalar($q->param($arg));
+	  $tmp_arg =~ s/[^$ROK_CHARS]/_/go;
+	  $args{$arg} = $tmp_arg;
       }
       # else {
       # 	  print STDERR "***".__FILE__.":".__LINE__ ." q->param{$arg} without value: ::" . $q->param($arg) ."::\n";
       # }
   }
-
 }
 
 ## check that coordinates are provided, and are integers
@@ -218,7 +221,7 @@ if (! check_coords(\%args, \@needed_args)) {
 
 my @detaint_args = qw(q_name l_name );
 
-detaint_strings(\%args, \@detaint_args);
+detaint_strings(\%args, \@detaint_args, '[^\w\.\|\;]+');
 
 if (! defined($args{'q_name'})) {
     $args{'q_name'} = 'Query';
@@ -840,13 +843,12 @@ sub draw_doms {
 		 $show_coords ? $annot->{m_end}."/".$annot->{m_len}: "");
     }
   }
-
 }
 
 sub detaint_strings {
     my ($arg_r, $detaint_r, $good_str) = @_;
 
-    if (!defined($good_str) || $good_str=="") {
+    if (!defined($good_str) || $good_str eq "") {
 	$good_str = '[^\w\.]+'
     }
 
@@ -1466,7 +1468,7 @@ sub print_regions {
   my ($q_pf_ix, $l_pf_ix) = (0,0);
 
   for my $r_line ( @region_lines) {
-    $r_line =~ s/[^\w\.\-=~:]//g;
+    $r_line =~ s/[^\w\.\-=~:; \{\}]//g;
 
     if ($r_line !~ m/\sq?Region:\s/) {
       $output .= "$r_line\n";
@@ -1542,4 +1544,23 @@ sub check_max_xax {
     $max_xax = $xlist_r->[$#{$xlist_r}] if ($max_xax <= 0);
   }
   return $max_xax;
+}
+
+sub get_safe_number {
+  my ($opt, $p_arg) = @_;
+  
+  unless ($p_arg) {return "";}
+
+  if ($p_arg =~ m/DEFAULT/i) {return "";}
+
+  ($p_arg) = ($p_arg =~ m/([E\d\-\.]+)/i);
+  unless ($p_arg) {return "";}
+
+  if ($opt =~ m/%/) {
+      return sprintf($opt,$p_arg);
+  }
+  elsif ($opt) {
+      return "$opt $p_arg";
+  }
+  return $p_arg;
 }
