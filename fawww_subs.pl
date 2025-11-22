@@ -418,6 +418,7 @@ sub get_fastacmd {
 sub get_protein {
   my ($db, $acc) = @_;
 
+  ($acc) =~ m/(\w+)/;
   return scalar(join('',`$BIN_DIR/get_protein.py \'$acc\'`));
 }
 
@@ -511,7 +512,9 @@ sub get_uniprot {
     ## $sequence = "" if ($sequence =~ m/404/);
 
     ## get_protein.py replaces get $url because perl urllib follows redirects
-    $sequence = `get_protein.py \'$seq_in\'`;
+
+    ($seq_in) =~ m/(\w+)/;
+    $sequence = `$BIN_DIR/get_protein.py \'$seq_in\'`;
 
     return $sequence;
 }

@@ -2309,7 +2309,6 @@ sub build_run_pssm {
 
   my ($pssmfh, $pssmfile) = (undef,"");;
 
-
   $ENV{BLASTDB} = $BL_DB_DIR;
   $ENV{BLASTMAT} = $BL_DATA_DIR;
   $ENV{BLASTFILTER} = $BL_DATA_DIR;
