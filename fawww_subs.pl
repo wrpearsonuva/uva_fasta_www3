@@ -85,7 +85,7 @@ sub get_safe_number {
 sub get_safe_string {
   my ($opt,$p_arg) = @_;
 
-  unless ($p_arg) {return "";}
+  unless (defined($p_arg)) {return "";}
 
   $p_arg =~ s/[^$OK_CHARS]/_/go;
   ($p_arg) = ($p_arg =~ m/([$OK_CHARS]+)/);
@@ -137,11 +137,11 @@ sub get_safe_filename {
 sub get_safe_range {
   my ($opt, $p_arg) = @_;
 
-  unless ($p_arg) {return "";}
+  unless (defined($p_arg)) {return "";}
   ($p_arg) = ($p_arg =~ m/(\d*\-?\d*)/);
-  unless ($p_arg) {return "";}
+  unless (length($p_arg)>0) {return "";}
 
-  if ($opt) {return "$opt $p_arg";}
+  if (length($opt)>0) {return "$opt $p_arg";}
   else {return $p_arg;}
 }
 
@@ -419,8 +419,10 @@ sub get_protein {
   my ($db, $acc) = @_;
 
   ($acc) =~ m/(\w+)/;
+
   return scalar(join('',`$BIN_DIR/get_protein.py \'$acc\'`));
 }
+
 
 sub get_ncbi {
     my ($db,$seq_in) = @_;
@@ -517,83 +519,6 @@ sub get_uniprot {
     $sequence = `$BIN_DIR/get_protein.py \'$seq_in\'`;
 
     return $sequence;
-}
-
-# replaced 1-Nov-2006 with valid eutils calls
-#
-sub get_ncbi_old {
-
-    my ($db,$seq_in) = @_;
-    use vars qw( $url $entry_line $parse );
-
-    $seq_in =~ s/gi\|//;
-
-    if ($db =~ m/^P/i) {$db="Protein";}
-    else {$db = "Nucleotide";}
-
-#    print "<pre>seq_in: $seq_in\ndb: $db\n</pre>\n";
-
-
-    if ($seq_in =~ m/^\d+$/) {
-        $url="https://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=$db&cmd=Text&dopt=FASTA&uid=$seq_in";
-        $entry_line = get $url;
-        $parse = 0;
-    }
-    else {      # not gi, look for accession
-        $url="https://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=$db&cmd=Search&doptcmdl=FASTA&term=$seq_in";
-        $entry_line = get $url;
-        $parse = 1;
-    }
-
-#    print $entry_line;
-#    print "\n================\n";
-
-    if (!$entry_line || $entry_line eq "" ||
-        $entry_line =~/ No Documents Found /i ||
-        $entry_line =~/temporarily unavailable/i) {
-
-	$seq_in = "";
-	return $seq_in;
-    }
-
-    if ($parse) {
-        ($seq_in) = $entry_line =~ m/<pre>(.+?)<\/pre>/s;
-        $seq_in =~ s/^.*>gi\|/>gi\|/;
-    }
-    else { $seq_in = $entry_line;}
-
-    return $seq_in;
-}
-
-sub gp2fasta {
-    my @entry = @_;
-
-    my $locus = '';
-    my $acc = '';
-    my $gi = '';
-    my $def = '';
-
-    while ($_ = shift @entry) {
-        if (!$locus && /^LOCUS/) {($locus) = /^LOCUS\s+(\w+)\s/;}
-        elsif (!$def && /^DEFINITION/) {($def) = /^DEFINITION  (.+)$/;}
-        elsif (!$acc && /^ACCESSION/) {($acc) = /^ACCESSION\s+(\w+)/;}
-        elsif (!$gi && /^PID/) { ($gi) = /^PID\s+g(\d+)/; last;}
-    };
-
-    do {
-        $_ = shift @entry;
-    } until (/^ORIGIN/);
-
-    my $seq = '';
-    while ($_ = shift @entry) {
-        if ($_ eq '//') {last;}
-        $seq = $seq . substr($_,10,65);
-    }
-    $seq =~ s/\s+//g;
-    $seq =~ s/(.{60})/$1\n/g;
-    my $gp2fasta = ">gi|".$gi.'|db|'.$acc.'|'.$locus.' '.$def."\n";
-    $gp2fasta = $gp2fasta . $seq;
-    return $gp2fasta;
 }
 
 ################################################################
