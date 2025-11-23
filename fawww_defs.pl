@@ -216,8 +216,8 @@ sub Do_log
     chop($date);
     my $log_file= $LOG_DIR . "/fasta_www.log";
 
-    print STDERR "opening fasta_www.log: $log_file\n";
-    print STDERR "log::: $date\t$r_host\t$0\t$pgm_log\n";
+    ## print STDERR "opening fasta_www.log: $log_file\n";
+    ## print STDERR "log::: $date\t$r_host\t$0\t$pgm_log\n";
 
     open(LOG,">> $log_file") || return;
     print LOG "$date\t$r_host\t$0\t$pgm_log\n";
