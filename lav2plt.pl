@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# lav2plt.cgi - produce plot from lav output */
+# lav2plt.pl - produce plot from lav output */
 
 # $Id: lav2plt.c 625 2011-03-23 17:21:38Z wrp $ */
 # $Revision: 625 $  */

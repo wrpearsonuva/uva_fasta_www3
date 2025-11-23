@@ -15,19 +15,8 @@ use File::Temp qw/ tempfile /;
 
 $ENV{PATH} = "/usr/bin";
 
-sub BEGIN {
-  my $DOC_ROOT=$ENV{DOCUMENT_ROOT};
-#  my $DEF_ROOT= "/Library/WebServer/Documents";
-  my $DEF_ROOT= "/export/home/www";
-  $DOC_ROOT = $DEF_ROOT unless($DOC_ROOT);
-  my $OK_CHARS='\"\+\-a-zA-Z0-9_.@ \/%:';
-  $DOC_ROOT =~ s/[^$OK_CHARS]/_/go;
-  ($DOC_ROOT) = $DOC_ROOT =~ m/^\s*(.*)/;  # de-taint and remove leading spaces
-  my @TMP_ROOTL = split(/\//,$DOC_ROOT);
-  my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp";
-#  $TMP_ROOT = "/tmp/www";
-  open(LOG, ">> $TMP_ROOT/logs/errors.log") or die $!;
-  carpout(\*LOG);
+BEGIN {
+    do "Fawww_begin.pl";
 }
 
 use vars qw($DEF_UNLINK $BIN_DIR $BL_DB_DIR $BL_DB_NT_DIR $BL_BIN_DIR

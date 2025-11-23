@@ -9,9 +9,9 @@ use CGI::Carp qw(fatalsToBrowser carpout warningsToBrowser);
 
 $ENV{PATH} = "/bin:/usr/bin";
 
-use Fawww_begin;
-
-Fawww_begin::begin_log();
+BEGIN {
+    do "Fawww_begin.pl";
+}
 
 my $chaps = new CHAPS;
 

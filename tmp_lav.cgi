@@ -55,8 +55,8 @@ if (param("yA")) {
   }
 }
 
-$LAV_SVG = "./lav2plt.cgi --dev svg -Z 1" . $dopts;
-$LAV_GS = "./lav2plt.cgi --dev ps -Z 1" . $dopts;
+$LAV_SVG = "./lav2plt.pl --dev svg -Z 1" . $dopts;
+$LAV_GS = "./lav2plt.pl --dev ps -Z 1" . $dopts;
 
 if ($file =~ /^([\w\.]+)$/) {
   $tmp_lav = $1;                     # $data now untainted

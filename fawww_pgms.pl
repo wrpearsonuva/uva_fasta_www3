@@ -1277,19 +1277,19 @@ sub get_bl_filter {
 %pgm_dev = (
     pkd => {dev => "ps"},
     pal => {dev => "SVG",
-	    pgm_svg => qq(lav2plt.cgi --dev svg -Z 1 %xANNOT% %yANNOT%),
-	    pgm_ps => qq(lav2plt.cgi --dev ps -Z 1 %xANNOT% %yANNOT%),
+	    pgm_svg => qq(lav2plt.pl --dev svg -Z 1 %xANNOT% %yANNOT%),
+	    pgm_ps => qq(lav2plt.pl --dev ps -Z 1 %xANNOT% %yANNOT%),
 	   },
     lpal => {dev => "SVG",
-	     pgm_svg => qq(lav2plt.cgi --dev svg -Z 1 %xANNOT% %yANNOT%),
-	     pgm_ps => qq(lav2plt.cgi --dev ps -Z 1 %xANNOT% %yANNOT%),
+	     pgm_svg => qq(lav2plt.pl --dev svg -Z 1 %xANNOT% %yANNOT%),
+	     pgm_ps => qq(lav2plt.pl --dev ps -Z 1 %xANNOT% %yANNOT%),
     },
     pald => {dev => "SVG",
-	     pgm_svg => "lav2plt.cgi --dev svg  -Z 1",
-	     pgm_ps => "lav2plt.cgi --dev ps -Z 1"},
+	     pgm_svg => "lav2plt.pl --dev svg  -Z 1",
+	     pgm_ps => "lav2plt.pl --dev ps -Z 1"},
     lpald => {dev => "SVG",
-	      pgm_svg => "lav2plt.cgi --dev svg  -Z 1",
-	      pgm_ps => "lav2plt.cgi --dev ps -Z 1"},
+	      pgm_svg => "lav2plt.pl --dev svg  -Z 1",
+	      pgm_ps => "lav2plt.pl --dev ps -Z 1"},
 	     );
 
 
