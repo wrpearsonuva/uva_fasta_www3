@@ -16,10 +16,19 @@ my $DOC_ROOT = $ENV{'DOCUMENT_ROOT'};
 
 $q = new CGI;
 $acc=$q->param('acc');
+($acc) =~ m/(\w+)/;
+
 $doms_only = $q->param('doms_only') || 0;
+($doms_only) =~ m/(\w+)/;
+
 $show_seq = $q->param('seq') || 0;
+($show_seq) =~ m/(\w+)/;
+
 $seq_only = $q->param('seq_only') || 0;
+($seq_only) =~ m/(\w+)/;
+
 $www_flag = $q->param('www') || 0;
+($www_flag) =~ m/(\w+)/;
 
 
 my @f_titles = ();
@@ -168,8 +177,8 @@ EOSQL
 }
 
 sub init_dbh {
-  my ($host,$db, $user, $pass) = ("a48", "pfam28", "web_user", "fasta_www");
-  my $dbh = DBI->connect(qq{dbi:mysql:database=$db;host=$host},
+  my ($host,$db, $user, $pass) = ("wrpa48.bioch.virginia.edu", "pfam37", "web_user", "fasta_www");
+  my $dbh = DBI->connect(qq{dbi:MariaDB:database=$db;host=$host},
 			 $user,
 			 $pass
 			) or die $DBI::errstr;

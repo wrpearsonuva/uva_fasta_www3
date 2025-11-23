@@ -46,7 +46,7 @@ use Pod::Usage;
 
 use vars qw($host $db $port $user $pass);
 
-my $db_host='a48';
+my $db_host='wrpa48.bioch.virginia.edu';
 if (defined $ENV{'DB_HOST'}) {
     $db_host = $ENV{'DB_HOST'};
 }
