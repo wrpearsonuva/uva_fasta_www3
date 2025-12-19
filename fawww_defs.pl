@@ -46,9 +46,12 @@ $DEF_ROOT = "/home/www";	# ex01
 my $DOC_ROOT=$ENV{DOCUMENT_ROOT};
 $DOC_ROOT = $DEF_ROOT unless($DOC_ROOT);
 
-$SQL_DB_HOST="wrpa48.bioch.virginia.edu";
-
-$ENV{SQL_DB_HOST}=$SQL_DB_HOST;
+if (! $ENV{SQL_DB_HOST} ) {
+  $ENV{SQL_DB_HOST}=$SQL_DB_HOST;
+}
+else {
+  $SQL_DB_HOST=$ENV{SQL_DB_HOST}
+}
 
 ####
 # variables/script used to set temporary file directory
