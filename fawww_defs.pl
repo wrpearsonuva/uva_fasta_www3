@@ -46,11 +46,12 @@ $DEF_ROOT = "/home/www";	# ex01
 my $DOC_ROOT=$ENV{DOCUMENT_ROOT};
 $DOC_ROOT = $DEF_ROOT unless($DOC_ROOT);
 
-if (! $ENV{SQL_DB_HOST} ) {
+$SQL_DB_HOST=$ENV{SQL_DB_HOST};
+## print STDERR "SQL_DB_HOST: $SQL_DB_HOST\n";
+
+if (!$SQL_DB_HOST ) {
+  $SQL_DB_HOST="wrpa48.bioch.virginia.edu";
   $ENV{SQL_DB_HOST}=$SQL_DB_HOST;
-}
-else {
-  $SQL_DB_HOST=$ENV{SQL_DB_HOST}
 }
 
 ####
@@ -62,6 +63,10 @@ $DOC_ROOT =~ s/[^$OK_CHARS]/_/go;
 
 my @TMP_ROOTL = split(/\//,$DOC_ROOT);
 my $TMP_ROOT = "/".join("/",@TMP_ROOTL[1 .. ($#TMP_ROOTL-1)])."/tmp/www";
+
+if (defined($ENV{FASTA_TMP_ROOT})) {
+  $TMP_ROOT=$ENV{FASTA_TMP_ROOT}
+}
 
 unless ($TMP_ROOT) {
 ##    print STDERR "TMP_ROOT not defined: " .__FILE__ . "::" . __LINE__ . "\n";    

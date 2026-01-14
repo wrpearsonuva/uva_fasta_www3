@@ -483,7 +483,7 @@ sub get_ncbi {
 	  $efetch =~ s/AltName: \w+=//g;
 	  $efetch =~ s/Short=/ /g;
 	}
-	return $efetch if ($efetch =~ m/$seq_in/);
+	return $efetch if ($efetch =~ m/\Q$seq_in\E/);
 	return "";
     }
 }

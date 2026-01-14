@@ -108,6 +108,9 @@ if ($tmp_lav) {
     $lav_cmd = "$LAV_GS $z_param < $tmp_lav | $GS_BIN -q $size -dNOPAUSE -sDEVICE=$device -sOutputFile=- -";
   }
 
+  my $SOK_CHARS=$OK_CHARS.'<\|';
+
+  ($lav_cmd) = ($lav_cmd =~ m/([$SOK_CHARS]+)/);
   system("$lav_cmd");
 
   if (param("del") && (param("del") eq "yes")) {unlink "$tmp_lav";}
